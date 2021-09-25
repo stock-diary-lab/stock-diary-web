@@ -1,7 +1,7 @@
 import NavMenu from '@components/NavMenu';
 import * as S from './styled';
 
-function MyPage() {
+function Settlement() {
   return (
     <S.RootContainer>
       <NavMenu />
@@ -10,4 +10,4 @@ function MyPage() {
   );
 }
 
-export default MyPage;
+export default Settlement;
