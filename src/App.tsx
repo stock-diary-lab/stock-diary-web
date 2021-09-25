@@ -1,53 +1,22 @@
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Diary from './pages/Diary';
 import SignIn from './pages/SignIn';
 import MyPage from './pages/MyPage';
+import Settlement from './pages/Settlement';
+import Settings from './pages/Settings';
 
 function App() {
   return (
     <Router>
-      <div style={{ height: '80vh' }}>
-        <Switch>
-          <Route path="/signin">
-            <SignIn />
-          </Route>
-          <Route path="/mypage">
-            <MyPage />
-          </Route>
-          <Route path="/diary">
-            <Diary />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-      <div style={{ width: '100%', margin: '0 auto' }}>
-        <nav style={{ margin: '0 auto', width: '50%' }}>
-          <ul
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'space-between',
-            }}
-          >
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/diary">Diary</Link>
-            </li>
-            <li>
-              <Link to="/signin">Sign In</Link>
-            </li>
-            <li>
-              <Link to="/mypage">My Page</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <Switch>
+        <Route path="/signin" component={SignIn} />
+        <Route path="/mypage" component={MyPage} />
+        <Route path="/diary" component={Diary} />
+        <Route path="/settlement" component={Settlement} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/" component={Home} />
+      </Switch>
     </Router>
   );
 }
