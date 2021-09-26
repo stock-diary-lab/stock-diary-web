@@ -5,7 +5,7 @@ function Home() {
   return (
     <S.RootContainer>
       <NavMenu />
-      <S.Main>메인</S.Main>
+      <S.Main><div>장재석</div></S.Main>
     </S.RootContainer>
   );
 }
