@@ -61,9 +61,13 @@ const colors = {
   black: '#000000',
   gray: '#F9F9F9',
   main: '#6CA4F4',
+  red: '#F36874',
+  sky: '#B9D6FF',
 };
 
-const secondaryColors = {};
+const secondaryColors = {
+  gray: '#EDEDED',
+};
 
 const fontSizes: string[] = [];
 

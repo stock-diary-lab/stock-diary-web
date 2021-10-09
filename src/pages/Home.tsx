@@ -3,6 +3,9 @@ import { useHistory, useLocation } from 'react-router';
 import { useGetUserQuery } from '../stores/user';
 import NavMenu from '../components/NavMenu';
 import * as S from './styled';
+import Dashboard from '@components/Home/Dashboard';
+import IndexBoard from '@components/Home/IndexBoard';
+import HistoryBoard from '@components/Home/HistoryBoard';
 
 declare global {
   interface Window {
@@ -38,15 +41,18 @@ function Home() {
     <S.RootContainer>
       <NavMenu />
       <S.Main>
-        <button
+        <Dashboard />
+        {/* <button
           onClick={() => {
             localStorage.removeItem('token');
             window.location.href = '/';
           }}
         >
           {data && data.userName} 님 로그아웃
-        </button>
+        </button> */}
+        <HistoryBoard />
       </S.Main>
+      <IndexBoard />
     </S.RootContainer>
   );
 }
