@@ -2,13 +2,14 @@ import * as S from './styled';
 
 function HistoryBoard() {
   const contents = [
-    '오늘 알체라가 급락함',
+    '✔  오늘 알체라가 급락함',
     '건설주가 심상치 않대',
     'ㅇ하반기에 금리 인상하지 않을까?',
+    'ddddddd',
   ];
 
   return (
-    <S.HistoryBoardContainer>
+    <S.BoardContainer>
       <S.HistoryBoard>
         <S.HistoryBoardHeader>
           일주일 전의 기록 - 2021. 10.03
@@ -19,6 +20,7 @@ function HistoryBoard() {
               {content}
             </S.HistoryBoardContent>
           ))}
+          <S.HistoryBoardInput type="text" />
         </S.HistoryBoardContentContainer>
       </S.HistoryBoard>
       <S.HistoryBoard>
@@ -31,9 +33,10 @@ function HistoryBoard() {
               {content}
             </S.HistoryBoardContent>
           ))}
+          <S.HistoryBoardInput type="text" />
         </S.HistoryBoardContentContainer>
       </S.HistoryBoard>
-    </S.HistoryBoardContainer>
+    </S.BoardContainer>
   );
 }
 

@@ -12,6 +12,7 @@ function Tabs({ tabList, currentTab, setCurrentTab }: Props) {
     <StyledTabs>
       {tabList.map((tab) => (
         <StyledTab
+          key={tab}
           isSelected={currentTab === tab}
           onClick={() => setCurrentTab(tab)}
         >
@@ -34,6 +35,9 @@ const StyledTab = styled.div<{ isSelected: boolean }>`
   padding: 0.75rem 1rem;
   border-radius: 1rem;
   font-size: 12px;
+  white-space: nowrap;
+  width: 100px;
+  text-align: center;
 `;
 
 export default Tabs;

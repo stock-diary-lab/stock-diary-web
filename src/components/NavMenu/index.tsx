@@ -1,9 +1,10 @@
 import * as S from './styled';
 import { ReactComponent as HomeIcon } from '@svgs/home.svg';
-import { ReactComponent as FolderIcon } from '@svgs/folder.svg';
+import { ReactComponent as DiaryIcon } from '@svgs/diary.svg';
+import { ReactComponent as SettlementIcon } from '@svgs/settlement.svg';
+import { ReactComponent as NewsIcon } from '@svgs/news.svg';
+import { ReactComponent as MyPageIcon } from '@svgs/mypage.svg';
 import { ReactComponent as SettingIcon } from '@svgs/setting.svg';
-import { ReactComponent as CalendarIcon } from '@svgs/calendar.svg';
-import { ReactComponent as BookIcon } from '@svgs/book.svg';
 import { useHistory } from 'react-router';
 
 function NavMenu() {
@@ -21,30 +22,42 @@ function NavMenu() {
         <S.IconButton
           isSelected={pathName === '/'}
           onClick={() => history.push('/')}
+          pageName="HOME"
         >
           <HomeIcon />
         </S.IconButton>
         <S.IconButton
           isSelected={pathName === '/diary'}
           onClick={() => history.push('/diary')}
+          pageName="일지"
         >
-          <CalendarIcon />
+          <DiaryIcon />
         </S.IconButton>
         <S.IconButton
           isSelected={pathName === '/settlement'}
           onClick={() => history.push('/settlement')}
+          pageName="결산"
         >
-          <FolderIcon />
+          <SettlementIcon />
+        </S.IconButton>
+        <S.IconButton
+          isSelected={pathName === '/news'}
+          onClick={() => history.push('/news')}
+          pageName="뉴스"
+        >
+          <NewsIcon />
         </S.IconButton>
         <S.IconButton
           isSelected={pathName === '/mypage'}
           onClick={() => history.push('/mypage')}
+          pageName="MY"
         >
-          <BookIcon />
+          <MyPageIcon />
         </S.IconButton>
         <S.IconButton
           isSelected={pathName === '/settings'}
           onClick={() => history.push('/settings')}
+          pageName="설정"
         >
           <SettingIcon />
         </S.IconButton>

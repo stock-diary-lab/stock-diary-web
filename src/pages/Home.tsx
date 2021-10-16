@@ -50,6 +50,7 @@ function Home() {
         >
           {data && data.userName} 님 로그아웃
         </button> */}
+        <S.HrLine />
         <HistoryBoard />
       </S.Main>
       <IndexBoard />

@@ -28,6 +28,16 @@ const GlobalStyle = createGlobalStyle`
   img {
     display: block;
   }
+  @media only screen and (max-width: 1366px) and (min-width: 768px) {
+    html{
+      font-size: 12px;
+    }
+  }
+  @media only screen and (min-width: 1366px){
+    html{
+      font-size: 16px;
+    }
+  }
 `;
 
 export default GlobalStyle;

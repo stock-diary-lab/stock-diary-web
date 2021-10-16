@@ -1,6 +1,9 @@
 import styled from '@styles/theme-components';
 
-export const IconButton = styled.button<{ isSelected?: boolean }>`
+export const IconButton = styled.button<{
+  isSelected?: boolean;
+  pageName?: string;
+}>`
   background-color: ${(props) =>
     props.isSelected ? props.theme.colors.main : props.theme.colors.white};
   ${(props) =>
@@ -16,6 +19,13 @@ export const IconButton = styled.button<{ isSelected?: boolean }>`
   padding: 1rem 2rem;
   border-radius: 0.75rem;
   cursor: pointer;
+
+  &::after {
+    display: block;
+    content: ${(props) => `'${props.pageName}'`};
+    color: white;
+    font-size: 12px;
+  }
 `;
 
 export const Text = styled.span``;
