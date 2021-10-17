@@ -27,7 +27,7 @@ function Home() {
     }
   }, [location.search]);
 
-  const { isLoading, isError, data } = useGetUserQuery({});
+  const { isLoading, isError } = useGetUserQuery({});
 
   if (isError) {
     history.replace('/signin');
@@ -50,6 +50,7 @@ function Home() {
         >
           {data && data.userName} 님 로그아웃
         </button> */}
+        <S.HrLine />
         <HistoryBoard />
       </S.Main>
       <IndexBoard />
