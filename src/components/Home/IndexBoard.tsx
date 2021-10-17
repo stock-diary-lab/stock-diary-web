@@ -12,7 +12,7 @@ const tabList = ['지표', '보유종목', '최선호종목'];
 
 function IndexBoard() {
   const [currentTab, setCurrentTab] = useState<string>('지표');
-  const { isLoading, data } = useGetUserQuery('');
+  const { isLoading, data } = useGetUserQuery({});
 
   if (isLoading) {
     return <div>Loading...</div>;
