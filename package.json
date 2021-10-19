@@ -31,6 +31,8 @@
   },
   "scripts": {
     "start": "PORT=8080 craco start",
+    "start:server": "cd .. && cd ./stock-diary-server && yarn start",
+    "start:all": "concurrently \"yarn start:server\" \"yarn start\"",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
@@ -56,6 +58,7 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.8",
     "@types/styled-components": "^5.1.14",
+    "concurrently": "^6.3.0",
     "craco-alias": "^3.0.1"
   }
 }
