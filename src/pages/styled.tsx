@@ -6,6 +6,7 @@ export const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   padding: 0 1rem;
+  width: 100%;
 `;
 
 export const LoginWrapper = styled.main`

@@ -6,15 +6,29 @@ export const IconButton = styled.button<{
 }>`
   background-color: ${(props) =>
     props.isSelected ? props.theme.colors.main : props.theme.colors.white};
-  ${(props) =>
-    props.isSelected &&
-    `& > svg > path {
-        fill: ${props.theme.colors.white};
-      } 
-    & > svg > g >path {
-          fill: ${props.theme.colors.white};
+  ${(props) => {
+    if (props.pageName === '일지' || props.pageName === '뉴스') {
+      return (
+        props.isSelected &&
+        `& > svg > path, & > svg > rect, & > svg > line {
+          stroke: ${props.theme.colors.white};
+          fill: ${props.theme.colors.main};
+        }
+        `
+      );
     }
-  `}
+    return (
+      props.isSelected &&
+      `& > svg > path, & > svg > g > path {
+      fill: ${props.theme.colors.white};
+    } 
+    & > svg > circle, & > svg > rect {
+      stroke: ${props.theme.colors.white};
+      fill: ${props.theme.colors.main};
+    }
+  `
+    );
+  }}
   margin: 1rem 0;
   padding: 1rem 2rem;
   border-radius: 0.75rem;
