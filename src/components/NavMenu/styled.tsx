@@ -39,6 +39,7 @@ export const IconButton = styled.button<{
     content: ${(props) => `'${props.pageName}'`};
     color: white;
     font-size: 12px;
+    ${(props) => props.pageName === '일지' && `margin-right: 6px;`}
   }
 `;
 
