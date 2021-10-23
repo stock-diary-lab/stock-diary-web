@@ -1,10 +1,11 @@
 import styled from '@styles/theme-components';
 
+// StockTable
 export const TableContainer = styled.section`
   margin-bottom: 2rem;
 `;
 
-export const TableTitle = styled.h1`
+export const Title = styled.h1`
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 2.5rem;
@@ -53,4 +54,45 @@ export const TRow = styled.tr``;
 
 export const TData = styled.td<{ textAlign?: string }>`
   text-align: ${(props) => props.textAlign || 'initial'};
+`;
+
+// SearchBar
+export const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const SearchInput = styled.input`
+  width: 250px;
+  padding: 0.5rem 1rem;
+  border: 1px solid ${(props) => props.theme.colors.main};
+  border-radius: 20px;
+  margin-right: 0.5rem;
+`;
+
+// CalendarTab
+export const DateHeading = styled.h3`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  margin-top: 4px;
+`;
+
+// TopBar
+export const TopBarContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+`;
+
+// DiaryBoard
+export const DiaryBoardContainer = styled.div`
+  padding: 2.5rem 1.5rem;
+  border-radius: 1rem;
+  background-color: ${(props) => props.theme.colors.white};
+`;
+
+export const DiaryBoardContent = styled.div`
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e5e5;
 `;

@@ -3,7 +3,7 @@ import * as S from './styled';
 function StockTable() {
   return (
     <S.TableContainer>
-      <S.TableTitle>매수종목</S.TableTitle>
+      <S.Title>매수종목</S.Title>
       <S.Table>
         <S.THeader>
           <S.TRow>
