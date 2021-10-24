@@ -63,6 +63,7 @@ const colors = {
   main: '#6CA4F4',
   red: '#F36874',
   sky: '#B9D6FF',
+  whiteGray: '#e5e5e5',
 };
 
 const secondaryColors = {
