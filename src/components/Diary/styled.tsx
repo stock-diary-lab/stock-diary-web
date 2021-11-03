@@ -96,3 +96,113 @@ export const DiaryBoardContent = styled.div`
   padding: 0.5rem 0;
   border-bottom: 1px solid #e5e5e5;
 `;
+
+// StockInputModal
+export const StockModalHeader = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StockInputForm = styled.div`
+  padding: 0 2rem;
+`;
+
+export const StockInputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+`;
+
+export const StockLabel = styled.label`
+  font-size: 1rem;
+  font-weight: bold;
+  min-width: 100px;
+`;
+
+export const StockInput = styled.input`
+  border-bottom: 1px solid #afafaf;
+  padding-bottom: 0.25rem;
+  font-size: 0.75rem;
+`;
+
+export const StockInputSearchContainer = styled(StockInputContainer)`
+  align-items: center;
+`;
+export const StockSearchContainer = styled.div`
+  position: relative;
+  width: 80%;
+
+  & > input {
+    width: 100%;
+  }
+
+  & > input[type='search']::-webkit-search-cancel-button {
+  }
+
+  & > svg {
+    display: none;
+  }
+
+  & > input:placeholder-shown + svg {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    padding-bottom: 0.5rem;
+  }
+
+  & > svg > rect,
+  & > svg > path {
+    fill: #afafaf;
+  }
+`;
+
+export const StockTextArea = styled.textarea`
+  border: none;
+  line-height: 4ch;
+  background-image: linear-gradient(
+    transparent,
+    transparent calc(4ch - 1px),
+    #afafaf 0px
+  );
+  width: 80%;
+  background-size: 100% 4ch;
+
+  &:focus-visible {
+    outline: none;
+  }
+`;
+
+export const StockCountAndPrice = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: #afafaf;
+`;
+
+export const StockCount = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.75rem;
+  & > div > input,
+  & > input {
+    text-align: right;
+  }
+`;
+
+export const Multiply = styled.span`
+  color: black;
+  display: inline-block;
+  padding: 0 0.75rem;
+`;
+
+export const StockTotal = styled.span`
+  display: inline-block;
+  margin-left: 36px;
+  margin-right: 2px;
+`;
+
+export const StockReasonLabel = styled(StockLabel)`
+  margin-top: 8px;
+`;
