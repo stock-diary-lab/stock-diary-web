@@ -6,14 +6,20 @@ import * as S from './styled';
 interface Props {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
+  stockType: 'buy' | 'sell';
 }
 
-function StockInputModal({ show, setShow }: Props) {
+const stockTypeKorean = {
+  buy: '매수',
+  sell: '매도',
+};
+
+function StockInputModal({ show, setShow, stockType }: Props) {
   return (
     <Modal show={show} setShow={setShow}>
       <>
         <S.StockModalHeader>
-          <S.Title>매수종목</S.Title>
+          <S.Title>{stockTypeKorean[stockType]}종목</S.Title>
         </S.StockModalHeader>
         <S.StockInputForm>
           <S.StockInputSearchContainer>
@@ -43,13 +49,16 @@ function StockInputModal({ show, setShow }: Props) {
               </S.StockCount>
               <S.StockCount>
                 <div>
-                  = 총 매수금액 <S.StockTotal>원</S.StockTotal>
+                  = 총 {stockTypeKorean[stockType]}금액{' '}
+                  <S.StockTotal>원</S.StockTotal>
                 </div>
               </S.StockCount>
             </S.StockCountAndPrice>
           </S.StockInputContainer>
           <S.StockInputContainer>
-            <S.StockReasonLabel>매수이유</S.StockReasonLabel>
+            <S.StockReasonLabel>
+              {stockTypeKorean[stockType]}이유
+            </S.StockReasonLabel>
             <S.StockTextArea rows={4} />
           </S.StockInputContainer>
         </S.StockInputForm>
