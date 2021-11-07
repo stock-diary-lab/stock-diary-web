@@ -17,16 +17,20 @@ export const Modal = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 1rem;
-  padding: 2rem 2rem;
+  padding: 2rem 0;
+  padding-bottom: 0;
 `;
 
 export const ModalHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-right: 2rem;
 `;
 
-export const XButton = styled.button``;
+export const XButton = styled.button`
+  display: block;
+`;
 
 export const ModalBody = styled.div`
   position: relative;

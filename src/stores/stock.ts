@@ -4,7 +4,7 @@ import type { RootState } from './index';
 export const stockApi = createApi({
   reducerPath: 'stockApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/stock',
+    baseUrl: 'http://localhost:3000',
     prepareHeaders: (headers) => {
       headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
       return headers;
