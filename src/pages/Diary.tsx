@@ -11,8 +11,8 @@ function Diary() {
       <NavMenu />
       <S.Main>
         <TopBar />
-        <StockTable />
-        <StockTable />
+        <StockTable stockType="buy" />
+        <StockTable stockType="sell" />
         <DiaryBoard />
       </S.Main>
       <IndexBoard />
