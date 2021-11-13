@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { RootState } from './index';
+import { Stock } from './types';
 
 export const stockApi = createApi({
   reducerPath: 'stockApi',
@@ -10,13 +10,28 @@ export const stockApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ['Stock'],
   endpoints: (builder) => ({
-    addStock: builder.mutation<any, any>({
+    addStock: builder.mutation<{ message: string }, Stock>({
       query: (body) => ({
         url: 'stock',
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Stock'],
+    }),
+    getStocks: builder.query<Stock[], string>({
+      query: (date) => ({
+        url: 'stock',
+        params: {
+          date,
+        },
+      }),
+      providesTags: ['Stock'],
     }),
   }),
 });
+
+export const { useAddStockMutation, useGetStocksQuery } = stockApi;
+
+export default stockApi.reducer;

@@ -2,7 +2,8 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { ReactComponent as SearchIcon } from '@svgs/search.svg';
 import * as S from './styled';
-import { Stock } from './types';
+import { Stock } from '@stores/stock/types';
+import { useAddStockMutation } from '@stores/stock';
 
 interface Props {
   show: boolean;
@@ -25,14 +26,16 @@ const stockList = [
 ];
 
 function StockInputModal({ show, setShow, stockType }: Props) {
+  const [addStock, { isLoading }] = useAddStockMutation();
+
   const [newStock, setNewStock] = useState<Stock>({
     name: '',
     quantity: 0,
     price: 0,
+    fee: 0,
     type: stockType,
     reason: '',
   });
-  const [fee, setFee] = useState<number>(0);
 
   const [stockSearchList, setStockSearchList] = useState<
     { name: string; code: string }[]
@@ -110,10 +113,7 @@ function StockInputModal({ show, setShow, stockType }: Props) {
               </S.StockCount>
               <S.StockCount>
                 + 수수료
-                <S.StockInput
-                  name="fee"
-                  onChange={(e) => setFee(+e.target.value)}
-                />
+                <S.StockInput name="fee" onChange={handleInputChange} />
                 <span>원</span>
               </S.StockCount>
               <S.StockCount>
@@ -122,7 +122,7 @@ function StockInputModal({ show, setShow, stockType }: Props) {
                   <S.StockTotal>
                     {(
                       newStock.quantity * newStock.price +
-                      fee
+                      +(newStock.fee || 0)
                     ).toLocaleString()}
                     원
                   </S.StockTotal>
@@ -143,7 +143,13 @@ function StockInputModal({ show, setShow, stockType }: Props) {
         </S.StockInputForm>
         <S.Buttons>
           <button>취소</button>
-          <button>저장</button>
+          <button
+            onClick={() => {
+              addStock(newStock);
+            }}
+          >
+            저장
+          </button>
         </S.Buttons>
       </>
     </Modal>
