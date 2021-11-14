@@ -13,12 +13,14 @@ export const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.5);
 `;
 
-export const Modal = styled.div`
+export const Modal = styled.div<{ width?: number; height?: number }>`
   position: relative;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 1rem;
   padding: 2rem 0;
   padding-bottom: 0;
+  width: ${(props) => props.width + 'px' || 'auto'};
+  height: ${(props) => props.height + 'px' || 'auto'};
 `;
 
 export const ModalHeader = styled.div`

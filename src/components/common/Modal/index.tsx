@@ -7,9 +7,11 @@ interface ModalProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   children: React.ReactChild;
+  width?: number;
+  height?: number;
 }
 
-function Modal({ show, setShow, children }: ModalProps) {
+function Modal({ show, setShow, children, width, height }: ModalProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const onClickOverlayClose = (
@@ -21,7 +23,7 @@ function Modal({ show, setShow, children }: ModalProps) {
 
   const modal = show ? (
     <S.Overlay onClick={onClickOverlayClose}>
-      <S.Modal ref={ref}>
+      <S.Modal ref={ref} width={width} height={height}>
         <S.ModalHeader>
           <XButton onClick={() => setShow(false)}></XButton>
         </S.ModalHeader>

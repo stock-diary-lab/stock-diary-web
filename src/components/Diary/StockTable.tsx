@@ -1,3 +1,4 @@
+import { useGetStocksQuery } from '@stores/stock';
 import { useState } from 'react';
 import StockInputModal from './StockInputModal';
 import * as S from './styled';
@@ -14,6 +15,15 @@ const stockTypeKorean = {
 function StockTable({ stockType }: Props) {
   const [modalShow, setModalShow] = useState<boolean>(false);
 
+  const { isLoading, data: stockObj } = useGetStocksQuery({
+    startDate: new Date().toLocaleDateString(),
+    endDate: new Date().toLocaleDateString(),
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <S.TableContainer>
@@ -29,20 +39,22 @@ function StockTable({ stockType }: Props) {
             </S.TRow>
           </S.THeader>
           <S.TBody>
-            <S.TRow>
-              <S.TData textAlign="center">삼성전자</S.TData>
-              <S.TData textAlign="right">10개</S.TData>
-              <S.TData textAlign="right">81,000원</S.TData>
-              <S.TData textAlign="right">810,000원</S.TData>
-              <S.TData>반도체 잘 나갈듯</S.TData>
-            </S.TRow>
-            <S.TRow>
-              <S.TData textAlign="center">삼성전자</S.TData>
-              <S.TData textAlign="right">10개</S.TData>
-              <S.TData textAlign="right">81,000원</S.TData>
-              <S.TData textAlign="right">810,000원</S.TData>
-              <S.TData>반도체 잘 나갈듯</S.TData>
-            </S.TRow>
+            {stockObj &&
+              stockObj[new Date().toLocaleDateString()]
+                .filter((stock) => stock.type === stockType)
+                .map((stock) => (
+                  <S.TRow key={stock.name}>
+                    <S.TData textAlign="center">{stock.name}</S.TData>
+                    <S.TData textAlign="right">{stock.quantity}개</S.TData>
+                    <S.TData textAlign="right">
+                      {(stock.price * 1).toLocaleString()}원
+                    </S.TData>
+                    <S.TData textAlign="right">
+                      {(stock.quantity * stock.price).toLocaleString()}원
+                    </S.TData>
+                    <S.TData>{stock.reason}</S.TData>
+                  </S.TRow>
+                ))}
             <S.TRow>
               <S.TData onClick={() => setModalShow(true)}>추가</S.TData>
             </S.TRow>
