@@ -20,11 +20,15 @@ export const stockApi = createApi({
       }),
       invalidatesTags: ['Stock'],
     }),
-    getStocks: builder.query<Stock[], string>({
-      query: (date) => ({
+    getStocks: builder.query<
+      { [key: string]: Stock[] },
+      { startDate: string; endDate: string }
+    >({
+      query: ({ startDate, endDate }) => ({
         url: 'stock',
         params: {
-          date,
+          startDate,
+          endDate,
         },
       }),
       providesTags: ['Stock'],
@@ -32,6 +36,6 @@ export const stockApi = createApi({
   }),
 });
 
-export const { useAddStockMutation, useGetStocksQuery } = stockApi;
+export const { useAddStockMutation, useGetStocksQuery, usePrefetch } = stockApi;
 
 export default stockApi.reducer;

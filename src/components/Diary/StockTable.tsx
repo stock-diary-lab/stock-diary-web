@@ -14,9 +14,11 @@ const stockTypeKorean = {
 
 function StockTable({ stockType }: Props) {
   const [modalShow, setModalShow] = useState<boolean>(false);
-  const { isLoading, data: stockList } = useGetStocksQuery(
-    new Date().toLocaleDateString()
-  );
+
+  const { isLoading, data: stockObj } = useGetStocksQuery({
+    startDate: new Date().toLocaleDateString(),
+    endDate: new Date().toLocaleDateString(),
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -37,8 +39,8 @@ function StockTable({ stockType }: Props) {
             </S.TRow>
           </S.THeader>
           <S.TBody>
-            {stockList &&
-              stockList
+            {stockObj &&
+              stockObj[new Date().toLocaleDateString()]
                 .filter((stock) => stock.type === stockType)
                 .map((stock) => (
                   <S.TRow key={stock.name}>
