@@ -1,10 +1,14 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useGetStocksQuery } from '@stores/stock';
 import { useState } from 'react';
 import StockInputModal from './StockInputModal';
 import * as S from './styled';
+import { DateObj } from './Calendar/types';
 
 interface Props {
   stockType: 'buy' | 'sell';
+  date: DateObj;
+  setDate: Dispatch<SetStateAction<DateObj>>;
 }
 
 const stockTypeKorean = {
@@ -12,18 +16,19 @@ const stockTypeKorean = {
   sell: '매도',
 };
 
-function StockTable({ stockType }: Props) {
+function StockTable({ stockType, date, setDate }: Props) {
   const [modalShow, setModalShow] = useState<boolean>(false);
 
   const { isLoading, data: stockObj } = useGetStocksQuery({
-    startDate: new Date().toLocaleDateString(),
-    endDate: new Date().toLocaleDateString(),
+    startDate: `${date.year}-${date.month}-${date.date}`,
+    endDate: `${date.year}-${date.month}-${date.date}`,
   });
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
+  console.log(stockObj);
   return (
     <>
       <S.TableContainer>
@@ -38,27 +43,27 @@ function StockTable({ stockType }: Props) {
               <S.THead>{stockTypeKorean[stockType]}이유</S.THead>
             </S.TRow>
           </S.THeader>
-          <S.TBody>
-            {stockObj &&
-              stockObj[new Date().toLocaleDateString()]
-                .filter((stock) => stock.type === stockType)
-                .map((stock) => (
-                  <S.TRow key={stock.name}>
-                    <S.TData textAlign="center">{stock.name}</S.TData>
-                    <S.TData textAlign="right">{stock.quantity}개</S.TData>
-                    <S.TData textAlign="right">
-                      {(stock.price * 1).toLocaleString()}원
-                    </S.TData>
-                    <S.TData textAlign="right">
-                      {(stock.quantity * stock.price).toLocaleString()}원
-                    </S.TData>
-                    <S.TData>{stock.reason}</S.TData>
-                  </S.TRow>
-                ))}
-            <S.TRow>
-              <S.TData onClick={() => setModalShow(true)}>추가</S.TData>
-            </S.TRow>
-          </S.TBody>
+          <S.TBodyContainer>
+            <S.TBody>
+              {stockObj &&
+                stockObj[`${date.year}. ${date.month}. ${date.date}.`]
+                  ?.filter((stock) => stock.type === stockType)
+                  .map((stock, id) => (
+                    <S.TRow key={`${stock.name}-${id}`}>
+                      <S.TData textAlign="center">{stock.name}</S.TData>
+                      <S.TData textAlign="right">{stock.quantity}개</S.TData>
+                      <S.TData textAlign="right">
+                        {(stock.price * 1).toLocaleString()}원
+                      </S.TData>
+                      <S.TData textAlign="right">
+                        {(stock.quantity * stock.price).toLocaleString()}원
+                      </S.TData>
+                      <S.TData>{stock.reason}</S.TData>
+                    </S.TRow>
+                  ))}
+            </S.TBody>
+            <S.AddButton onClick={() => setModalShow(true)}>추가</S.AddButton>
+          </S.TBodyContainer>
         </S.Table>
       </S.TableContainer>
       <StockInputModal

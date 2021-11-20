@@ -2,7 +2,7 @@ import styled from '@styles/theme-components';
 
 // StockTable
 export const TableContainer = styled.section`
-  margin-bottom: 2rem;
+  margin-bottom: 16px;
 `;
 
 export const Title = styled.h1`
@@ -21,6 +21,13 @@ export const Table = styled.table`
 `;
 
 export const THeader = styled.thead`
+  width: 100%;
+  display: block;
+  & > tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
   & > tr > th {
     background-color: ${(props) => props.theme.colors.sky};
     padding: 0.5rem 1rem;
@@ -39,15 +46,35 @@ export const THeader = styled.thead`
 
 export const THead = styled.th``;
 
+export const TBodyContainer = styled.div`
+  height: 144px;
+`;
 export const TBody = styled.tbody`
+  display: block;
+  max-height: 108px;
+  overflow: scroll;
+
+  & > tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
   & > tr > td {
-    padding: 0.75rem 1rem;
+    padding: 12px 16px;
     padding-bottom: 0.5rem;
     border-right: 1px solid ${(props) => props.theme.colors.whiteGray};
   }
   & > tr > td:last-child {
     border-right: 1px transparent;
   }
+`;
+
+export const AddButton = styled.div`
+  padding: 12px;
+  text-decoration: underline;
+  color: ${(props) => props.theme.colors.main};
+  cursor: pointer;
 `;
 
 export const TRow = styled.tr``;
@@ -82,18 +109,22 @@ export const DateHeading = styled.h3`
 export const TopBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 `;
 
 // DiaryBoard
 export const DiaryBoardContainer = styled.div`
-  padding: 2.5rem 1.5rem;
-  border-radius: 1rem;
+  padding: 40px 24px;
+  border-radius: 16px;
   background-color: ${(props) => props.theme.colors.white};
+  & > div {
+    height: 198px;
+    overflow-y: scroll;
+  }
 `;
 
 export const DiaryBoardContent = styled.div`
-  padding: 0.5rem 0;
+  padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
 `;
 
