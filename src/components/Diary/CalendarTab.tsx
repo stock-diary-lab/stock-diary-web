@@ -1,16 +1,16 @@
+import { Dispatch, SetStateAction } from 'react';
 import * as S from './styled';
 import { ReactComponent as CalendarIcon } from '@svgs/settlement.svg';
 import { useState } from 'react';
 import { DateObj } from './Calendar/types';
 import Calendar from './Calendar';
+interface Props {
+  date: DateObj;
+  setDate: Dispatch<SetStateAction<DateObj>>;
+}
 
-function CalendarTab() {
+function CalendarTab({ date, setDate }: Props) {
   const [calendarShow, setCalendarShow] = useState<boolean>(false);
-  const [date, setDate] = useState<DateObj>({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    date: new Date().getDate(),
-  });
 
   return (
     <>

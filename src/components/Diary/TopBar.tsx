@@ -1,12 +1,19 @@
+import { Dispatch, SetStateAction } from 'react';
+import { DateObj } from './Calendar/types';
 import CalendarTab from './CalendarTab';
 import SearchBar from './SearchBar';
 import * as S from './styled';
 
-function TopBar() {
+interface Props {
+  date: DateObj;
+  setDate: Dispatch<SetStateAction<DateObj>>;
+}
+
+function TopBar({ date, setDate }: Props) {
   return (
     <S.TopBarContainer>
       <SearchBar />
-      <CalendarTab />
+      <CalendarTab date={date} setDate={setDate} />
     </S.TopBarContainer>
   );
 }

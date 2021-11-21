@@ -146,6 +146,7 @@ function StockInputModal({ show, setShow, stockType }: Props) {
           <button
             onClick={() => {
               addStock(newStock);
+              setShow(false);
             }}
           >
             저장
