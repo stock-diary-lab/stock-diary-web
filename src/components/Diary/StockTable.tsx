@@ -28,7 +28,6 @@ function StockTable({ stockType, date, setDate }: Props) {
     return <div>Loading...</div>;
   }
 
-  console.log(stockObj);
   return (
     <>
       <S.TableContainer>
@@ -43,27 +42,29 @@ function StockTable({ stockType, date, setDate }: Props) {
               <S.THead>{stockTypeKorean[stockType]}이유</S.THead>
             </S.TRow>
           </S.THeader>
-          <S.TBodyContainer>
-            <S.TBody>
-              {stockObj &&
-                stockObj[`${date.year}. ${date.month}. ${date.date}.`]
-                  ?.filter((stock) => stock.type === stockType)
-                  .map((stock, id) => (
-                    <S.TRow key={`${stock.name}-${id}`}>
-                      <S.TData textAlign="center">{stock.name}</S.TData>
-                      <S.TData textAlign="right">{stock.quantity}개</S.TData>
-                      <S.TData textAlign="right">
-                        {(stock.price * 1).toLocaleString()}원
-                      </S.TData>
-                      <S.TData textAlign="right">
-                        {(stock.quantity * stock.price).toLocaleString()}원
-                      </S.TData>
-                      <S.TData>{stock.reason}</S.TData>
-                    </S.TRow>
-                  ))}
-            </S.TBody>
-            <S.AddButton onClick={() => setModalShow(true)}>추가</S.AddButton>
-          </S.TBodyContainer>
+          <S.TBody>
+            {stockObj &&
+              stockObj[`${date.year}. ${date.month}. ${date.date}.`]
+                ?.filter((stock) => stock.type === stockType)
+                .map((stock, id) => (
+                  <S.TRow key={`${stock.name}-${id}`}>
+                    <S.TData textAlign="center">{stock.name}</S.TData>
+                    <S.TData textAlign="right">{stock.quantity}개</S.TData>
+                    <S.TData textAlign="right">
+                      {(stock.price * 1).toLocaleString()}원
+                    </S.TData>
+                    <S.TData textAlign="right">
+                      {(stock.quantity * stock.price).toLocaleString()}원
+                    </S.TData>
+                    <S.TData>{stock.reason}</S.TData>
+                  </S.TRow>
+                ))}
+          </S.TBody>
+          <S.AddButton onClick={() => setModalShow(true)}>
+            <tr>
+              <td>추가</td>
+            </tr>
+          </S.AddButton>
         </S.Table>
       </S.TableContainer>
       <StockInputModal

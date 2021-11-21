@@ -46,9 +46,6 @@ export const THeader = styled.thead`
 
 export const THead = styled.th``;
 
-export const TBodyContainer = styled.div`
-  height: 144px;
-`;
 export const TBody = styled.tbody`
   display: block;
   max-height: 108px;
@@ -70,7 +67,7 @@ export const TBody = styled.tbody`
   }
 `;
 
-export const AddButton = styled.div`
+export const AddButton = styled.tfoot`
   padding: 12px;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};
