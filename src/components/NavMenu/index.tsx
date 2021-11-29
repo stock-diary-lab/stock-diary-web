@@ -15,7 +15,7 @@ function NavMenu() {
   return (
     <S.NavBar>
       <S.LogoContainer>
-        <HomeIcon />
+        <img src="./logo.png" width="60" alt="logo" />
         <S.Title>자주노트</S.Title>
       </S.LogoContainer>
       <S.IconButtonContainer>
