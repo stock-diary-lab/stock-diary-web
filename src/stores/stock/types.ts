@@ -5,4 +5,5 @@ export interface Stock {
   fee?: number;
   type: 'buy' | 'sell';
   reason: string;
+  date: Date;
 }

@@ -48,7 +48,7 @@ export const THead = styled.th``;
 
 export const TBody = styled.tbody`
   display: block;
-  max-height: 108px;
+  height: 108px;
   overflow: scroll;
 
   & > tr {
@@ -61,13 +61,20 @@ export const TBody = styled.tbody`
     padding: 12px 16px;
     padding-bottom: 0.5rem;
     border-right: 1px solid ${(props) => props.theme.colors.whiteGray};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+
   & > tr > td:last-child {
     border-right: 1px transparent;
   }
 `;
 
 export const AddButton = styled.tfoot`
+  & > tr > td {
+    padding: 12px 16px;
+  }
   padding: 12px;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};

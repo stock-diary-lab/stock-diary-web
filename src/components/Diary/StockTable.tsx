@@ -44,7 +44,7 @@ function StockTable({ stockType, date, setDate }: Props) {
           </S.THeader>
           <S.TBody>
             {stockObj &&
-              stockObj[`${date.year}. ${date.month}. ${date.date}.`]
+              stockObj[`${date.year}-${date.month}-${date.date}`]
                 ?.filter((stock) => stock.type === stockType)
                 .map((stock, id) => (
                   <S.TRow key={`${stock.name}-${id}`}>
@@ -71,6 +71,7 @@ function StockTable({ stockType, date, setDate }: Props) {
         show={modalShow}
         setShow={setModalShow}
         stockType={stockType}
+        date={date}
       />
     </>
   );

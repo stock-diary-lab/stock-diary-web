@@ -4,11 +4,13 @@ import { ReactComponent as SearchIcon } from '@svgs/search.svg';
 import * as S from './styled';
 import { Stock } from '@stores/stock/types';
 import { useAddStockMutation } from '@stores/stock';
+import { DateObj } from './Calendar/types';
 
 interface Props {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   stockType: 'buy' | 'sell';
+  date: DateObj;
 }
 
 const stockTypeKorean = {
@@ -25,7 +27,7 @@ const stockList = [
   { name: 'KB금융', code: '105560' },
 ];
 
-function StockInputModal({ show, setShow, stockType }: Props) {
+function StockInputModal({ show, setShow, stockType, date }: Props) {
   const [addStock, { isLoading }] = useAddStockMutation();
 
   const [newStock, setNewStock] = useState<Stock>({
@@ -35,6 +37,7 @@ function StockInputModal({ show, setShow, stockType }: Props) {
     fee: 0,
     type: stockType,
     reason: '',
+    date: new Date(`${date.year}-${date.month}-${date.date}`),
   });
 
   const [stockSearchList, setStockSearchList] = useState<
@@ -145,7 +148,10 @@ function StockInputModal({ show, setShow, stockType }: Props) {
           <button>취소</button>
           <button
             onClick={() => {
-              addStock(newStock);
+              addStock({
+                ...newStock,
+                date: new Date(`${date.year}-${date.month}-${date.date}`),
+              });
               setShow(false);
             }}
           >
