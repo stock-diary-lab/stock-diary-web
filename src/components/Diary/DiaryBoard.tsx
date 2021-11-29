@@ -17,7 +17,10 @@ function DiaryBoard() {
           <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
           <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
           <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
+          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
+          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
         </div>
+        <S.AddDiaryButton>추가</S.AddDiaryButton>
       </S.DiaryBoardContainer>
     </S.TableContainer>
   );

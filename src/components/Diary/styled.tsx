@@ -122,6 +122,7 @@ export const DiaryBoardContainer = styled.div`
   border-radius: 16px;
   background-color: ${(props) => props.theme.colors.white};
   & > div {
+    max-height: 198px;
     height: 198px;
     overflow-y: scroll;
   }
@@ -130,6 +131,14 @@ export const DiaryBoardContainer = styled.div`
 export const DiaryBoardContent = styled.div`
   padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
+`;
+
+export const AddDiaryButton = styled.button`
+  padding: 12px 0;
+  font-size: 16px;
+  text-decoration: underline;
+  color: ${(props) => props.theme.colors.main};
+  cursor: pointer;
 `;
 
 // StockInputModal
