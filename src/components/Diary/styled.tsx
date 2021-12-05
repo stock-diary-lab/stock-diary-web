@@ -298,7 +298,7 @@ export const StockReasonLabel = styled(StockLabel)`
   margin-top: 8px;
 `;
 
-export const Buttons = styled.div`
+export const Buttons = styled.div<{ isEditMode: boolean }>`
   display: flex;
   font-size: 1.5rem;
 
@@ -310,8 +310,11 @@ export const Buttons = styled.div`
 
   & > button:nth-child(1) {
     border-bottom-left-radius: 1rem;
-    background-color: #e6e5e5;
+    background-color: ${(props) =>
+      props.isEditMode ? props.theme.colors.red : '#e6e5e5'};
+    color: ${(props) => props.isEditMode && 'white'};
   }
+
   & > button:nth-child(2) {
     border-bottom-right-radius: 1rem;
     background-color: ${(props) => props.theme.colors.main};

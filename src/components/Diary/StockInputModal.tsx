@@ -1,9 +1,13 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { ReactComponent as SearchIcon } from '@svgs/search.svg';
 import * as S from './styled';
 import { Stock } from '@stores/stock/types';
-import { useAddStockMutation } from '@stores/stock';
+import {
+  useAddStockMutation,
+  useUpdateStockMutation,
+  useDeleteStockMutation,
+} from '@stores/stock';
 import { DateObj } from './Calendar/types';
 
 interface Props {
@@ -11,6 +15,8 @@ interface Props {
   setShow: Dispatch<SetStateAction<boolean>>;
   stockType: 'buy' | 'sell';
   date: DateObj;
+  isEditMode: boolean;
+  currentStock: Stock;
 }
 
 const stockTypeKorean = {
@@ -27,8 +33,17 @@ const stockList = [
   { name: 'KB금융', code: '105560' },
 ];
 
-function StockInputModal({ show, setShow, stockType, date }: Props) {
-  const [addStock, { isLoading }] = useAddStockMutation();
+function StockInputModal({
+  show,
+  setShow,
+  stockType,
+  date,
+  isEditMode,
+  currentStock,
+}: Props) {
+  const [addStock] = useAddStockMutation();
+  const [updateStock] = useUpdateStockMutation();
+  const [deleteStock] = useDeleteStockMutation();
 
   const [newStock, setNewStock] = useState<Stock>({
     name: '',
@@ -44,6 +59,12 @@ function StockInputModal({ show, setShow, stockType, date }: Props) {
     { name: string; code: string }[]
   >([]);
   const [onFocusSearch, setOnFocusSearch] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isEditMode) {
+      setNewStock({ ...currentStock });
+    }
+  }, [isEditMode, currentStock]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -105,18 +126,30 @@ function StockInputModal({ show, setShow, stockType, date }: Props) {
             <S.StockCountAndPrice>
               <S.StockCount>
                 <div>
-                  <S.StockInput name="quantity" onChange={handleInputChange} />
+                  <S.StockInput
+                    name="quantity"
+                    onChange={handleInputChange}
+                    value={newStock.quantity}
+                  />
                   <span style={{ display: 'inline-block' }}>개</span>
                 </div>
                 <S.Multiply>X</S.Multiply>
                 <div>
-                  <S.StockInput name="price" onChange={handleInputChange} />
+                  <S.StockInput
+                    name="price"
+                    onChange={handleInputChange}
+                    value={newStock.price}
+                  />
                   <span style={{ display: 'inline-block' }}>원</span>
                 </div>
               </S.StockCount>
               <S.StockCount>
                 + 수수료
-                <S.StockInput name="fee" onChange={handleInputChange} />
+                <S.StockInput
+                  name="fee"
+                  onChange={handleInputChange}
+                  value={newStock.fee}
+                />
                 <span>원</span>
               </S.StockCount>
               <S.StockCount>
@@ -141,21 +174,40 @@ function StockInputModal({ show, setShow, stockType, date }: Props) {
               rows={4}
               name="reason"
               onChange={handleInputChange}
+              value={newStock.reason}
             />
           </S.StockInputContainer>
         </S.StockInputForm>
-        <S.Buttons>
-          <button>취소</button>
+        <S.Buttons isEditMode={isEditMode}>
           <button
             onClick={() => {
-              addStock({
-                ...newStock,
-                date: new Date(`${date.year}-${date.month}-${date.date}`),
-              });
+              if (isEditMode) {
+                deleteStock({ id: newStock.id as number });
+              }
               setShow(false);
             }}
           >
-            저장
+            {isEditMode ? '삭제' : '취소'}
+          </button>
+          <button
+            onClick={() => {
+              if (isEditMode) {
+                updateStock({
+                  ...newStock,
+                });
+              } else {
+                console.log(
+                  new Date(`${date.year}-${date.month}-${date.date}`)
+                );
+                addStock({
+                  ...newStock,
+                  date: new Date(`${date.year}-${date.month}-${date.date}`),
+                });
+              }
+              setShow(false);
+            }}
+          >
+            {isEditMode ? '수정' : '저장'}
           </button>
         </S.Buttons>
       </>
