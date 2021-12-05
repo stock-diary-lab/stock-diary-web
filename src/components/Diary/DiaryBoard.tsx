@@ -16,7 +16,7 @@ function DiaryBoard({ date }: Props) {
   });
 
   const [addActive, setAddActive] = useState<boolean>(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -38,20 +38,21 @@ function DiaryBoard({ date }: Props) {
               )
             )}
           {addActive ? (
+            // line break 적용
             <S.AddDiaryInput
-              type="text"
               placeholder="입력하세요"
               onBlur={() => {
                 setAddActive(false);
               }}
               ref={inputRef}
               onKeyPress={(e) => {
-                if (e.code !== 'Enter') return;
-                addDiary({
-                  content: inputRef.current?.value || '',
-                  date: new Date(`${date.year}-${date.month}-${date.date}`),
-                });
-                setAddActive(false);
+                if (e.code === 'Enter' && !e.shiftKey) {
+                  addDiary({
+                    content: inputRef.current?.value || '',
+                    date: new Date(`${date.year}-${date.month}-${date.date}`),
+                  });
+                  setAddActive(false);
+                }
               }}
             />
           ) : (
