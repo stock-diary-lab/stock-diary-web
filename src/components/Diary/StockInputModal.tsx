@@ -82,6 +82,7 @@ function StockInputModal({
     );
   };
 
+  // TODO: 유효성 검증(숫자만 입력.)
   return (
     <Modal show={show} setShow={setShow}>
       <>

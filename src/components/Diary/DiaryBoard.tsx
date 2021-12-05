@@ -1,26 +1,40 @@
+import { useEffect, useRef, useState } from 'react';
 import * as S from './styled';
 
 function DiaryBoard() {
+  const [addActive, setAddActive] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [addActive]);
+
   return (
     <S.TableContainer>
       <S.Title>주식일지</S.Title>
       <S.DiaryBoardContainer>
         <div>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
-          <S.DiaryBoardContent>오늘 갑자기 알체리가 급락함</S.DiaryBoardContent>
+          {addActive ? (
+            <S.AddDiaryInput
+              type="text"
+              placeholder="입력하세요"
+              onBlur={() => {
+                setAddActive(false);
+              }}
+              ref={inputRef}
+            />
+          ) : (
+            <S.AddDiaryButton
+              onClick={() => {
+                setAddActive(true);
+              }}
+            >
+              추가
+            </S.AddDiaryButton>
+          )}
         </div>
-        <S.AddDiaryButton>추가</S.AddDiaryButton>
       </S.DiaryBoardContainer>
     </S.TableContainer>
   );
