@@ -141,9 +141,13 @@ export const DiaryBoardContent = styled.div`
 
 export const AddDiaryInput = styled.textarea`
   padding: 8px 0;
-  border-bottom: 1px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
   width: 100%;
   font-size: 16px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const AddDiaryButton = styled.button`
