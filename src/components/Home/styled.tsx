@@ -10,12 +10,13 @@ export const MiddleContainer = styled.section`
 `;
 
 export const MiddleLeft = styled.div`
-  min-width: 40%;
   padding-right: 2rem;
   border-right: 1px solid #e5e5e5;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const AlignRight = styled.div`
@@ -28,6 +29,8 @@ export const Heading = styled.h3`
   font-size: 1.5rem;
   font-weight: 500;
   white-space: nowrap;
+  align-self: flex-start;
+  margin-bottom: 16px;
 `;
 
 export const RedLargeText = styled.span`
@@ -46,8 +49,11 @@ export const BlackMiddleText = styled.span`
 export const MiddleRight = styled.div`
   padding-left: 1.5rem;
   width: 100%;
-  display: flex;
   justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const RankView = styled.div``;

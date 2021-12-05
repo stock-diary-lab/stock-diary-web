@@ -31,15 +31,9 @@ function Dashboard() {
       <PhraseBoard />
       <S.MiddleContainer>
         <S.MiddleLeft>
-          <S.Heading>오늘 삼성전자의 주가는 </S.Heading>
-          <S.AlignRight>
-            <S.RedLargeText>76,300</S.RedLargeText>
-            <S.Heading>1,000 (1.33%)</S.Heading>
-          </S.AlignRight>
-        </S.MiddleLeft>
-        <S.MiddleRight>
-          <S.RankView>
-            <S.Heading>보유 주식 비중 Top 5</S.Heading>
+          <S.Heading>보유 섹터 비중 Top 5</S.Heading>
+
+          {/* <S.RankView>
             <S.RankItemContainer>
               {rankItems.map(({ name, value }, id) => (
                 <S.RankItem key={name}>
@@ -51,7 +45,72 @@ function Dashboard() {
                 </S.RankItem>
               ))}
             </S.RankItemContainer>
-          </S.RankView>
+          </S.RankView> */}
+          {isBigTablet && (
+            <PieChart width={200} height={200}>
+              <Pie
+                data={rankItems}
+                dataKey="value"
+                nameKey="name"
+                activeIndex={activeIndex}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                innerRadius={60}
+                fill="#8884d8"
+                onMouseEnter={(_, index) => setActiveIndex(index)}
+              >
+                <Label
+                  value={`${rankItems[activeIndex].name} (${rankItems[activeIndex].value}%)`}
+                  position="center"
+                />
+                {colors.map((color) => (
+                  <Cell fill={color} key={color} />
+                ))}
+              </Pie>
+            </PieChart>
+          )}
+          {isSmallTablet && (
+            <PieChart width={150} height={150}>
+              <Pie
+                data={rankItems}
+                dataKey="value"
+                nameKey="name"
+                activeIndex={activeIndex}
+                cx="50%"
+                cy="50%"
+                outerRadius={60}
+                innerRadius={40}
+                fill="#8884d8"
+                onMouseEnter={(_, index) => setActiveIndex(index)}
+              >
+                <Label
+                  value={`${rankItems[activeIndex].name} (${rankItems[activeIndex].value}%)`}
+                  position="center"
+                />
+                {colors.map((color) => (
+                  <Cell fill={color} key={color} />
+                ))}
+              </Pie>
+            </PieChart>
+          )}
+        </S.MiddleLeft>
+        <S.MiddleRight>
+          <S.Heading>보유 주식 비중 Top 5</S.Heading>
+
+          {/* <S.RankView>
+            <S.RankItemContainer>
+              {rankItems.map(({ name, value }, id) => (
+                <S.RankItem key={name}>
+                  <span>{id + 1}</span>
+                  <S.RankInfo>
+                    <span>{name}</span>
+                    <span>{value}%</span>
+                  </S.RankInfo>
+                </S.RankItem>
+              ))}
+            </S.RankItemContainer>
+          </S.RankView> */}
           {isBigTablet && (
             <PieChart width={200} height={200}>
               <Pie
