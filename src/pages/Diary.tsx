@@ -21,7 +21,7 @@ function Diary() {
         <TopBar date={date} setDate={setDate} />
         <StockTable stockType="buy" date={date} setDate={setDate} />
         <StockTable stockType="sell" date={date} setDate={setDate} />
-        <DiaryBoard />
+        <DiaryBoard date={date} />
       </S.Main>
       <IndexBoard />
     </S.RootContainer>

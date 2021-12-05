@@ -197,9 +197,6 @@ function StockInputModal({
                   ...newStock,
                 });
               } else {
-                console.log(
-                  new Date(`${date.year}-${date.month}-${date.date}`)
-                );
                 addStock({
                   ...newStock,
                   date: new Date(`${date.year}-${date.month}-${date.date}`),

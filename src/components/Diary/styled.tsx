@@ -118,7 +118,7 @@ export const TopBarContainer = styled.div`
 
 // DiaryBoard
 export const DiaryBoardContainer = styled.div`
-  padding: 40px 24px;
+  padding: 32px 24px;
   border-radius: 16px;
   background-color: ${(props) => props.theme.colors.white};
   & > div {
