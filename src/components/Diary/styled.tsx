@@ -131,9 +131,15 @@ export const DiaryBoardContainer = styled.div`
 export const DiaryBoardContent = styled.div`
   padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
+
+  &::before {
+    content: '✔';
+    display: inline-block;
+    margin-right: 4px;
+  }
 `;
 
-export const AddDiaryInput = styled.input`
+export const AddDiaryInput = styled.textarea`
   padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
   width: 100%;
