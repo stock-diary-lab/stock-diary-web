@@ -37,7 +37,7 @@ function Calendar({ date, setDate, show, setShow }: Props) {
       setYearMonth({ year: date.year, month: date.month });
       setCalendarDate(date.date);
     }
-  }, [show]);
+  }, [date.date, date.month, date.year, show]);
 
   const { data: stockObj } = useGetStocksQuery({
     startDate: new Date(
@@ -165,11 +165,11 @@ function Calendar({ date, setDate, show, setShow }: Props) {
                 }
                 isSelected={el === calendarDate}
                 onClick={() => {
-                  if (
-                    !!stockObj &&
-                    !stockObj[`${yearMonth.year}. ${yearMonth.month}. ${el}.`]
-                  )
-                    return;
+                  // if (
+                  //   !!stockObj &&
+                  //   !stockObj[`${yearMonth.year}. ${yearMonth.month}. ${el}.`]
+                  // )
+                  //   return;
                   setCalendarDate(el);
                 }}
               >

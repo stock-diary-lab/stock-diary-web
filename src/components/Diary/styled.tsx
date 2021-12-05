@@ -48,7 +48,7 @@ export const THead = styled.th``;
 
 export const TBody = styled.tbody`
   display: block;
-  max-height: 108px;
+  height: 108px;
   overflow: scroll;
 
   & > tr {
@@ -61,13 +61,20 @@ export const TBody = styled.tbody`
     padding: 12px 16px;
     padding-bottom: 0.5rem;
     border-right: 1px solid ${(props) => props.theme.colors.whiteGray};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+
   & > tr > td:last-child {
     border-right: 1px transparent;
   }
 `;
 
 export const AddButton = styled.tfoot`
+  & > tr > td {
+    padding: 12px 16px;
+  }
   padding: 12px;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};
@@ -111,11 +118,12 @@ export const TopBarContainer = styled.div`
 
 // DiaryBoard
 export const DiaryBoardContainer = styled.div`
-  padding: 40px 24px;
+  padding: 32px 24px;
   border-radius: 16px;
   background-color: ${(props) => props.theme.colors.white};
   & > div {
-    height: 198px;
+    max-height: 165px;
+    height: 165px;
     overflow-y: scroll;
   }
 `;
@@ -123,6 +131,21 @@ export const DiaryBoardContainer = styled.div`
 export const DiaryBoardContent = styled.div`
   padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
+`;
+
+export const AddDiaryInput = styled.input`
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e5e5;
+  width: 100%;
+  font-size: 16px;
+`;
+
+export const AddDiaryButton = styled.button`
+  padding: 12px 0;
+  font-size: 16px;
+  text-decoration: underline;
+  color: ${(props) => props.theme.colors.main};
+  cursor: pointer;
 `;
 
 // StockInputModal
@@ -282,7 +305,7 @@ export const StockReasonLabel = styled(StockLabel)`
   margin-top: 8px;
 `;
 
-export const Buttons = styled.div`
+export const Buttons = styled.div<{ isEditMode: boolean }>`
   display: flex;
   font-size: 1.5rem;
 
@@ -294,8 +317,11 @@ export const Buttons = styled.div`
 
   & > button:nth-child(1) {
     border-bottom-left-radius: 1rem;
-    background-color: #e6e5e5;
+    background-color: ${(props) =>
+      props.isEditMode ? props.theme.colors.red : '#e6e5e5'};
+    color: ${(props) => props.isEditMode && 'white'};
   }
+
   & > button:nth-child(2) {
     border-bottom-right-radius: 1rem;
     background-color: ${(props) => props.theme.colors.main};

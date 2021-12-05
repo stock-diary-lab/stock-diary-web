@@ -33,9 +33,30 @@ export const stockApi = createApi({
       }),
       providesTags: ['Stock'],
     }),
+    updateStock: builder.mutation<{ message: string }, Partial<Stock>>({
+      query: (body) => ({
+        url: `stock/${body.id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Stock'],
+    }),
+    deleteStock: builder.mutation<{ message: string }, { id: number }>({
+      query: (body) => ({
+        url: `stock/${body.id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Stock'],
+    }),
   }),
 });
 
-export const { useAddStockMutation, useGetStocksQuery, usePrefetch } = stockApi;
+export const {
+  useAddStockMutation,
+  useGetStocksQuery,
+  usePrefetch,
+  useUpdateStockMutation,
+  useDeleteStockMutation,
+} = stockApi;
 
 export default stockApi.reducer;

@@ -56,8 +56,8 @@ export const LogoContainer = styled.div`
 `;
 
 export const Title = styled.h3`
-  font-size: 28px;
-  line-height: 31px;
+  font-size: 18px;
+  line-height: 20px;
   margin-top: 1rem;
 `;
 
@@ -85,6 +85,7 @@ export const NavBar = styled.nav`
   `)}
   ${({ theme }) =>
     theme.media.tablet(`
+      display: flex;
       height: 100vh;
       width: fit-content;
       justify-content: center;
