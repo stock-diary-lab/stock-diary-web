@@ -30,10 +30,10 @@ function DiaryBoard({ date }: Props) {
       <S.DiaryBoardContainer>
         <div>
           {diaries &&
-            diaries[`${date.year}-${date.month}-${date.date}`]?.map(
+            diaries[`${date.year}. ${date.month}. ${date.date}.`]?.map(
               (diary: any) => (
                 <S.DiaryBoardContent key={diary.id}>
-                  {diary.content}
+                  <pre>{diary.content}</pre>
                 </S.DiaryBoardContent>
               )
             )}
