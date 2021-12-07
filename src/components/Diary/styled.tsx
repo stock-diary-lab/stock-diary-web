@@ -132,18 +132,25 @@ export const DiaryBoardContent = styled.div`
   padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
 
+  display: flex;
+  flex-direction: row;
+
   &::before {
     content: '✔';
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 8px;
   }
 `;
 
 export const AddDiaryInput = styled.textarea`
   padding: 8px 0;
-  border-bottom: 1px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
   width: 100%;
   font-size: 16px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const AddDiaryButton = styled.button`
