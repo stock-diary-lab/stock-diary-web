@@ -8,7 +8,10 @@ import {
   useUpdateStockMutation,
   useDeleteStockMutation,
 } from '@stores/stock';
+import { useGetListedStocksQuery } from '@stores/listed-stock';
+import { debounce } from '@utils/debounce';
 import { DateObj } from './Calendar/types';
+import SearchBar from '@components/common/SearchBar';
 
 interface Props {
   show: boolean;
@@ -55,10 +58,19 @@ function StockInputModal({
     date: new Date(`${date.year}-${date.month}-${date.date}`),
   });
 
-  const [stockSearchList, setStockSearchList] = useState<
-    { name: string; code: string }[]
-  >([]);
+  // const [stockSearchList, setStockSearchList] = useState<
+  //   { name: string; code: string }[]
+  // >([]);
   const [onFocusSearch, setOnFocusSearch] = useState<boolean>(false);
+
+  const [searchValue, setSearchValue] = useState<string>('');
+
+  const { data: stockSearchList } = useGetListedStocksQuery({
+    name: searchValue,
+  });
+
+  const debouncedPrefetch = (name: string) =>
+    debounce(() => setSearchValue(name), 400)();
 
   useEffect(() => {
     if (isEditMode) {
@@ -72,15 +84,15 @@ function StockInputModal({
     setNewStock({ ...newStock, [e.target.name]: e.target.value });
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewStock({ ...newStock, name: e.target.value });
-    setStockSearchList(
-      stockList.filter(
-        (stock) =>
-          e.target.value !== '' && stock.name.startsWith(e.target.value)
-      )
-    );
-  };
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setNewStock({ ...newStock, name: e.target.value });
+  //   setStockSearchList(
+  //     stockList.filter(
+  //       (stock) =>
+  //         e.target.value !== '' && stock.name.startsWith(e.target.value)
+  //     )
+  //   );
+  // };
 
   // TODO: 유효성 검증(숫자만 입력.)
   return (
@@ -92,12 +104,24 @@ function StockInputModal({
         <S.StockInputForm>
           <S.StockInputSearchContainer>
             <S.StockLabel>종목</S.StockLabel>
-            <S.StockSearchContainer>
+            <SearchBar
+              isInModal={true}
+              placeholder="종목을 검색하세요"
+              onChange={(e) => {
+                debouncedPrefetch(e.target.value);
+              }}
+              searchList={stockSearchList || []}
+              firstKey="name"
+              secondKey="id"
+            />
+          </S.StockInputSearchContainer>
+          {/* <S.StockSearchContainer>
               <div>
                 <S.StockInput
                   type="search"
                   name="name"
                   placeholder="종목을 검색하세요"
+                  autoComplete="off"
                   onChange={handleSearch}
                   value={newStock.name}
                   onBlur={() => setOnFocusSearch(false)}
@@ -121,7 +145,7 @@ function StockInputModal({
                 </S.StockSearchItemContainer>
               )}
             </S.StockSearchContainer>
-          </S.StockInputSearchContainer>
+          </S.StockInputSearchContainer> */}
           <S.StockInputContainer>
             <S.StockLabel>수량, 단가</S.StockLabel>
             <S.StockCountAndPrice>
