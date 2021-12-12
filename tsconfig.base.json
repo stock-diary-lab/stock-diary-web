@@ -6,7 +6,8 @@
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
       "@svgs/*": ["src/svgs/*"],
-      "@stores/*": ["src/stores/*"]
+      "@stores/*": ["src/stores/*"],
+      "@utils/*": ["src/utils/*"]
     }
   }
 }

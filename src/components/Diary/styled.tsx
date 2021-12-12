@@ -130,10 +130,14 @@ export const DiaryBoardContainer = styled.div`
 
 export const DiaryBoardContent = styled.div`
   padding: 8px 0;
-  border-bottom: 1px solid #e5e5e5;
+  /* border-bottom: 1px solid #e5e5e5; */
 
   display: flex;
   flex-direction: row;
+
+  & > pre {
+    white-space: pre-wrap;
+  }
 
   &::before {
     content: '✔';
