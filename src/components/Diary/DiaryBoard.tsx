@@ -1,6 +1,13 @@
-import { useAddDiaryMutation, useGetDiariesQuery } from '@stores/diary';
-import { useEffect, useRef, useState } from 'react';
+import {
+  useAddDiaryMutation,
+  useGetDiariesQuery,
+  useUpdateDiaryMutation,
+  useDeleteDiaryMutation,
+} from '@stores/diary';
+import { Diary } from '@stores/diary/types';
+import { useState } from 'react';
 import { DateObj } from './Calendar/types';
+import DiaryInput from './DiaryInput';
 import * as S from './styled';
 
 interface Props {
@@ -9,20 +16,16 @@ interface Props {
 
 function DiaryBoard({ date }: Props) {
   const [addDiary] = useAddDiaryMutation();
+  const [updateDiary] = useUpdateDiaryMutation();
+  const [deleteDiary] = useDeleteDiaryMutation();
 
-  const { isLoading, data: diaries } = useGetDiariesQuery({
+  const { data: diaries } = useGetDiariesQuery({
     startDate: `${date.year}-${date.month}-${date.date}`,
     endDate: `${date.year}-${date.month}-${date.date}`,
   });
 
   const [addActive, setAddActive] = useState<boolean>(false);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [addActive]);
+  const [editActive, setEditActive] = useState<{ [key: string]: boolean }>({});
 
   return (
     <S.TableContainer>
@@ -30,25 +33,67 @@ function DiaryBoard({ date }: Props) {
       <S.DiaryBoardContainer>
         <div>
           {diaries &&
-            diaries[`${date.year}. ${date.month}. ${date.date}.`]?.map(
-              (diary: any) => (
-                <S.DiaryBoardContent key={diary.id}>
+            diaries[`${date.year}. ${date.month}. ${date.date}.`] &&
+            (
+              diaries[`${date.year}. ${date.month}. ${date.date}.`] as Diary[]
+            ).map((diary: Diary) =>
+              editActive[diary.id as string] ? (
+                <S.DiaryEditContainer key={diary.id}>
+                  <DiaryInput
+                    key={diary.id}
+                    defaultValue={diary.content}
+                    onBlur={() => {
+                      setEditActive({
+                        ...editActive,
+                        [diary.id as string]: false,
+                      });
+                    }}
+                    onKeyPress={(e) => {
+                      if (e.code === 'Enter' && !e.shiftKey) {
+                        updateDiary({
+                          id: diary.id,
+                          content: e.currentTarget.value || '',
+                        });
+                        setEditActive({
+                          ...editActive,
+                          [diary.id as string]: false,
+                        });
+                      }
+                    }}
+                  />
+                  <S.DeleteDiaryButton
+                    key={`${diary.id}-${diary.content}`}
+                    onMouseDown={() => {
+                      deleteDiary({ id: diary.id as number });
+                    }}
+                  >
+                    삭제
+                  </S.DeleteDiaryButton>
+                </S.DiaryEditContainer>
+              ) : (
+                <S.DiaryBoardContent
+                  key={diary.id}
+                  onClick={() => {
+                    setEditActive({
+                      ...editActive,
+                      [diary.id as string]: true,
+                    });
+                  }}
+                >
                   <pre>{diary.content}</pre>
                 </S.DiaryBoardContent>
               )
             )}
           {addActive ? (
-            // line break 적용
-            <S.AddDiaryInput
+            <DiaryInput
               placeholder="입력하세요"
               onBlur={() => {
                 setAddActive(false);
               }}
-              ref={inputRef}
               onKeyPress={(e) => {
                 if (e.code === 'Enter' && !e.shiftKey) {
                   addDiary({
-                    content: inputRef.current?.value || '',
+                    content: e.currentTarget.value || '',
                     date: new Date(`${date.year}-${date.month}-${date.date}`),
                   });
                   setAddActive(false);

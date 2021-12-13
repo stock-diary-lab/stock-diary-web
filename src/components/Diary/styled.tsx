@@ -158,6 +158,21 @@ export const AddDiaryInput = styled.textarea`
 `;
 
 export const AddDiaryButton = styled.button`
+  display: block;
+  padding: 12px 0;
+  font-size: 16px;
+  text-decoration: underline;
+  color: ${(props) => props.theme.colors.main};
+  cursor: pointer;
+`;
+
+export const DiaryEditContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const DeleteDiaryButton = styled.button`
   padding: 12px 0;
   font-size: 16px;
   text-decoration: underline;

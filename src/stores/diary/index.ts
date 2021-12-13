@@ -30,9 +30,29 @@ export const diaryApi = createApi({
       }),
       invalidatesTags: ['Diary'],
     }),
+    updateDiary: builder.mutation<{ message: string }, Partial<Diary>>({
+      query: (body) => ({
+        url: `diary/${body.id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Diary'],
+    }),
+    deleteDiary: builder.mutation<{ message: string }, { id: number }>({
+      query: (body) => ({
+        url: `diary/${body.id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Diary'],
+    }),
   }),
 });
 
-export const { useAddDiaryMutation, useGetDiariesQuery } = diaryApi;
+export const {
+  useAddDiaryMutation,
+  useUpdateDiaryMutation,
+  useGetDiariesQuery,
+  useDeleteDiaryMutation,
+} = diaryApi;
 
 export default diaryApi.reducer;
