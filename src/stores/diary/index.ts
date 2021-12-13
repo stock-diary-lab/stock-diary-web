@@ -38,6 +38,13 @@ export const diaryApi = createApi({
       }),
       invalidatesTags: ['Diary'],
     }),
+    deleteDiary: builder.mutation<{ message: string }, { id: number }>({
+      query: (body) => ({
+        url: `diary/${body.id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Diary'],
+    }),
   }),
 });
 
@@ -45,6 +52,7 @@ export const {
   useAddDiaryMutation,
   useUpdateDiaryMutation,
   useGetDiariesQuery,
+  useDeleteDiaryMutation,
 } = diaryApi;
 
 export default diaryApi.reducer;

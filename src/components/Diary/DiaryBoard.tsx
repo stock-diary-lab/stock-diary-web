@@ -2,6 +2,7 @@ import {
   useAddDiaryMutation,
   useGetDiariesQuery,
   useUpdateDiaryMutation,
+  useDeleteDiaryMutation,
 } from '@stores/diary';
 import { Diary } from '@stores/diary/types';
 import { useState } from 'react';
@@ -16,6 +17,7 @@ interface Props {
 function DiaryBoard({ date }: Props) {
   const [addDiary] = useAddDiaryMutation();
   const [updateDiary] = useUpdateDiaryMutation();
+  const [deleteDiary] = useDeleteDiaryMutation();
 
   const { data: diaries } = useGetDiariesQuery({
     startDate: `${date.year}-${date.month}-${date.date}`,
@@ -36,28 +38,38 @@ function DiaryBoard({ date }: Props) {
               diaries[`${date.year}. ${date.month}. ${date.date}.`] as Diary[]
             ).map((diary: Diary) =>
               editActive[diary.id as string] ? (
-                <DiaryInput
-                  key={diary.id}
-                  defaultValue={diary.content}
-                  onBlur={() => {
-                    setEditActive({
-                      ...editActive,
-                      [diary.id as string]: false,
-                    });
-                  }}
-                  onKeyPress={(e) => {
-                    if (e.code === 'Enter' && !e.shiftKey) {
-                      updateDiary({
-                        id: diary.id,
-                        content: e.currentTarget.value || '',
-                      });
+                <S.DiaryEditContainer key={diary.id}>
+                  <DiaryInput
+                    key={diary.id}
+                    defaultValue={diary.content}
+                    onBlur={() => {
                       setEditActive({
                         ...editActive,
                         [diary.id as string]: false,
                       });
-                    }
-                  }}
-                />
+                    }}
+                    onKeyPress={(e) => {
+                      if (e.code === 'Enter' && !e.shiftKey) {
+                        updateDiary({
+                          id: diary.id,
+                          content: e.currentTarget.value || '',
+                        });
+                        setEditActive({
+                          ...editActive,
+                          [diary.id as string]: false,
+                        });
+                      }
+                    }}
+                  />
+                  <S.DeleteDiaryButton
+                    key={`${diary.id}-${diary.content}`}
+                    onMouseDown={() => {
+                      deleteDiary({ id: diary.id as number });
+                    }}
+                  >
+                    삭제
+                  </S.DeleteDiaryButton>
+                </S.DiaryEditContainer>
               ) : (
                 <S.DiaryBoardContent
                   key={diary.id}

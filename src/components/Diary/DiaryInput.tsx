@@ -33,7 +33,7 @@ export default DiaryInput;
 const StyledDiaryInput = styled.textarea`
   padding: 8px 0;
   border: 1px solid #e5e5e5;
-  width: 100%;
+  width: 90%;
   font-size: 16px;
 
   &:focus {
