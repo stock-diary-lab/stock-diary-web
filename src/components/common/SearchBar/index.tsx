@@ -9,30 +9,23 @@ interface Props {
   firstKey: string;
   secondKey?: string;
   isInModal: boolean;
+  value?: string;
+  setValue?: (val: string) => void;
 }
 
-function SearchBar({
-  placeholder,
-  onChange,
-  searchList,
-  firstKey,
-  secondKey,
-  isInModal,
-}: Props) {
+function SearchBar({ placeholder, onChange, searchList, firstKey, secondKey, isInModal, value, setValue }: Props) {
   const [onFocus, setOnFocus] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <S.SearchContainer
-      isListEmpty={searchList.length === 0}
-      isInModal={isInModal}
-    >
+    <S.SearchContainer isListEmpty={searchList.length === 0} isInModal={isInModal}>
       <S.SearchInputContainer>
         <S.SearchInput
           isInModal={isInModal}
           isNotFocused={!onFocus}
           type="search"
+          value={value || ''}
           placeholder={placeholder}
           autoComplete="off"
           onChange={onChange}
@@ -48,9 +41,11 @@ function SearchBar({
             <S.SearchItem
               key={index}
               onMouseDown={() => {
-                // setValue(searchItem[firstKey]);
-                if (inputRef.current) {
-                  inputRef.current.value = searchItem[firstKey];
+                // if (inputRef.current) {
+                //   inputRef.current.value = searchItem[firstKey];
+                // }
+                if (setValue) {
+                  setValue(searchItem[firstKey]);
                 }
               }}
             >

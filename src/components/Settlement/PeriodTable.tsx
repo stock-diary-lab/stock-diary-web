@@ -1,7 +1,22 @@
 import styled from '@styles/theme-components';
+import { Dispatch, SetStateAction, useState } from 'react';
+import CalendarRange from './CalendarRange';
+import { DateObj } from './CalendarRange/types';
 import * as S from './styled';
 
-function PeriodTable() {
+interface Props {
+  range: {
+    prev: DateObj;
+    next: DateObj;
+  };
+  setRange: Dispatch<SetStateAction<{ prev: DateObj; next: DateObj }>>;
+}
+
+function PeriodTable({ range, setRange }: Props) {
+  const [calendarRangeShow, setCalendarRangeShow] = useState<boolean>(false);
+
+  const [clickedType, setClickedType] = useState<'prev' | 'next'>('prev');
+
   return (
     <div>
       <S.TableTitle>총 손익률 / 기간 선택</S.TableTitle>
@@ -13,11 +28,32 @@ function PeriodTable() {
           </tr>
           <tr>
             <td>기간</td>
-            <td>2021.10.20</td>
-            <td>2021.11.20</td>
+            <td
+              onClick={() => {
+                setClickedType('prev');
+                setCalendarRangeShow(true);
+              }}
+            >
+              {`${range.prev.year}.${range.prev.month}.${range.prev.date}`}
+            </td>
+            <td
+              onClick={() => {
+                setCalendarRangeShow(true);
+                setClickedType('next');
+              }}
+            >
+              {`${range.next.year}.${range.next.month}.${range.next.date}`}
+            </td>
           </tr>
         </tbody>
       </VerticalTable>
+      <CalendarRange
+        clickedType={clickedType}
+        show={calendarRangeShow}
+        setShow={setCalendarRangeShow}
+        rangeProps={range}
+        setRangeProps={setRange}
+      />
     </div>
   );
 }
