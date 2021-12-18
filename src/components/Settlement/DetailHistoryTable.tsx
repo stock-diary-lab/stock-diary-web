@@ -1,36 +1,97 @@
+import { useEffect, useState } from 'react';
 import styled from '@styles/theme-components';
 import * as S from './styled';
+import { DateObj } from './CalendarRange/types';
+import { useGetStocksQuery } from '@stores/stock';
+import { Stock } from '@stores/stock/types';
+interface Props {
+  range: {
+    prev: DateObj;
+    next: DateObj;
+  };
+}
 
-function DetailHistoryTable() {
+function DetailHistoryTable({ range }: Props) {
+  const { data: stockObj } = useGetStocksQuery({
+    startDate: `${range.prev.year}-${range.prev.month}-${range.prev.date}`,
+    endDate: `${range.next.year}-${range.next.month}-${range.next.date}`,
+  });
+
+  const [stockTransactionSorted, setStockTransactionSorted] = useState<Stock[]>([]);
+
+  useEffect(() => {
+    if (stockObj) {
+      setStockTransactionSorted(Object.values(stockObj).flat());
+    }
+  }, [stockObj]);
+
+  const [filters, setFilters] = useState<{ [key: string]: 'descend' | 'ascend' }>({
+    name: 'descend',
+    type: 'descend',
+    date: 'descend',
+    revenue: 'descend',
+    rate: 'descend',
+  });
+
+  const setFilterByName = (name: string) => {
+    setFilters({ ...filters, [name]: filters[name] === 'ascend' ? 'descend' : 'ascend' });
+    setStockTransactionSorted(
+      [...stockTransactionSorted].sort((a, b) => {
+        if (filters[name] === 'ascend') {
+          if ((a[name as keyof Stock] as any) - (b[name as keyof Stock] as any)) {
+            return 1;
+          } else return -1;
+        } else {
+          if ((b[name as keyof Stock] as any) - (a[name as keyof Stock] as any)) {
+            return 1;
+          } else return -1;
+        }
+      })
+    );
+  };
+
   return (
     <div style={{ width: '100%', marginTop: '16px' }}>
       <S.TableTitle>상세 매매기록</S.TableTitle>
       <Table>
         <thead>
           <tr>
-            <th>종목명</th>
-            <th>구분</th>
-            <th>매매 일자</th>
-            <th>실현손익</th>
-            <th>손익률</th>
-            <th>금액</th>
-            <th>수량</th>
-            <th>단가</th>
-            <th>매수/매도 이유</th>
+            <TableHeader direction={filters['name']} onClick={() => setFilterByName('name')}>
+              종목명
+            </TableHeader>
+            <TableHeader direction={filters['type']} onClick={() => setFilterByName('type')}>
+              구분
+            </TableHeader>
+            <TableHeader direction={filters['date']} onClick={() => setFilterByName('date')}>
+              매매 일자
+            </TableHeader>
+            <TableHeader direction={filters['revenue']} onClick={() => setFilterByName('revenue')}>
+              실현손익
+            </TableHeader>
+            <TableHeader direction={filters['rate']} onClick={() => setFilterByName('rate')}>
+              손익률
+            </TableHeader>
+            <TableHeader>금액</TableHeader>
+            <TableHeader>수량</TableHeader>
+            <TableHeader>단가</TableHeader>
+            <TableHeader>매수/매도 이유</TableHeader>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>삼성전자</td>
-            <td>매수</td>
-            <td>03/30/21</td>
-            <td>03/30/21</td>
-            <td>03/30/21</td>
-            <td>03/30/21</td>
-            <td>03/30/21</td>
-            <td>03/30/21</td>
-            <td>03/30/21</td>
-          </tr>
+          {stockTransactionSorted.map((stock, id) => (
+            <tr key={stock.name + stock.reason + id}>
+              <td>{stock.name}</td>
+              <TableData isBuy={stock.type === 'buy'}>{stock.type === 'buy' ? '매수' : '매도'}</TableData>
+              <td>{new Date(stock.date).toLocaleDateString()}</td>
+              <td>{stock.type === 'buy' ? '' : ''}</td>
+              <td>{stock.type === 'buy' ? '' : ''}</td>
+              <td>{(stock.price * stock.quantity).toLocaleString()}</td>
+              <td>{stock.quantity.toLocaleString()}</td>
+              <td>{stock.price.toLocaleString()}</td>
+              <td>{stock.reason}</td>
+            </tr>
+          ))}
+          <tr></tr>
         </tbody>
       </Table>
     </div>
@@ -50,8 +111,12 @@ const Table = styled.table`
     background-color: white;
   }
 
+  & tr {
+  }
   & tr > th,
   & tr > td {
+    vertical-align: middle;
+    height: 32px;
     padding: 16px 24px;
   }
 
@@ -77,4 +142,29 @@ const Table = styled.table`
   }
 `;
 
+const TableHeader = styled.th<{ direction?: 'ascend' | 'descend' }>`
+  position: relative;
+  &::after {
+    ${(props) =>
+      props.direction &&
+      `content: '';
+       border-left: 4px solid transparent;
+       border-right: 4px solid transparent;
+       position: absolute;
+       right: 20px;
+       top: 20px;`}
+    ${(props) =>
+      props.direction === 'descend' &&
+      `border-bottom: 6px solid #3B80E3;
+       `}
+       ${(props) =>
+      props.direction === 'ascend' &&
+      `border-top: 6px solid #3B80E3;
+       `}
+  }
+`;
+
+const TableData = styled.td<{ isBuy: boolean }>`
+  ${(props) => (props.isBuy ? `color: #f36874;` : `color: #3B80E3;`)}
+`;
 export default DetailHistoryTable;
