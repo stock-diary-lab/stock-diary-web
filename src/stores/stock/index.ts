@@ -4,7 +4,7 @@ import { Stock } from './types';
 export const stockApi = createApi({
   reducerPath: 'stockApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000',
+    baseUrl: process.env.REACT_APP_SERVER_HOST,
     prepareHeaders: (headers) => {
       headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
       return headers;
@@ -14,7 +14,7 @@ export const stockApi = createApi({
   endpoints: (builder) => ({
     addStock: builder.mutation<{ message: string }, Stock>({
       query: (body) => ({
-        url: 'stock',
+        url: 'stockTransaction',
         method: 'POST',
         body,
       }),
@@ -25,7 +25,7 @@ export const stockApi = createApi({
       { startDate: string; endDate: string }
     >({
       query: ({ startDate, endDate }) => ({
-        url: 'stock',
+        url: 'stockTransaction',
         params: {
           startDate,
           endDate,
@@ -35,7 +35,7 @@ export const stockApi = createApi({
     }),
     updateStock: builder.mutation<{ message: string }, Partial<Stock>>({
       query: (body) => ({
-        url: `stock/${body.id}`,
+        url: `stockTransaction/${body.id}`,
         method: 'PATCH',
         body,
       }),
@@ -43,7 +43,7 @@ export const stockApi = createApi({
     }),
     deleteStock: builder.mutation<{ message: string }, { id: number }>({
       query: (body) => ({
-        url: `stock/${body.id}`,
+        url: `stockTransaction/${body.id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Stock'],
