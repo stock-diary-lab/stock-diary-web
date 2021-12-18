@@ -21,7 +21,7 @@ function IndexBoard() {
   return (
     <S.IndexBoardContainer>
       <S.RightTextContainer>
-        <S.Paragraph>{data.userName}님 반갑습니다!</S.Paragraph>
+        <S.Paragraph>{data && data.userName}님 반갑습니다!</S.Paragraph>
         <S.Paragraph>
           오늘은 {dayjs().format('MM월 DD일 dddd')}입니다.
         </S.Paragraph>
