@@ -56,7 +56,7 @@ function StockTable({ stockType, date, setDate }: Props) {
           </S.THeader>
           <S.TBody>
             {stockObj &&
-              stockObj[`${date.year}-${date.month}-${date.date}`]
+              stockObj[`${date.year}. ${date.month}. ${date.date}.`]
                 ?.filter((stock) => stock.type === stockType)
                 .map((stock, id) => (
                   <S.TRow
@@ -69,12 +69,8 @@ function StockTable({ stockType, date, setDate }: Props) {
                   >
                     <S.TData textAlign="center">{stock.name}</S.TData>
                     <S.TData textAlign="right">{stock.quantity}개</S.TData>
-                    <S.TData textAlign="right">
-                      {(stock.price * 1).toLocaleString()}원
-                    </S.TData>
-                    <S.TData textAlign="right">
-                      {(stock.quantity * stock.price).toLocaleString()}원
-                    </S.TData>
+                    <S.TData textAlign="right">{(stock.price * 1).toLocaleString()}원</S.TData>
+                    <S.TData textAlign="right">{(stock.quantity * stock.price).toLocaleString()}원</S.TData>
                     <S.TData>{stock.reason}</S.TData>
                   </S.TRow>
                 ))}
