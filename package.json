@@ -35,7 +35,8 @@
     "start:all": "concurrently \"yarn start:server\" \"yarn start\"",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-dev": "aws s3 sync ./build s3://zazu-web --profile=ed"
   },
   "eslintConfig": {
     "extends": [
