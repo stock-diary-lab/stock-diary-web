@@ -12,7 +12,7 @@ export const diaryApi = createApi({
   }),
   tagTypes: ['Diary'],
   endpoints: (builder) => ({
-    getDiaries: builder.query<any, { startDate: string; endDate: string }>({
+    getDiaries: builder.query<{ [key: string]: Diary[] }, { startDate: string; endDate: string }>({
       query: ({ startDate, endDate }) => ({
         url: 'diary',
         params: {
@@ -48,11 +48,6 @@ export const diaryApi = createApi({
   }),
 });
 
-export const {
-  useAddDiaryMutation,
-  useUpdateDiaryMutation,
-  useGetDiariesQuery,
-  useDeleteDiaryMutation,
-} = diaryApi;
+export const { useAddDiaryMutation, useUpdateDiaryMutation, useGetDiariesQuery, useDeleteDiaryMutation } = diaryApi;
 
 export default diaryApi.reducer;

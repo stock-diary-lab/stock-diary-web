@@ -114,11 +114,24 @@ export const HistoryBoardHeader = styled.div`
 
 export const HistoryBoardContentContainer = styled.div`
   border-top: 1px solid #e5e5e5;
+  height: 160px;
+  overflow: scroll;
 `;
 
-export const HistoryBoardContent = styled.div`
-  padding: 0.5rem 0;
+export const HistoryBoardContent = styled.div<{ isExistContent?: boolean }>`
+  height: 32px;
+  padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: row;
+
+  &::before {
+    ${(props) =>
+      (props.isExistContent === undefined || props.isExistContent) &&
+      `content: '✔';
+    display: inline-block;
+    margin-right: 8px;`}
+  }
 `;
 
 export const HistoryBoardInput = styled.input`

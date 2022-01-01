@@ -30,8 +30,10 @@ function Table() {
       <StyledTableBody>
         {data.map((obj, idx) => (
           <StyledTableRow key={idx}>
-            {Object.values(obj).map((v) => (
-              <StyledTableData key={v + idx}>{v}</StyledTableData>
+            {Object.values(obj).map((v, colIdx) => (
+              <StyledTableData key={v + idx} isFluc={colIdx === 2} changeDirection={'low'}>
+                {v}
+              </StyledTableData>
             ))}
           </StyledTableRow>
         ))}
@@ -61,8 +63,21 @@ const StyledTableRow = styled.tr`
   line-height: 23px;
 `;
 
-const StyledTableData = styled.td`
+const StyledTableData = styled.td<{ isFluc: boolean; changeDirection: string }>`
   padding: 0.5rem 0;
+  position: relative;
+  &::before {
+    ${(props) =>
+      props.isFluc &&
+      `content: '';
+       border-left: 4px solid transparent;
+       border-right: 4px solid transparent;
+       position: absolute;
+       left: 10px;
+       top: 17px;`}
+    ${(props) =>
+      props.changeDirection === 'high' ? `border-bottom: 6px solid #3B80E3;` : `border-top: 6px solid #F36874;`}
+  }
 `;
 
 export default Table;

@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
-import { ReactComponent as SearchIcon } from '@svgs/search.svg';
 import * as S from './styled';
 import { Stock } from '@stores/stock/types';
 import { useAddStockMutation, useUpdateStockMutation, useDeleteStockMutation } from '@stores/stock';
@@ -23,15 +22,7 @@ const stockTypeKorean = {
   sell: '매도',
 };
 
-const stockList = [
-  {
-    name: '삼성전자',
-    code: '005930',
-  },
-  { name: 'KCC건설', code: '021320' },
-  { name: 'KB금융', code: '105560' },
-];
-
+// TODO: 유효성 검사, 검색값 유효성 검사
 function StockInputModal({ show, setShow, stockType, date, isEditMode, currentStock }: Props) {
   const [addStock] = useAddStockMutation();
   const [updateStock] = useUpdateStockMutation();
