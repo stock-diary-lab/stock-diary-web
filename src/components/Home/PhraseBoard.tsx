@@ -1,20 +1,18 @@
 import * as S from './styled';
+import { useGetPhrasesQuery } from '@stores/phrase';
 
 function PhraseBoard() {
+  const { data: phrases } = useGetPhrasesQuery({});
+
   return (
     <S.BoardContainer>
-      <S.Phrase>
-        <S.PhraseHeading>
-          10년 이상을 볼 것이 아니면 10분도 주식을 갖고 있지 말라.
-        </S.PhraseHeading>
-        <S.AlignRight>- 워렌 버핏</S.AlignRight>
-      </S.Phrase>
-      <S.Phrase>
-        <S.PhraseHeading>
-          10년 이상을 볼 것이 아니면 10분도 주식을 갖고 있지 말라.
-        </S.PhraseHeading>
-        <S.AlignRight>- 워렌 버핏</S.AlignRight>
-      </S.Phrase>
+      {phrases &&
+        phrases.map((phrase) => (
+          <S.Phrase key={phrase.id}>
+            <S.PhraseHeading>{phrase.content}</S.PhraseHeading>
+            <S.AlignRight>- {phrase.korName}</S.AlignRight>
+          </S.Phrase>
+        ))}
     </S.BoardContainer>
   );
 }

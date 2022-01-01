@@ -146,6 +146,9 @@ export const Phrase = styled.div`
   color: ${(props) => props.theme.colors.white};
   width: 49%;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const PhraseHeading = styled(Heading)`
