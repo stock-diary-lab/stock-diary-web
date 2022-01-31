@@ -114,6 +114,7 @@ export const TopBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
+  margin-top: 32px;
 `;
 
 // DiaryBoard
