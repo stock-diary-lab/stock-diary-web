@@ -2,9 +2,9 @@ import styled from '@styles/theme-components';
 
 export const Main = styled.main`
   background-color: ${({ theme }) => theme.colors.gray};
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; */
   padding: 0 1rem;
   width: 100%;
 `;

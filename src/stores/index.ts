@@ -5,6 +5,7 @@ import { stockTransactionApi } from './stock-transaction';
 import { diaryApi } from './diary';
 import { listedStockApi } from './listed-stock';
 import { phraseApi } from './phrase';
+import { stockIndexApi } from './stock-index';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     [diaryApi.reducerPath]: diaryApi.reducer,
     [listedStockApi.reducerPath]: listedStockApi.reducer,
     [phraseApi.reducerPath]: phraseApi.reducer,
+    [stockIndexApi.reducerPath]: stockIndexApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -21,7 +23,8 @@ export const store = configureStore({
       .concat(stockTransactionApi.middleware)
       .concat(diaryApi.middleware)
       .concat(listedStockApi.middleware)
-      .concat(phraseApi.middleware),
+      .concat(phraseApi.middleware)
+      .concat(stockIndexApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
