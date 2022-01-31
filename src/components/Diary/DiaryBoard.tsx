@@ -1,9 +1,4 @@
-import {
-  useAddDiaryMutation,
-  useGetDiariesQuery,
-  useUpdateDiaryMutation,
-  useDeleteDiaryMutation,
-} from '@stores/diary';
+import { useAddDiaryMutation, useGetDiariesQuery, useUpdateDiaryMutation, useDeleteDiaryMutation } from '@stores/diary';
 import { Diary } from '@stores/diary/types';
 import { useState } from 'react';
 import { DateObj } from './Calendar/types';
@@ -34,12 +29,11 @@ function DiaryBoard({ date }: Props) {
         <div>
           {diaries &&
             diaries[`${date.year}. ${date.month}. ${date.date}.`] &&
-            (
-              diaries[`${date.year}. ${date.month}. ${date.date}.`] as Diary[]
-            ).map((diary: Diary) =>
+            (diaries[`${date.year}. ${date.month}. ${date.date}.`] as Diary[]).map((diary: Diary) =>
               editActive[diary.id as string] ? (
                 <S.DiaryEditContainer key={diary.id}>
                   <DiaryInput
+                    width={'95%'}
                     key={diary.id}
                     defaultValue={diary.content}
                     onBlur={() => {

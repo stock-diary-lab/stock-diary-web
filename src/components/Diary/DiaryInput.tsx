@@ -6,9 +6,10 @@ interface Props {
   placeholder?: string;
   onKeyPress?: React.KeyboardEventHandler<HTMLTextAreaElement>;
   onBlur: React.FocusEventHandler<HTMLTextAreaElement>;
+  width?: string;
 }
 
-function DiaryInput({ defaultValue, placeholder, onBlur, onKeyPress }: Props) {
+function DiaryInput({ defaultValue, placeholder, onBlur, onKeyPress, width }: Props) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -19,6 +20,7 @@ function DiaryInput({ defaultValue, placeholder, onBlur, onKeyPress }: Props) {
 
   return (
     <StyledDiaryInput
+      width={width}
       ref={inputRef}
       defaultValue={defaultValue}
       placeholder={placeholder}
@@ -30,11 +32,11 @@ function DiaryInput({ defaultValue, placeholder, onBlur, onKeyPress }: Props) {
 
 export default DiaryInput;
 
-const StyledDiaryInput = styled.textarea`
+const StyledDiaryInput = styled.textarea<{ width?: string }>`
   padding: 8px 0;
   border: 1px solid #e5e5e5;
-  width: 90%;
-  font-size: 16px;
+  width: ${(props) => props.width || `100%`};
+  font-size: 1rem;
 
   &:focus {
     outline: none;

@@ -151,7 +151,7 @@ export const AddDiaryInput = styled.textarea`
   padding: 8px 0;
   border: 1px solid #e5e5e5;
   width: 100%;
-  font-size: 16px;
+  font-size: 1rem;
 
   &:focus {
     outline: none;
@@ -161,7 +161,7 @@ export const AddDiaryInput = styled.textarea`
 export const AddDiaryButton = styled.button`
   display: block;
   padding: 12px 0;
-  font-size: 16px;
+  font-size: 1rem;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};
   cursor: pointer;
@@ -175,7 +175,7 @@ export const DiaryEditContainer = styled.div`
 
 export const DeleteDiaryButton = styled.button`
   padding: 12px 0;
-  font-size: 16px;
+  font-size: 1rem;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};
   cursor: pointer;
