@@ -4,10 +4,10 @@ import { SetStateAction, Dispatch, useState, useEffect } from 'react';
 import { DateObj } from './types';
 import { ReactComponent as CalendarPrevIcon } from '@svgs/calendar_prev_btn.svg';
 import { ReactComponent as CalendarNextIcon } from '@svgs/calendar_next_btn.svg';
-import { useGetStocksQuery } from '@stores/stock';
+import { useGetStockTransactionsQuery } from '@stores/stock-transaction';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
-import { Stock } from '@stores/stock/types';
+import { StockTransaction } from '@stores/stock-transaction/types';
 
 dayjs.locale('ko');
 
@@ -39,14 +39,10 @@ function Calendar({ date, setDate, show, setShow }: Props) {
     }
   }, [date.date, date.month, date.year, show]);
 
-  const { data: stockObj } = useGetStocksQuery({
-    startDate: new Date(
-      `${yearMonth.year}-${yearMonth.month}-01`
-    ).toLocaleDateString(),
+  const { data: stockObj } = useGetStockTransactionsQuery({
+    startDate: new Date(`${yearMonth.year}-${yearMonth.month}-01`).toLocaleDateString(),
     endDate: new Date(
-      `${yearMonth.year + (yearMonth.month === 12 ? 1 : 0)}-${
-        (yearMonth.month + 1) % 12 || 12
-      }-01`
+      `${yearMonth.year + (yearMonth.month === 12 ? 1 : 0)}-${(yearMonth.month + 1) % 12 || 12}-01`
     ).toLocaleDateString(),
   });
 
@@ -69,52 +65,33 @@ function Calendar({ date, setDate, show, setShow }: Props) {
 
   const getPrevMonthDates = () => {
     // 2021. 11이면 1(월요일부터 시작)
-    const firstDayOfCurMonth = new Date(
-      yearMonth.year,
-      yearMonth.month - 1
-    ).getDay();
+    const firstDayOfCurMonth = new Date(yearMonth.year, yearMonth.month - 1).getDay();
 
     // 2021. 10월이면 31
-    const lastDateOfPrevMonth = new Date(
-      yearMonth.year,
-      yearMonth.month - 1,
-      0
-    ).getDate();
+    const lastDateOfPrevMonth = new Date(yearMonth.year, yearMonth.month - 1, 0).getDate();
 
     const startNum = lastDateOfPrevMonth - firstDayOfCurMonth + 1;
 
-    return new Array(firstDayOfCurMonth)
-      .fill(0)
-      .map((_, index) => startNum + index);
+    return new Array(firstDayOfCurMonth).fill(0).map((_, index) => startNum + index);
   };
 
   const getCurMonthDates = () => {
-    const lastDateOfCurMonth = new Date(
-      yearMonth.year,
-      yearMonth.month,
-      0
-    ).getDate();
+    const lastDateOfCurMonth = new Date(yearMonth.year, yearMonth.month, 0).getDate();
 
     return new Array(lastDateOfCurMonth).fill(0).map((_, index) => index + 1);
   };
 
   const getNextMonthDates = () => {
     // 2021.11.30일은 2 (화요일)
-    const lastDayOfCurMonth = new Date(
-      yearMonth.year,
-      yearMonth.month,
-      0
-    ).getDay();
+    const lastDayOfCurMonth = new Date(yearMonth.year, yearMonth.month, 0).getDay();
 
-    return new Array(6 - lastDayOfCurMonth)
-      .fill(0)
-      .map((_, index) => index + 1);
+    return new Array(6 - lastDayOfCurMonth).fill(0).map((_, index) => index + 1);
   };
 
-  const getStockNames = (stockList: Stock[], type: 'buy' | 'sell') =>
+  const getStockNames = (stockList: StockTransaction[], type: 'buy' | 'sell') =>
     stockList
       .filter((stock) => stock.type === type)
-      .map((stock) => stock.name)
+      .map((stock) => stock.listedStock.name)
       .join(', ');
 
   return (
@@ -145,12 +122,7 @@ function Calendar({ date, setDate, show, setShow }: Props) {
               <S.CalendarDate
                 key={el}
                 isOtherMonth={true}
-                isHistoryExist={
-                  !!stockObj &&
-                  !!stockObj[
-                    `${yearMonth.year}. ${yearMonth.month - 1}. ${el}.`
-                  ]
-                }
+                isHistoryExist={!!stockObj && !!stockObj[`${yearMonth.year}. ${yearMonth.month - 1}. ${el}.`]}
               >
                 {el}
               </S.CalendarDate>
@@ -159,10 +131,7 @@ function Calendar({ date, setDate, show, setShow }: Props) {
               <S.CalendarDate
                 key={el}
                 isOtherMonth={false}
-                isHistoryExist={
-                  !!stockObj &&
-                  !!stockObj[`${yearMonth.year}. ${yearMonth.month}. ${el}.`]
-                }
+                isHistoryExist={!!stockObj && !!stockObj[`${yearMonth.year}. ${yearMonth.month}. ${el}.`]}
                 isSelected={el === calendarDate}
                 onClick={() => {
                   // if (
@@ -180,12 +149,7 @@ function Calendar({ date, setDate, show, setShow }: Props) {
               <S.CalendarDate
                 key={el}
                 isOtherMonth={true}
-                isHistoryExist={
-                  !!stockObj &&
-                  !!stockObj[
-                    `${yearMonth.year}. ${yearMonth.month + 1}. ${el}. `
-                  ]
-                }
+                isHistoryExist={!!stockObj && !!stockObj[`${yearMonth.year}. ${yearMonth.month + 1}. ${el}. `]}
               >
                 {el}
               </S.CalendarDate>
@@ -194,54 +158,26 @@ function Calendar({ date, setDate, show, setShow }: Props) {
         </S.CalendarMain>
         <S.CalendarDateHistory>
           <h3>
-            {calendarDate}일{' '}
-            {dayjs(
-              `${yearMonth.year}-${yearMonth.month}-${calendarDate}`
-            ).format('dd')}
+            {calendarDate}일 {dayjs(`${yearMonth.year}-${yearMonth.month}-${calendarDate}`).format('dd')}
             요일
           </h3>
           <div>
-            {stockObj &&
-              stockObj[
-                `${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`
-              ] && (
-                <>
-                  {getStockNames(
-                    stockObj[
-                      `${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`
-                    ],
-                    'buy'
-                  ) && (
-                    <p>
-                      매수종목:
-                      {' ' +
-                        getStockNames(
-                          stockObj[
-                            `${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`
-                          ],
-                          'buy'
-                        )}
-                    </p>
-                  )}
-                  {getStockNames(
-                    stockObj[
-                      `${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`
-                    ],
-                    'sell'
-                  ) && (
-                    <p>
-                      매도종목:
-                      {' ' +
-                        getStockNames(
-                          stockObj[
-                            `${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`
-                          ],
-                          'sell'
-                        )}
-                    </p>
-                  )}
-                </>
-              )}
+            {stockObj && stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`] && (
+              <>
+                {getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'buy') && (
+                  <p>
+                    매수종목:
+                    {' ' + getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'buy')}
+                  </p>
+                )}
+                {getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'sell') && (
+                  <p>
+                    매도종목:
+                    {' ' + getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'sell')}
+                  </p>
+                )}
+              </>
+            )}
           </div>
         </S.CalendarDateHistory>
         <S.Buttons>

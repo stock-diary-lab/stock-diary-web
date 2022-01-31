@@ -12,20 +12,22 @@ interface Props {
   setRange: Dispatch<SetStateAction<{ prev: DateObj; next: DateObj }>>;
 }
 
+// TODO: 손익률 제외, 종목별 기록 제외
+// TODO: 실현손익, 손익률 계산 (매도내역)
 function PeriodTable({ range, setRange }: Props) {
   const [calendarRangeShow, setCalendarRangeShow] = useState<boolean>(false);
 
   const [clickedType, setClickedType] = useState<'prev' | 'next'>('prev');
 
   return (
-    <div>
+    <TableContainer>
       <S.TableTitle>총 손익률 / 기간 선택</S.TableTitle>
       <VerticalTable>
         <tbody>
-          <tr>
+          {/* <tr>
             <td>손익률</td>
             <td colSpan={2}>11.09%</td>
-          </tr>
+          </tr> */}
           <tr>
             <td>기간</td>
             <td
@@ -54,10 +56,13 @@ function PeriodTable({ range, setRange }: Props) {
         rangeProps={range}
         setRangeProps={setRange}
       />
-    </div>
+    </TableContainer>
   );
 }
 
+const TableContainer = styled.div`
+  margin-bottom: 48px;
+`;
 const VerticalTable = styled.table`
   border-radius: 16px;
   border-collapse: initial;
@@ -67,19 +72,21 @@ const VerticalTable = styled.table`
     padding: 12px;
   }
 
-  & tbody > tr:nth-child(2) > td {
+  & tbody > tr:nth-child(1) > td {
+    background-color: white;
     padding: 12px 24px;
   }
 
   & tbody > tr:nth-child(1) > td:nth-child(1) {
     background-color: #b9d6ff;
     border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
   }
 
   & tbody > tr:nth-child(1) > td:nth-child(2) {
     background-color: white;
-    color: #f36874;
     border-top-right-radius: 8px;
+    border-right: 1px solid ${(props) => props.theme.colors.whiteGray};
   }
 
   & tbody > tr:nth-child(2) > td:nth-child(1) {

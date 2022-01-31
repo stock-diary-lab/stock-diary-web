@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import styled from '@styles/theme-components';
 import * as S from './styled';
 import { DateObj } from './CalendarRange/types';
-import { useGetStocksQuery } from '@stores/stock';
-import { Stock } from '@stores/stock/types';
+import { useGetStockTransactionsQuery } from '@stores/stock-transaction';
+import { StockTransaction } from '@stores/stock-transaction/types';
+import HistoryModal from './HistoryModal';
+import { MarketType } from '@stores/listed-stock/types';
 interface Props {
   range: {
     prev: DateObj;
@@ -12,12 +14,22 @@ interface Props {
 }
 
 function DetailHistoryTable({ range }: Props) {
-  const { data: stockObj } = useGetStocksQuery({
+  const { data: stockObj } = useGetStockTransactionsQuery({
     startDate: `${range.prev.year}-${range.prev.month}-${range.prev.date}`,
     endDate: `${range.next.year}-${range.next.month}-${range.next.date}`,
   });
 
-  const [stockTransactionSorted, setStockTransactionSorted] = useState<Stock[]>([]);
+  const [stockTransactionSorted, setStockTransactionSorted] = useState<StockTransaction[]>([]);
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [stockTransaction, setStockTransaction] = useState<StockTransaction>({
+    listedStock: { name: '', id: '', industry: '', market: MarketType.KOSPI },
+    quantity: 0,
+    price: 0,
+    fee: 0,
+    type: 'buy',
+    reason: '',
+    date: new Date(),
+  });
 
   useEffect(() => {
     if (stockObj) {
@@ -38,11 +50,11 @@ function DetailHistoryTable({ range }: Props) {
     setStockTransactionSorted(
       [...stockTransactionSorted].sort((a, b) => {
         if (filters[name] === 'ascend') {
-          if ((a[name as keyof Stock] as any) - (b[name as keyof Stock] as any)) {
+          if ((a[name as keyof StockTransaction] as any) - (b[name as keyof StockTransaction] as any)) {
             return 1;
           } else return -1;
         } else {
-          if ((b[name as keyof Stock] as any) - (a[name as keyof Stock] as any)) {
+          if ((b[name as keyof StockTransaction] as any) - (a[name as keyof StockTransaction] as any)) {
             return 1;
           } else return -1;
         }
@@ -51,50 +63,59 @@ function DetailHistoryTable({ range }: Props) {
   };
 
   return (
-    <div style={{ width: '100%', marginTop: '16px' }}>
-      <S.TableTitle>상세 매매기록</S.TableTitle>
-      <Table>
-        <thead>
-          <tr>
-            <TableHeader direction={filters['name']} onClick={() => setFilterByName('name')}>
-              종목명
-            </TableHeader>
-            <TableHeader direction={filters['type']} onClick={() => setFilterByName('type')}>
-              구분
-            </TableHeader>
-            <TableHeader direction={filters['date']} onClick={() => setFilterByName('date')}>
-              매매 일자
-            </TableHeader>
-            <TableHeader direction={filters['revenue']} onClick={() => setFilterByName('revenue')}>
-              실현손익
-            </TableHeader>
-            <TableHeader direction={filters['rate']} onClick={() => setFilterByName('rate')}>
-              손익률
-            </TableHeader>
-            <TableHeader>금액</TableHeader>
-            <TableHeader>수량</TableHeader>
-            <TableHeader>단가</TableHeader>
-            <TableHeader>매수/매도 이유</TableHeader>
-          </tr>
-        </thead>
-        <tbody>
-          {stockTransactionSorted.map((stock, id) => (
-            <tr key={stock.name + stock.reason + id}>
-              <td>{stock.name}</td>
-              <TableData isBuy={stock.type === 'buy'}>{stock.type === 'buy' ? '매수' : '매도'}</TableData>
-              <td>{new Date(stock.date).toLocaleDateString()}</td>
-              <td>{stock.type === 'buy' ? '' : ''}</td>
-              <td>{stock.type === 'buy' ? '' : ''}</td>
-              <td>{(stock.price * stock.quantity).toLocaleString()}</td>
-              <td>{stock.quantity.toLocaleString()}</td>
-              <td>{stock.price.toLocaleString()}</td>
-              <td>{stock.reason}</td>
+    <>
+      <div style={{ width: '100%', marginTop: '16px' }}>
+        <S.TableTitle>상세 매매기록</S.TableTitle>
+        <Table>
+          <thead>
+            <tr>
+              <TableHeader direction={filters['name']} onClick={() => setFilterByName('name')}>
+                종목명
+              </TableHeader>
+              <TableHeader direction={filters['type']} onClick={() => setFilterByName('type')}>
+                구분
+              </TableHeader>
+              <TableHeader direction={filters['date']} onClick={() => setFilterByName('date')}>
+                매매 일자
+              </TableHeader>
+              <TableHeader direction={filters['revenue']} onClick={() => setFilterByName('revenue')}>
+                실현손익
+              </TableHeader>
+              <TableHeader direction={filters['rate']} onClick={() => setFilterByName('rate')}>
+                손익률
+              </TableHeader>
+              <TableHeader>금액</TableHeader>
+              <TableHeader>수량</TableHeader>
+              <TableHeader>단가</TableHeader>
+              <TableHeader>매수/매도 이유</TableHeader>
             </tr>
-          ))}
-          <tr></tr>
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+          <tbody>
+            {stockTransactionSorted.map((stock, id) => (
+              <tr
+                key={stock.listedStock.name + stock.reason + id}
+                onClick={() => {
+                  setModalShow(true);
+                  setStockTransaction(stock);
+                }}
+              >
+                <td>{stock.listedStock.name}</td>
+                <TableData isBuy={stock.type === 'buy'}>{stock.type === 'buy' ? '매수' : '매도'}</TableData>
+                <td>{new Date(stock.date).toLocaleDateString()}</td>
+                <td>{stock.type === 'buy' ? '' : ''}</td>
+                <td>{stock.type === 'buy' ? '' : ''}</td>
+                <td>{(stock.price * stock.quantity).toLocaleString()}</td>
+                <td>{stock.quantity.toLocaleString()}</td>
+                <td>{stock.price.toLocaleString()}</td>
+                <td>{stock.reason}</td>
+              </tr>
+            ))}
+            <tr></tr>
+          </tbody>
+        </Table>
+      </div>
+      <HistoryModal show={modalShow} setShow={setModalShow} stockTransaction={stockTransaction} />
+    </>
   );
 }
 

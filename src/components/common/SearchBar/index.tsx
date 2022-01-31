@@ -6,14 +6,13 @@ interface Props {
   placeholder: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   searchList: any[];
-  firstKey: string;
-  secondKey?: string;
   isInModal: boolean;
-  value?: string;
-  setValue?: (val: string) => void;
+  value?: any;
+  setValue?: (val: any) => void;
+  renderItem?: () => JSX.Element | null;
 }
 
-function SearchBar({ placeholder, onChange, searchList, firstKey, secondKey, isInModal, value, setValue }: Props) {
+function SearchBar({ placeholder, onChange, searchList, isInModal, value, setValue, renderItem }: Props) {
   const [onFocus, setOnFocus] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,26 +34,27 @@ function SearchBar({ placeholder, onChange, searchList, firstKey, secondKey, isI
         />
         <SearchIcon width={isInModal ? '16' : '20'} />
       </S.SearchInputContainer>
-      {onFocus && searchList.length > 0 && (
-        <S.SearchList>
-          {searchList.map((searchItem, index) => (
-            <S.SearchItem
-              key={index}
-              onMouseDown={() => {
-                // if (inputRef.current) {
-                //   inputRef.current.value = searchItem[firstKey];
-                // }
-                if (setValue) {
-                  setValue(searchItem[firstKey]);
-                }
-              }}
-            >
-              <span>{searchItem[firstKey]}</span>
-              {secondKey && <span>{searchItem[secondKey]}</span>}
-            </S.SearchItem>
-          ))}
-        </S.SearchList>
-      )}
+      {
+        onFocus && searchList.length > 0 && renderItem && <S.SearchList>{renderItem()}</S.SearchList>
+        // <S.SearchList>
+        //   {searchList.map((searchItem, index) => (
+        //     <S.SearchItem
+        //       key={index}
+        //       onMouseDown={() => {
+        //         // if (inputRef.current) {
+        //         //   inputRef.current.value = searchItem[firstKey];
+        //         // }
+        //         if (setValue) {
+        //           setValue(searchItem);
+        //         }
+        //       }}
+        //     >
+        //       <span>{searchItem[firstKey]}</span>
+        //       {secondKey && <span>{searchItem[secondKey]}</span>}
+        //     </S.SearchItem>
+        //   ))}
+        // </S.SearchList>
+      }
     </S.SearchContainer>
   );
 }

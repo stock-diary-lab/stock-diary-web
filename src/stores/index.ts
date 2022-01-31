@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import usersReducer, { userApi } from './user';
-import { stockApi } from './stock';
+import { stockTransactionApi } from './stock-transaction';
 import { diaryApi } from './diary';
 import { listedStockApi } from './listed-stock';
 import { phraseApi } from './phrase';
@@ -10,7 +10,7 @@ export const store = configureStore({
   reducer: {
     user: usersReducer,
     [userApi.reducerPath]: userApi.reducer,
-    [stockApi.reducerPath]: stockApi.reducer,
+    [stockTransactionApi.reducerPath]: stockTransactionApi.reducer,
     [diaryApi.reducerPath]: diaryApi.reducer,
     [listedStockApi.reducerPath]: listedStockApi.reducer,
     [phraseApi.reducerPath]: phraseApi.reducer,
@@ -18,7 +18,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(userApi.middleware)
-      .concat(stockApi.middleware)
+      .concat(stockTransactionApi.middleware)
       .concat(diaryApi.middleware)
       .concat(listedStockApi.middleware)
       .concat(phraseApi.middleware),

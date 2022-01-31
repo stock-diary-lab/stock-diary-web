@@ -30,6 +30,7 @@ export const HrLine = styled.hr`
 `;
 
 export const RootContainer = styled.div`
-  ${(props) => props.theme.media.desktop(`display: block;`)}
-  ${(props) => props.theme.media.tablet(`display: flex;`)}
+  display: flex;
+  /* ${(props) => props.theme.media.desktop(`display: block;`)}
+  ${(props) => props.theme.media.tablet(`display: flex;`)} */
 `;

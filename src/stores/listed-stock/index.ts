@@ -10,7 +10,7 @@ export const listedStockApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['ListedStock'],
+  tagTypes: ['StockTransaction'],
   endpoints: (builder) => ({
     getListedStocks: builder.query<ListedStock[], { name: string }>({
       query: ({ name }) => ({
@@ -19,11 +19,11 @@ export const listedStockApi = createApi({
           name,
         },
       }),
-      providesTags: ['ListedStock'],
+      providesTags: ['StockTransaction'],
     }),
   }),
 });
 
-export const { useGetListedStocksQuery, usePrefetch } = listedStockApi;
+export const { useGetListedStocksQuery, useLazyGetListedStocksQuery } = listedStockApi;
 
 export default listedStockApi.reducer;

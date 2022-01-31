@@ -13,9 +13,7 @@ export const SearchContainer = styled.div<{
     border-top-right-radius: 16px;
     background-color: white;
   }
-  ${(props) =>
-    props.isListEmpty &&
-    `border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;`}
+  ${(props) => props.isListEmpty && `border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;`}
   ${(props) => props.isInModal && `width: 100%;`}
 `;
 
@@ -40,6 +38,7 @@ export const SearchInput = styled.input<{
   border: 1px solid ${props.theme.colors.main};
   border-radius: 20px;
   margin-right: 0.5rem;
+  font-size: 0.75rem;
 `}
 
   &[type='search']::-webkit-search-cancel-button {

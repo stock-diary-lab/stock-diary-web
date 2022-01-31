@@ -5,7 +5,9 @@ function News() {
   return (
     <S.RootContainer>
       <NavMenu />
-      <S.Main>메인</S.Main>
+      <S.Main>
+        <iframe title="naver_stock_news" src="https://m.stock.naver.com/news/mainnews" height="700"></iframe>
+      </S.Main>
     </S.RootContainer>
   );
 }

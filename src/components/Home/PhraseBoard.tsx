@@ -1,8 +1,12 @@
 import * as S from './styled';
 import { useGetPhrasesQuery } from '@stores/phrase';
+import { useEffect } from 'react';
 
 function PhraseBoard() {
   const { data: phrases } = useGetPhrasesQuery({});
+
+  // TODO: 폰트 사이즈 조절
+  useEffect(() => {}, []);
 
   return (
     <S.BoardContainer>

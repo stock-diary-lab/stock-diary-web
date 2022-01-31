@@ -30,7 +30,9 @@ function HistoryBoard() {
                 }
               >
                 <pre>
-                  {diaries && diaries[getPrevWeekDate(new Date())] && diaries[getPrevWeekDate(new Date())][idx].content}
+                  {diaries &&
+                    diaries[getPrevWeekDate(new Date())] &&
+                    diaries[getPrevWeekDate(new Date())][idx]?.content}
                 </pre>
               </S.HistoryBoardContent>
             ))}
@@ -59,7 +61,7 @@ function HistoryBoard() {
                 <pre>
                   {diaries &&
                     diaries[getPrevMonthDate(new Date())] &&
-                    diaries[getPrevMonthDate(new Date())][idx].content}
+                    diaries[getPrevMonthDate(new Date())][idx]?.content}
                 </pre>
               </S.HistoryBoardContent>
             ))}

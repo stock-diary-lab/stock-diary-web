@@ -32,7 +32,7 @@ function Settlement() {
       <S.Main>
         <TopContainer>
           <PeriodTable range={range} setRange={setRange} />
-          <StockNameTable />
+          {/* <StockNameTable /> */}
         </TopContainer>
         <DetailHistoryTable range={range} />
       </S.Main>

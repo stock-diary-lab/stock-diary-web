@@ -32,6 +32,7 @@ export const ModalHeader = styled.div`
 
 export const XButton = styled.button`
   display: block;
+  cursor: pointer;
 `;
 
 export const ModalBody = styled.div`

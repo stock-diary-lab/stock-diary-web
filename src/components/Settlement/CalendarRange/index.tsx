@@ -4,7 +4,7 @@ import { SetStateAction, Dispatch, useState } from 'react';
 import { DateObj } from './types';
 import { ReactComponent as CalendarPrevIcon } from '@svgs/calendar_prev_btn.svg';
 import { ReactComponent as CalendarNextIcon } from '@svgs/calendar_next_btn.svg';
-import { useGetStocksQuery } from '@stores/stock';
+import { useGetStockTransactionsQuery } from '@stores/stock-transaction';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
@@ -40,7 +40,7 @@ function CalendarRange({ show, setShow, rangeProps, setRangeProps, clickedType }
 
   const [range, setRange] = useState<{ prev: DateObj; next: DateObj }>({ ...rangeProps });
 
-  const { data: stockObj } = useGetStocksQuery({
+  const { data: stockObj } = useGetStockTransactionsQuery({
     startDate: new Date(
       `${rangeProps.prev.year}-${rangeProps.prev.month}-${rangeProps.prev.date}`
     ).toLocaleDateString(),
