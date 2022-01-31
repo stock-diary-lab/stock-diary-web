@@ -22,6 +22,14 @@ export const diaryApi = createApi({
       }),
       providesTags: ['Diary'],
     }),
+    searchDiaries: builder.query<Diary[], { searchWord: string }>({
+      query: ({ searchWord }) => ({
+        url: 'diary/search',
+        params: {
+          searchWord,
+        },
+      }),
+    }),
     addDiary: builder.mutation<{ message: string }, Diary>({
       query: (body) => ({
         url: 'diary',
@@ -48,6 +56,12 @@ export const diaryApi = createApi({
   }),
 });
 
-export const { useAddDiaryMutation, useUpdateDiaryMutation, useGetDiariesQuery, useDeleteDiaryMutation } = diaryApi;
+export const {
+  useAddDiaryMutation,
+  useUpdateDiaryMutation,
+  useGetDiariesQuery,
+  useDeleteDiaryMutation,
+  useLazySearchDiariesQuery,
+} = diaryApi;
 
 export default diaryApi.reducer;

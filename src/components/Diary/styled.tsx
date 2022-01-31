@@ -363,6 +363,7 @@ export const SearchItem = styled.div`
   font-size: 0.75rem;
   color: #afafaf;
   padding: 8px 16px;
+  cursor: pointer;
 `;
 
 export const SearchStockItem = styled(SearchItem)`
