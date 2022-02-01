@@ -20,7 +20,6 @@ function IndexBoard() {
     return <div>Loading...</div>;
   }
 
-  console.log(stockIndexes);
   return (
     <S.IndexBoardContainer>
       <S.RightTextContainer>

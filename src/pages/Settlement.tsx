@@ -2,7 +2,6 @@ import { useState } from 'react';
 import NavMenu from '@components/NavMenu';
 import * as S from './styled';
 import PeriodTable from '@components/Settlement/PeriodTable';
-import StockNameTable from '@components/Settlement/StockNameTable';
 import DetailHistoryTable from '@components/Settlement/DetailHistoryTable';
 import styled from '@styles/theme-components';
 

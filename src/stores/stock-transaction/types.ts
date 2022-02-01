@@ -8,6 +8,8 @@ export interface StockTransaction {
   type: 'buy' | 'sell';
   reason: string;
   date: Date;
+  income?: number;
+  incomeRatio?: number;
   listedStock: ListedStock;
 }
 

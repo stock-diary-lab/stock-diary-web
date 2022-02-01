@@ -28,6 +28,8 @@ function DetailHistoryTable({ range }: Props) {
     fee: 0,
     type: 'buy',
     reason: '',
+    income: 0,
+    incomeRatio: 0,
     date: new Date(),
   });
 
@@ -102,8 +104,12 @@ function DetailHistoryTable({ range }: Props) {
                 <td>{stock.listedStock.name}</td>
                 <TableData isBuy={stock.type === 'buy'}>{stock.type === 'buy' ? '매수' : '매도'}</TableData>
                 <td>{new Date(stock.date).toLocaleDateString()}</td>
-                <td>{stock.type === 'buy' ? '' : ''}</td>
-                <td>{stock.type === 'buy' ? '' : ''}</td>
+                <TableData isBuy={stock.type === 'buy'}>
+                  {stock.type === 'sell' ? stock.income?.toLocaleString() : ''}
+                </TableData>
+                <TableData isBuy={stock.type === 'buy'}>
+                  {stock.type === 'sell' ? stock.incomeRatio?.toLocaleString() : ''}
+                </TableData>
                 <td>{(stock.price * stock.quantity).toLocaleString()}</td>
                 <td>{stock.quantity.toLocaleString()}</td>
                 <td>{stock.price.toLocaleString()}</td>
