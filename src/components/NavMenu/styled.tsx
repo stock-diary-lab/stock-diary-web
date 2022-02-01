@@ -4,8 +4,7 @@ export const IconButton = styled.button<{
   isSelected?: boolean;
   pageName?: string;
 }>`
-  background-color: ${(props) =>
-    props.isSelected ? props.theme.colors.main : props.theme.colors.white};
+  background-color: ${(props) => (props.isSelected ? props.theme.colors.main : props.theme.colors.white)};
   ${(props) => {
     if (props.pageName === '일지' || props.pageName === '뉴스') {
       return (
@@ -46,13 +45,13 @@ export const IconButton = styled.button<{
 export const Text = styled.span``;
 
 export const LogoContainer = styled.div`
-  position: absolute;
-  top: 20px;
+  /* position: absolute;
+  top: 20px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 48px 0;
 `;
 
 export const Title = styled.h3`
@@ -68,26 +67,29 @@ export const IconButtonContainer = styled.div`
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.white};
   padding: 1rem;
-  ${({ theme }) =>
+  flex-direction: column;
+  /* ${({ theme }) =>
     theme.media.desktop(`
       flex-direction: row;
-  `)}
-  ${({ theme }) =>
+  `)} */
+  /* ${({ theme }) =>
     theme.media.tablet(`
       flex-direction: column;
-  `)}
+  `)} */
 `;
 
 export const NavBar = styled.nav`
-  ${({ theme }) =>
+  /* ${({ theme }) =>
     theme.media.desktop(`
       width: 100%;
-  `)}
-  ${({ theme }) =>
+  `)} */
+  /* ${({ theme }) =>
     theme.media.tablet(`
-      display: flex;
-      height: 100vh;
-      width: fit-content;
-      justify-content: center;
-  `)}
+  `)} */
+  display: flex;
+  height: 100vh;
+  width: fit-content;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;

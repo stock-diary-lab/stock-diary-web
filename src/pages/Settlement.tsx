@@ -2,7 +2,6 @@ import { useState } from 'react';
 import NavMenu from '@components/NavMenu';
 import * as S from './styled';
 import PeriodTable from '@components/Settlement/PeriodTable';
-import StockNameTable from '@components/Settlement/StockNameTable';
 import DetailHistoryTable from '@components/Settlement/DetailHistoryTable';
 import styled from '@styles/theme-components';
 
@@ -32,7 +31,7 @@ function Settlement() {
       <S.Main>
         <TopContainer>
           <PeriodTable range={range} setRange={setRange} />
-          <StockNameTable />
+          {/* <StockNameTable /> */}
         </TopContainer>
         <DetailHistoryTable range={range} />
       </S.Main>
@@ -43,5 +42,6 @@ function Settlement() {
 const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
 `;
 export default Settlement;

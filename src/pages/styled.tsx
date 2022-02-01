@@ -2,9 +2,9 @@ import styled from '@styles/theme-components';
 
 export const Main = styled.main`
   background-color: ${({ theme }) => theme.colors.gray};
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; */
   padding: 0 1rem;
   width: 100%;
 `;
@@ -30,6 +30,7 @@ export const HrLine = styled.hr`
 `;
 
 export const RootContainer = styled.div`
-  ${(props) => props.theme.media.desktop(`display: block;`)}
-  ${(props) => props.theme.media.tablet(`display: flex;`)}
+  display: flex;
+  /* ${(props) => props.theme.media.desktop(`display: block;`)}
+  ${(props) => props.theme.media.tablet(`display: flex;`)} */
 `;

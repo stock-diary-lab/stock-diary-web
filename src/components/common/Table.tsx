@@ -1,23 +1,10 @@
 import styled from '@styles/theme-components';
 
-function Table() {
-  const data = [
-    { name: '코스피', value: '3202.32', flucRate: '0.91%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-    { name: '코스닥', value: '1031.14', flucRate: '0.75%' },
-  ];
+interface Props {
+  data: { [key: string]: any }[];
+}
 
+function Table({ data }: Props) {
   return (
     <StyledTable>
       <StyledTableHeader>
@@ -30,8 +17,10 @@ function Table() {
       <StyledTableBody>
         {data.map((obj, idx) => (
           <StyledTableRow key={idx}>
-            {Object.values(obj).map((v) => (
-              <StyledTableData key={v + idx}>{v}</StyledTableData>
+            {Object.values(obj).map((v, colIdx) => (
+              <StyledTableData key={v + idx} isFluc={colIdx === 2} changeDirection={v[0] === '+' ? 'high' : 'low'}>
+                {colIdx === 2 ? v.slice(1) : v}
+              </StyledTableData>
             ))}
           </StyledTableRow>
         ))}
@@ -52,6 +41,7 @@ const StyledTableHeader = styled.thead`
 
 const StyledTableHead = styled.th`
   padding: 0.5rem 0;
+  width: 33.3%;
 `;
 
 const StyledTableBody = styled.tbody``;
@@ -61,8 +51,21 @@ const StyledTableRow = styled.tr`
   line-height: 23px;
 `;
 
-const StyledTableData = styled.td`
+const StyledTableData = styled.td<{ isFluc: boolean; changeDirection: string }>`
   padding: 0.5rem 0;
+  position: relative;
+  &::before {
+    ${(props) =>
+      props.isFluc &&
+      `content: '';
+       border-left: 4px solid transparent;
+       border-right: 4px solid transparent;
+       position: absolute;
+       left: 17px;
+       top: 15px;`}
+    ${(props) =>
+      props.changeDirection === 'high' ? `border-bottom: 6px solid #3B80E3;` : `border-top: 6px solid #F36874;`}
+  }
 `;
 
 export default Table;

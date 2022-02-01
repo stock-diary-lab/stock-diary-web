@@ -25,12 +25,16 @@ export const AlignRight = styled.div`
   align-items: flex-end;
 `;
 
+export const DashboardContainer = styled.div`
+  margin-top: 40px;
+`;
+
 export const Heading = styled.h3`
   font-size: 1.5rem;
   font-weight: 500;
   white-space: nowrap;
   align-self: flex-start;
-  margin-bottom: 16px;
+  margin-top: 16px;
 `;
 
 export const RedLargeText = styled.span`
@@ -114,11 +118,25 @@ export const HistoryBoardHeader = styled.div`
 
 export const HistoryBoardContentContainer = styled.div`
   border-top: 1px solid #e5e5e5;
+  height: 160px;
+  overflow: scroll;
+  box-sizing: content-box;
 `;
 
-export const HistoryBoardContent = styled.div`
-  padding: 0.5rem 0;
+export const HistoryBoardContent = styled.div<{ isExistContent?: boolean }>`
+  height: 32px;
+  padding: 8px 0;
   border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: row;
+
+  &::before {
+    ${(props) =>
+      (props.isExistContent === undefined || props.isExistContent) &&
+      `content: '✔';
+    display: inline-block;
+    margin-right: 8px;`}
+  }
 `;
 
 export const HistoryBoardInput = styled.input`
@@ -132,14 +150,19 @@ export const Phrase = styled.div`
   border-radius: 1rem;
   color: ${(props) => props.theme.colors.white};
   width: 49%;
+  height: 220px;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const PhraseHeading = styled(Heading)`
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 16px;
   line-height: 35px;
   white-space: pre-wrap;
+  margin-top: 0;
 `;
 
 export const DashboardHeading = styled(Heading)`

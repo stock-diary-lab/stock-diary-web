@@ -9,3 +9,16 @@ export interface ListedStock {
   industry?: string | null;
   market: MarketType;
 }
+
+export interface TopStock {
+  name: string;
+  percent: number;
+  largeSector?: string;
+  mediumSector?: string;
+}
+
+export interface TopSector {
+  sector: string;
+  percent: number;
+  amount: number;
+}

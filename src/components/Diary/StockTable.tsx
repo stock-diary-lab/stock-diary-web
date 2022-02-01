@@ -1,10 +1,11 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useGetStocksQuery } from '@stores/stock';
+import { useGetStockTransactionsQuery } from '@stores/stock-transaction';
 import { useState } from 'react';
 import StockInputModal from './StockInputModal';
 import * as S from './styled';
 import { DateObj } from './Calendar/types';
-import { Stock } from '@stores/stock/types';
+import { StockTransaction } from '@stores/stock-transaction/types';
+import { MarketType } from '@stores/listed-stock/types';
 
 interface Props {
   stockType: 'buy' | 'sell';
@@ -20,9 +21,9 @@ const stockTypeKorean = {
 function StockTable({ stockType, date, setDate }: Props) {
   const [modalShow, setModalShow] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [currentStock, setCurrentStock] = useState<Stock>({
+  const [currentStock, setCurrentStock] = useState<StockTransaction>({
     id: 0,
-    name: '',
+    listedStock: { id: '', industry: '', name: '', market: MarketType.KOSPI },
     quantity: 0,
     price: 0,
     fee: 0,
@@ -31,7 +32,7 @@ function StockTable({ stockType, date, setDate }: Props) {
     date: new Date(),
   });
 
-  const { isLoading, data: stockObj } = useGetStocksQuery({
+  const { isLoading, data: stockObj } = useGetStockTransactionsQuery({
     startDate: `${date.year}-${date.month}-${date.date}`,
     endDate: `${date.year}-${date.month}-${date.date}`,
   });
@@ -60,14 +61,14 @@ function StockTable({ stockType, date, setDate }: Props) {
                 ?.filter((stock) => stock.type === stockType)
                 .map((stock, id) => (
                   <S.TRow
-                    key={`${stock.name}-${id}`}
+                    key={`${stock.listedStock.name}-${id}`}
                     onClick={() => {
                       setIsEditMode(true);
                       setCurrentStock({ ...stock });
                       setModalShow(true);
                     }}
                   >
-                    <S.TData textAlign="center">{stock.name}</S.TData>
+                    <S.TData textAlign="center">{stock.listedStock.name}</S.TData>
                     <S.TData textAlign="right">{stock.quantity}개</S.TData>
                     <S.TData textAlign="right">{(stock.price * 1).toLocaleString()}원</S.TData>
                     <S.TData textAlign="right">{(stock.quantity * stock.price).toLocaleString()}원</S.TData>

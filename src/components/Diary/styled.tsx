@@ -114,6 +114,7 @@ export const TopBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
+  margin-top: 32px;
 `;
 
 // DiaryBoard
@@ -150,7 +151,7 @@ export const AddDiaryInput = styled.textarea`
   padding: 8px 0;
   border: 1px solid #e5e5e5;
   width: 100%;
-  font-size: 16px;
+  font-size: 1rem;
 
   &:focus {
     outline: none;
@@ -160,7 +161,7 @@ export const AddDiaryInput = styled.textarea`
 export const AddDiaryButton = styled.button`
   display: block;
   padding: 12px 0;
-  font-size: 16px;
+  font-size: 1rem;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};
   cursor: pointer;
@@ -174,7 +175,7 @@ export const DiaryEditContainer = styled.div`
 
 export const DeleteDiaryButton = styled.button`
   padding: 12px 0;
-  font-size: 16px;
+  font-size: 1rem;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};
   cursor: pointer;
@@ -289,11 +290,7 @@ export const StockSearchItem = styled.div`
 export const StockTextArea = styled.textarea`
   border: none;
   line-height: 4ch;
-  background-image: linear-gradient(
-    transparent,
-    transparent calc(4ch - 1px),
-    #afafaf 0px
-  );
+  background-image: linear-gradient(transparent, transparent calc(4ch - 1px), #afafaf 0px);
   width: 80%;
   background-size: 100% 4ch;
   margin-bottom: 2rem;
@@ -349,8 +346,7 @@ export const Buttons = styled.div<{ isEditMode: boolean }>`
 
   & > button:nth-child(1) {
     border-bottom-left-radius: 1rem;
-    background-color: ${(props) =>
-      props.isEditMode ? props.theme.colors.red : '#e6e5e5'};
+    background-color: ${(props) => (props.isEditMode ? props.theme.colors.red : '#e6e5e5')};
     color: ${(props) => props.isEditMode && 'white'};
   }
 
@@ -359,4 +355,26 @@ export const Buttons = styled.div<{ isEditMode: boolean }>`
     background-color: ${(props) => props.theme.colors.main};
     color: white;
   }
+`;
+
+export const SearchItem = styled.div`
+  display: flex;
+  /* justify-content: space-bet; */
+  font-size: 0.75rem;
+  color: #afafaf;
+  padding: 8px 16px;
+  cursor: pointer;
+`;
+
+export const SearchStockItem = styled(SearchItem)`
+  justify-content: space-between;
+`;
+
+export const SearchItemSpan = styled.span`
+  display: inline-block;
+  margin-right: 16px;
+`;
+
+export const SearchItemBlueColor = styled.span`
+  color: ${(props) => props.theme.colors.main};
 `;

@@ -1,13 +1,16 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
-import { ReactComponent as SearchIcon } from '@svgs/search.svg';
+import SearchBar from '@components/common/SearchBar';
 import * as S from './styled';
-import { Stock } from '@stores/stock/types';
-import { useAddStockMutation, useUpdateStockMutation, useDeleteStockMutation } from '@stores/stock';
-import { useGetListedStocksQuery } from '@stores/listed-stock';
+import { StockTransaction, StockTransactionDto } from '@stores/stock-transaction/types';
+import {
+  useAddStockTransactionMutation,
+  useUpdateStockTransactionMutation,
+  useDeleteStockTransactionMutation,
+} from '@stores/stock-transaction';
+import { useLazyGetListedStocksQuery } from '@stores/listed-stock';
 import { debounce } from '@utils/debounce';
 import { DateObj } from './Calendar/types';
-import SearchBar from '@components/common/SearchBar';
 
 interface Props {
   show: boolean;
@@ -15,7 +18,7 @@ interface Props {
   stockType: 'buy' | 'sell';
   date: DateObj;
   isEditMode: boolean;
-  currentStock: Stock;
+  currentStock: StockTransaction;
 }
 
 const stockTypeKorean = {
@@ -23,22 +26,14 @@ const stockTypeKorean = {
   sell: '매도',
 };
 
-const stockList = [
-  {
-    name: '삼성전자',
-    code: '005930',
-  },
-  { name: 'KCC건설', code: '021320' },
-  { name: 'KB금융', code: '105560' },
-];
-
+// TODO: 유효성 검사, 검색값 유효성 검사
 function StockInputModal({ show, setShow, stockType, date, isEditMode, currentStock }: Props) {
-  const [addStock] = useAddStockMutation();
-  const [updateStock] = useUpdateStockMutation();
-  const [deleteStock] = useDeleteStockMutation();
+  const [addStock] = useAddStockTransactionMutation();
+  const [updateStock] = useUpdateStockTransactionMutation();
+  const [deleteStock] = useDeleteStockTransactionMutation();
 
-  const [newStock, setNewStock] = useState<Stock>({
-    name: '',
+  const [newStock, setNewStock] = useState<StockTransactionDto>({
+    listedStockId: '',
     quantity: 0,
     price: 0,
     fee: 0,
@@ -47,18 +42,17 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
     date: new Date(`${date.year}-${date.month}-${date.date}`),
   });
 
-  const [stockName, setStockName] = useState<string>('');
+  const [listedStock, setListedStock] = useState<{ name: string; id: string }>({ name: '', id: '' });
   const [searchValue, setSearchValue] = useState<string>('');
 
-  const { data: stockSearchList } = useGetListedStocksQuery({
-    name: searchValue,
-  });
+  const [trigger, { data: stockSearchList }] = useLazyGetListedStocksQuery();
 
-  const debouncedPrefetch = (name: string) => debounce(() => setSearchValue(name), 400)();
+  const debouncedPrefetch = (name: string) => debounce(() => trigger({ name }), 400)();
 
   useEffect(() => {
     if (isEditMode) {
-      setNewStock({ ...currentStock });
+      const { listedStock, ...others } = currentStock;
+      setNewStock({ ...others, listedStockId: listedStock.id });
     }
   }, [isEditMode, currentStock]);
 
@@ -66,6 +60,45 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
     setNewStock({ ...newStock, [e.target.name]: e.target.value });
   };
 
+  const renderSearchItem = () => {
+    if (!stockSearchList) return null;
+
+    return (
+      <>
+        {stockSearchList.map((searchItem, index) => (
+          <S.SearchStockItem
+            key={index}
+            onMouseDown={() => {
+              setListedStock({ ...listedStock, name: searchItem.name, id: searchItem.id });
+              setNewStock({ ...newStock, listedStockId: searchItem.id });
+              setSearchValue(searchItem.name);
+            }}
+          >
+            <span>{searchItem.name}</span>
+            <span>{searchItem.id}</span>
+          </S.SearchStockItem>
+        ))}
+      </>
+    );
+  };
+  // <S.SearchList>
+  //   {searchList.map((searchItem, index) => (
+  //     <S.SearchItem
+  //       key={index}
+  //       onMouseDown={() => {
+  //         // if (inputRef.current) {
+  //         //   inputRef.current.value = searchItem[firstKey];
+  //         // }
+  //         if (setValue) {
+  //           setValue(searchItem);
+  //         }
+  //       }}
+  //     >
+  //       <span>{searchItem[firstKey]}</span>
+  //       {secondKey && <span>{searchItem[secondKey]}</span>}
+  //     </S.SearchItem>
+  //   ))}
+  // </S.SearchList>
   // TODO: 유효성 검증(숫자만 입력.)
   return (
     <Modal show={show} setShow={setShow}>
@@ -77,17 +110,18 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
           <S.StockInputSearchContainer>
             <S.StockLabel>종목</S.StockLabel>
             <SearchBar
-              value={stockName}
+              value={searchValue}
               isInModal={true}
               placeholder="종목을 검색하세요"
               onChange={(e) => {
+                // debouncedPrefetch(e.target.value);
+                // setListedStock({ ...listedStock, name: e.target.value });
+                setSearchValue(e.target.value);
                 debouncedPrefetch(e.target.value);
-                setStockName(e.target.value);
               }}
-              setValue={setStockName}
+              setValue={setSearchValue}
               searchList={stockSearchList || []}
-              firstKey="name"
-              secondKey="id"
+              renderItem={renderSearchItem}
             />
           </S.StockInputSearchContainer>
           <S.StockInputContainer>
@@ -95,18 +129,18 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
             <S.StockCountAndPrice>
               <S.StockCount>
                 <div>
-                  <S.StockInput name="quantity" onChange={handleInputChange} value={newStock.quantity} />
+                  <S.StockInput type="number" name="quantity" onChange={handleInputChange} value={newStock.quantity} />
                   <span style={{ display: 'inline-block' }}>개</span>
                 </div>
                 <S.Multiply>X</S.Multiply>
                 <div>
-                  <S.StockInput name="price" onChange={handleInputChange} value={newStock.price} />
+                  <S.StockInput type="number" name="price" onChange={handleInputChange} value={newStock.price} />
                   <span style={{ display: 'inline-block' }}>원</span>
                 </div>
               </S.StockCount>
               <S.StockCount>
                 + 수수료
-                <S.StockInput name="fee" onChange={handleInputChange} value={newStock.fee} />
+                <S.StockInput type="number" name="fee" onChange={handleInputChange} value={newStock.fee} />
                 <span>원</span>
               </S.StockCount>
               <S.StockCount>
@@ -144,7 +178,7 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
               } else {
                 addStock({
                   ...newStock,
-                  name: stockName,
+                  listedStockId: listedStock.id,
                   date: new Date(`${date.year}-${date.month}-${date.date}`),
                 });
               }

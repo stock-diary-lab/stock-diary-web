@@ -1,39 +1,78 @@
+import { useGetDiariesQuery } from '@stores/diary';
 import * as S from './styled';
 
 function HistoryBoard() {
-  const contents = [
-    '✔  오늘 알체라가 급락함',
-    '건설주가 심상치 않대',
-    'ㅇ하반기에 금리 인상하지 않을까?',
-    'ddddddd',
-  ];
+  // TODO: query 개선(한달치 말고 한달전, 일주일 전꺼만 받아오기)
+
+  const getPrevWeekDate = (today: Date) =>
+    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7).toLocaleDateString();
+
+  const getPrevMonthDate = (today: Date) =>
+    new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()).toLocaleDateString();
+
+  const { data: diaries } = useGetDiariesQuery({
+    startDate: getPrevMonthDate(new Date()),
+    endDate: getPrevWeekDate(new Date()),
+  });
 
   return (
     <S.BoardContainer>
       <S.HistoryBoard>
-        <S.HistoryBoardHeader>
-          일주일 전의 기록 - 2021. 10.03
-        </S.HistoryBoardHeader>
+        <S.HistoryBoardHeader>일주일 전의 기록 - {getPrevWeekDate(new Date())}</S.HistoryBoardHeader>
         <S.HistoryBoardContentContainer>
-          {contents.map((content) => (
-            <S.HistoryBoardContent key={content}>
-              {content}
-            </S.HistoryBoardContent>
-          ))}
-          <S.HistoryBoardInput type="text" />
+          {Array(5)
+            .fill(0)
+            .map((_, idx) => (
+              <S.HistoryBoardContent
+                key={`${idx}-prevWeek`}
+                isExistContent={
+                  !!diaries && !!diaries[getPrevWeekDate(new Date())] && !!diaries[getPrevWeekDate(new Date())][idx]
+                }
+              >
+                <pre>
+                  {diaries &&
+                    diaries[getPrevWeekDate(new Date())] &&
+                    diaries[getPrevWeekDate(new Date())][idx]?.content}
+                </pre>
+              </S.HistoryBoardContent>
+            ))}
+          {diaries &&
+            diaries[getPrevWeekDate(new Date())]
+              ?.filter((_, idx) => idx >= 5)
+              .map((diary) => (
+                <S.HistoryBoardContent key={diary.content}>
+                  <pre>{diary.content}</pre>
+                </S.HistoryBoardContent>
+              ))}
         </S.HistoryBoardContentContainer>
       </S.HistoryBoard>
       <S.HistoryBoard>
-        <S.HistoryBoardHeader>
-          한 달 전의 기록 - 2021. 09.10
-        </S.HistoryBoardHeader>
+        <S.HistoryBoardHeader>한 달 전의 기록 - {getPrevMonthDate(new Date())}</S.HistoryBoardHeader>
         <S.HistoryBoardContentContainer>
-          {contents.map((content) => (
-            <S.HistoryBoardContent key={content}>
-              {content}
-            </S.HistoryBoardContent>
-          ))}
-          <S.HistoryBoardInput type="text" />
+          {Array(5)
+            .fill(0)
+            .map((_, idx) => (
+              <S.HistoryBoardContent
+                key={`${idx}-prevMonth`}
+                isExistContent={
+                  !!diaries && !!diaries[getPrevMonthDate(new Date())] && !!diaries[getPrevMonthDate(new Date())][idx]
+                }
+              >
+                <pre>
+                  {diaries &&
+                    diaries[getPrevMonthDate(new Date())] &&
+                    diaries[getPrevMonthDate(new Date())][idx]?.content}
+                </pre>
+              </S.HistoryBoardContent>
+            ))}
+          {diaries &&
+            diaries[getPrevMonthDate(new Date())]
+              ?.filter((_, idx) => idx >= 5)
+              .map((diary) => (
+                <S.HistoryBoardContent key={diary.content}>
+                  <pre>{diary.content}</pre>
+                </S.HistoryBoardContent>
+              ))}
         </S.HistoryBoardContentContainer>
       </S.HistoryBoard>
     </S.BoardContainer>
