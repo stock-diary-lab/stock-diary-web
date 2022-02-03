@@ -2,7 +2,7 @@ import * as S from './styled';
 import PhraseBoard from './PhraseBoard';
 import { ResponsiveContainer, PieChart, Pie, Label, Cell } from 'recharts';
 import { useState } from 'react';
-import { useGetTopSectorsQuery, useGetTopStocksQuery } from '@stores/stock-transaction';
+import { useGetTopFiveQuery } from '@stores/stock-transaction';
 import styled from '@styles/theme-components';
 
 function Dashboard() {
@@ -11,18 +11,8 @@ function Dashboard() {
   const [sectorActiveIndex, setSectorActiveIndex] = useState<number>(0);
   const [stockActiveIndex, setStockActiveIndex] = useState<number>(0);
 
-  // const isBigTablet = useMediaQuery({
-  //   query: '(min-width: 1366px)',
-  // });
+  const { data: rankItems } = useGetTopFiveQuery({});
 
-  // const isSmallTablet = useMediaQuery({
-  //   query: '(max-width: 1024px)',
-  // });
-
-  const { data: rankItems } = useGetTopStocksQuery({});
-  const { data: sectors } = useGetTopSectorsQuery({});
-
-  // console.log(rankItems);
   return (
     <S.DashboardContainer>
       <S.Heading>🚀 자주 들여다 보는 대시보드</S.Heading>
@@ -31,10 +21,10 @@ function Dashboard() {
         <S.MiddleLeft>
           <S.Heading>보유 섹터 Top 5</S.Heading>
           <ResponsiveContainer width="100%" height={230}>
-            {sectors && sectors.length !== 0 ? (
+            {rankItems && rankItems.topFiveSectors.length !== 0 ? (
               <PieChart>
                 <Pie
-                  data={sectors}
+                  data={rankItems.topFiveSectors}
                   dataKey="percent"
                   nameKey="sector"
                   activeIndex={sectorActiveIndex}
@@ -46,7 +36,7 @@ function Dashboard() {
                   onMouseEnter={(_, index) => setSectorActiveIndex(index)}
                 >
                   <Label
-                    value={`${sectors[sectorActiveIndex].sector} (${sectors[sectorActiveIndex].percent}%)`}
+                    value={`${rankItems.topFiveSectors[sectorActiveIndex].sector} (${rankItems.topFiveSectors[sectorActiveIndex].percent}%)`}
                     position="center"
                   />
                   {colors.map((color) => (
@@ -62,10 +52,10 @@ function Dashboard() {
         <S.MiddleRight>
           <S.Heading>보유 주식 비중 Top 5</S.Heading>
           <ResponsiveContainer width="100%" height={230}>
-            {rankItems && rankItems.length !== 0 ? (
+            {rankItems && rankItems.topFiveStocks.length !== 0 ? (
               <PieChart>
                 <Pie
-                  data={rankItems}
+                  data={rankItems.topFiveStocks}
                   dataKey="percent"
                   nameKey="name"
                   activeIndex={stockActiveIndex}
@@ -77,7 +67,7 @@ function Dashboard() {
                   onMouseEnter={(_, index) => setStockActiveIndex(index)}
                 >
                   <Label
-                    value={`${rankItems[stockActiveIndex].name} (${rankItems[stockActiveIndex].percent}%)`}
+                    value={`${rankItems.topFiveStocks[stockActiveIndex].name} (${rankItems.topFiveStocks[stockActiveIndex].percent}%)`}
                     position="center"
                   />
                   {colors.map((color) => (

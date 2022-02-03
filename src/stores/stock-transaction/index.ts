@@ -54,15 +54,9 @@ export const stockTransactionApi = createApi({
       }),
       invalidatesTags: ['StockTransaction'],
     }),
-    getTopStocks: builder.query<TopStock[], {}>({
+    getTopFive: builder.query<{ topFiveStocks: TopStock[]; topFiveSectors: TopSector[] }, {}>({
       query: () => ({
-        url: 'listed-stock/top',
-      }),
-      providesTags: ['StockTransaction'],
-    }),
-    getTopSectors: builder.query<TopSector[], {}>({
-      query: () => ({
-        url: 'listed-stock/top-sectors',
+        url: 'bought-stock/top5',
       }),
       providesTags: ['StockTransaction'],
     }),
@@ -76,8 +70,7 @@ export const {
   useLazySearchTransactionsQuery,
   useUpdateStockTransactionMutation,
   useDeleteStockTransactionMutation,
-  useGetTopSectorsQuery,
-  useGetTopStocksQuery,
+  useGetTopFiveQuery,
 } = stockTransactionApi;
 
 export default stockTransactionApi.reducer;
