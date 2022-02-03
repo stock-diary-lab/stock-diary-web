@@ -53,6 +53,8 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
     if (isEditMode) {
       const { listedStock, ...others } = currentStock;
       setNewStock({ ...others, listedStockId: listedStock.id });
+      setListedStock({ ...listedStock });
+      setSearchValue(listedStock.name);
     }
   }, [isEditMode, currentStock]);
 
@@ -179,6 +181,15 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
                 addStock({
                   ...newStock,
                   listedStockId: listedStock.id,
+                  date: new Date(`${date.year}-${date.month}-${date.date}`),
+                });
+                setNewStock({
+                  listedStockId: '',
+                  quantity: 0,
+                  price: 0,
+                  fee: 0,
+                  type: stockType,
+                  reason: '',
                   date: new Date(`${date.year}-${date.month}-${date.date}`),
                 });
               }
