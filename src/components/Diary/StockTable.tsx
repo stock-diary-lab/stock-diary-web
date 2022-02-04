@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import { useGetStockTransactionsQuery } from '@stores/stock-transaction';
 import { useState } from 'react';
 import StockInputModal from './StockInputModal';
@@ -37,6 +37,11 @@ function StockTable({ stockType, date, setDate }: Props) {
     endDate: `${date.year}-${date.month}-${date.date}`,
   });
 
+  const stockTransactions = useMemo(() => {
+    if (!stockObj) return null;
+    return stockObj[`${date.year}. ${date.month}. ${date.date}.`]?.filter((stock) => stock.type === stockType);
+  }, [stockObj, date, stockType]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -56,25 +61,54 @@ function StockTable({ stockType, date, setDate }: Props) {
             </S.TRow>
           </S.THeader>
           <S.TBody>
-            {stockObj &&
-              stockObj[`${date.year}. ${date.month}. ${date.date}.`]
-                ?.filter((stock) => stock.type === stockType)
-                .map((stock, id) => (
-                  <S.TRow
-                    key={`${stock.listedStock.name}-${id}`}
-                    onClick={() => {
-                      setIsEditMode(true);
-                      setCurrentStock({ ...stock });
-                      setModalShow(true);
-                    }}
-                  >
-                    <S.TData textAlign="center">{stock.listedStock.name}</S.TData>
-                    <S.TData textAlign="right">{stock.quantity}개</S.TData>
-                    <S.TData textAlign="right">{(stock.price * 1).toLocaleString()}원</S.TData>
-                    <S.TData textAlign="right">{(stock.quantity * stock.price).toLocaleString()}원</S.TData>
-                    <S.TData>{stock.reason}</S.TData>
-                  </S.TRow>
-                ))}
+            {new Array(4).fill(0).map((_, idx) => (
+              <S.TRow
+                key={`${stockTransactions?.[idx]?.listedStock.name}-${idx}`}
+                onClick={() => {
+                  if (!stockTransactions) return;
+                  setIsEditMode(true);
+                  setCurrentStock({ ...stockTransactions[idx] });
+                  setModalShow(true);
+                }}
+              >
+                <S.TData textAlign="center">{stockTransactions?.[idx]?.listedStock.name}</S.TData>
+                <S.TData textAlign="right">
+                  {stockTransactions &&
+                    stockTransactions[idx] &&
+                    Number(stockTransactions?.[idx]?.quantity).toLocaleString() + '개'}
+                </S.TData>
+                <S.TData textAlign="right">
+                  {stockTransactions &&
+                    stockTransactions[idx] &&
+                    Number(stockTransactions?.[idx]?.price).toLocaleString() + '원'}
+                </S.TData>
+                <S.TData textAlign="right">
+                  {stockTransactions &&
+                    stockTransactions[idx] &&
+                    (
+                      Number(stockTransactions?.[idx]?.quantity) * Number(stockTransactions?.[idx]?.price)
+                    ).toLocaleString() + '원'}
+                </S.TData>
+                <S.TData>{stockTransactions?.[idx]?.reason}</S.TData>
+              </S.TRow>
+            ))}
+            {stockTransactions &&
+              stockTransactions.slice(4).map((stock, id) => (
+                <S.TRow
+                  key={`${stock.listedStock.name}-${id}`}
+                  onClick={() => {
+                    setIsEditMode(true);
+                    setCurrentStock({ ...stock });
+                    setModalShow(true);
+                  }}
+                >
+                  <S.TData textAlign="center">{stock.listedStock.name}</S.TData>
+                  <S.TData textAlign="right">{stock.quantity}개</S.TData>
+                  <S.TData textAlign="right">{(stock.price * 1).toLocaleString()}원</S.TData>
+                  <S.TData textAlign="right">{(stock.quantity * stock.price).toLocaleString()}원</S.TData>
+                  <S.TData>{stock.reason}</S.TData>
+                </S.TRow>
+              ))}
           </S.TBody>
           <S.AddButton
             onClick={() => {

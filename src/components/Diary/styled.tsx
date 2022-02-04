@@ -48,18 +48,19 @@ export const THead = styled.th``;
 
 export const TBody = styled.tbody`
   display: block;
-  height: 108px;
+  height: 128px;
   overflow: scroll;
 
   & > tr {
     display: table;
     width: 100%;
     table-layout: fixed;
+    height: 32px;
+    cursor: pointer;
   }
 
   & > tr > td {
-    padding: 12px 16px;
-    padding-bottom: 0.5rem;
+    padding: 10px 16px;
     border-right: 1px solid ${(props) => props.theme.colors.whiteGray};
     white-space: nowrap;
     overflow: hidden;
