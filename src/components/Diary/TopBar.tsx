@@ -23,7 +23,7 @@ function TopBar({ date, setDate }: Props) {
       triggerSearchTransactions({ searchWord: searchValue });
     }, 400)();
 
-  const handleClickSearchItem = (date: Date) => {
+  const handleClickSearchItem = (date: string) => {
     setDate({
       year: new Date(date).getFullYear(),
       month: new Date(date).getMonth() + 1,

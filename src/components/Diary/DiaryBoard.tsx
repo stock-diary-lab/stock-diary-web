@@ -1,5 +1,6 @@
 import { useAddDiaryMutation, useGetDiariesQuery, useUpdateDiaryMutation, useDeleteDiaryMutation } from '@stores/diary';
 import { Diary } from '@stores/diary/types';
+import { customLocaleDateString } from '@utils/date';
 import { useState } from 'react';
 import { DateObj } from './Calendar/types';
 import DiaryInput from './DiaryInput';
@@ -28,8 +29,8 @@ function DiaryBoard({ date }: Props) {
       <S.DiaryBoardContainer>
         <div>
           {diaries &&
-            diaries[`${date.year}. ${date.month}. ${date.date}.`] &&
-            (diaries[`${date.year}. ${date.month}. ${date.date}.`] as Diary[]).map((diary: Diary) =>
+            diaries[customLocaleDateString(date)] &&
+            (diaries[customLocaleDateString(date)] as Diary[]).map((diary: Diary) =>
               editActive[diary.id as string] ? (
                 <S.DiaryEditContainer key={diary.id}>
                   <DiaryInput
@@ -88,7 +89,7 @@ function DiaryBoard({ date }: Props) {
                 if (e.code === 'Enter' && !e.shiftKey) {
                   addDiary({
                     content: e.currentTarget.value || '',
-                    date: new Date(`${date.year}-${date.month}-${date.date}`),
+                    date: customLocaleDateString(date),
                   });
                   setAddActive(false);
                 }

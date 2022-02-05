@@ -6,6 +6,7 @@ import * as S from './styled';
 import { DateObj } from './Calendar/types';
 import { StockTransaction } from '@stores/stock-transaction/types';
 import { MarketType } from '@stores/listed-stock/types';
+import { customLocaleDateString } from '@utils/date';
 
 interface Props {
   stockType: 'buy' | 'sell';
@@ -29,7 +30,7 @@ function StockTable({ stockType, date, setDate }: Props) {
     fee: 0,
     type: 'buy',
     reason: '',
-    date: new Date(),
+    date: customLocaleDateString(date),
   });
 
   const { isLoading, data: stockObj } = useGetStockTransactionsQuery({
@@ -39,7 +40,7 @@ function StockTable({ stockType, date, setDate }: Props) {
 
   const stockTransactions = useMemo(() => {
     if (!stockObj) return null;
-    return stockObj[`${date.year}. ${date.month}. ${date.date}.`]?.filter((stock) => stock.type === stockType);
+    return stockObj[customLocaleDateString(date)]?.filter((stock) => stock.type === stockType);
   }, [stockObj, date, stockType]);
 
   if (isLoading) {

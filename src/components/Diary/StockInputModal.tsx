@@ -11,6 +11,7 @@ import {
 import { useLazyGetListedStocksQuery } from '@stores/listed-stock';
 import { debounce } from '@utils/debounce';
 import { DateObj } from './Calendar/types';
+import { customLocaleDateString } from '@utils/date';
 
 interface Props {
   show: boolean;
@@ -39,7 +40,7 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
     fee: 0,
     type: stockType,
     reason: '',
-    date: new Date(`${date.year}-${date.month}-${date.date}`),
+    date: customLocaleDateString(date),
   });
 
   const [listedStock, setListedStock] = useState<{ name: string; id: string }>({ name: '', id: '' });
@@ -181,7 +182,7 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
                 addStock({
                   ...newStock,
                   listedStockId: listedStock.id,
-                  date: new Date(`${date.year}-${date.month}-${date.date}`),
+                  date: customLocaleDateString(date),
                 });
                 setNewStock({
                   listedStockId: '',
@@ -190,7 +191,7 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
                   fee: 0,
                   type: stockType,
                   reason: '',
-                  date: new Date(`${date.year}-${date.month}-${date.date}`),
+                  date: customLocaleDateString(date),
                 });
               }
               setShow(false);
