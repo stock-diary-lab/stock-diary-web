@@ -7,7 +7,7 @@ export interface StockTransaction {
   fee?: number;
   type: 'buy' | 'sell';
   reason: string;
-  date: Date;
+  date: string;
   income?: number;
   incomeRatio?: number;
   listedStock: ListedStock;
@@ -21,5 +21,5 @@ export interface StockTransactionDto {
   fee?: number;
   type: 'buy' | 'sell';
   reason: string;
-  date: Date;
+  date: string;
 }

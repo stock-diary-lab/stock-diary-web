@@ -30,7 +30,7 @@ function DetailHistoryTable({ range }: Props) {
     reason: '',
     income: 0,
     incomeRatio: 0,
-    date: new Date(),
+    date: '',
   });
 
   useEffect(() => {
@@ -39,6 +39,7 @@ function DetailHistoryTable({ range }: Props) {
     }
   }, [stockObj]);
 
+  // TODO: 필터 다시
   const [filters, setFilters] = useState<{ [key: string]: 'descend' | 'ascend' }>({
     name: 'descend',
     type: 'descend',

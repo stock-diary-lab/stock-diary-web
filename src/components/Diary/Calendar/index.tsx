@@ -8,6 +8,7 @@ import { useGetStockTransactionsQuery } from '@stores/stock-transaction';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { StockTransaction } from '@stores/stock-transaction/types';
+import { customLocaleDateString } from '@utils/date';
 
 dayjs.locale('ko');
 
@@ -40,10 +41,8 @@ function Calendar({ date, setDate, show, setShow }: Props) {
   }, [date.date, date.month, date.year, show]);
 
   const { data: stockObj } = useGetStockTransactionsQuery({
-    startDate: new Date(`${yearMonth.year}-${yearMonth.month}-01`).toLocaleDateString(),
-    endDate: new Date(
-      `${yearMonth.year + (yearMonth.month === 12 ? 1 : 0)}-${(yearMonth.month + 1) % 12 || 12}-01`
-    ).toLocaleDateString(),
+    startDate: `${yearMonth.year}-${yearMonth.month}-01`,
+    endDate: `${yearMonth.year + (yearMonth.month === 12 ? 1 : 0)}-${(yearMonth.month + 1) % 12 || 12}-01`,
   });
 
   const setMonth = (setMonthType: SetMonthType) => {
@@ -162,18 +161,18 @@ function Calendar({ date, setDate, show, setShow }: Props) {
             요일
           </h3>
           <div>
-            {stockObj && stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`] && (
+            {stockObj && stockObj[customLocaleDateString(date)] && (
               <>
-                {getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'buy') && (
+                {getStockNames(stockObj[customLocaleDateString(date)], 'buy') && (
                   <p>
                     매수종목:
-                    {' ' + getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'buy')}
+                    {' ' + getStockNames(stockObj[customLocaleDateString(date)], 'buy')}
                   </p>
                 )}
-                {getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'sell') && (
+                {getStockNames(stockObj[customLocaleDateString(date)], 'sell') && (
                   <p>
                     매도종목:
-                    {' ' + getStockNames(stockObj[`${yearMonth.year}. ${yearMonth.month}. ${calendarDate}.`], 'sell')}
+                    {' ' + getStockNames(stockObj[customLocaleDateString(date)], 'sell')}
                   </p>
                 )}
               </>
