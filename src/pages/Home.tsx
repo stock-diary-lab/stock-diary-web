@@ -40,9 +40,10 @@ function Home() {
   return (
     <S.RootContainer>
       <NavMenu />
-      <S.Main>
-        <Dashboard />
-        {/* <button
+      <S.HomeContainer>
+        <S.Main>
+          <Dashboard />
+          {/* <button
           onClick={() => {
             localStorage.removeItem('token');
             window.location.href = '/';
@@ -50,9 +51,10 @@ function Home() {
         >
           {data && data.userName} 님 로그아웃
         </button> */}
-        <HistoryBoard />
-      </S.Main>
-      <IndexBoard />
+          <HistoryBoard />
+        </S.Main>
+        <IndexBoard />
+      </S.HomeContainer>
     </S.RootContainer>
   );
 }

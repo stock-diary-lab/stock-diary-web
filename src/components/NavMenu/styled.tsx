@@ -48,10 +48,10 @@ export const LogoContainer = styled.div`
   /* position: absolute;
   top: 20px; */
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  padding: 48px 0;
+  /* padding: 48px 0; */
 `;
 
 export const Title = styled.h3`
@@ -62,12 +62,13 @@ export const Title = styled.h3`
 
 export const IconButtonContainer = styled.div`
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-end;
   background-color: ${({ theme }) => theme.colors.white};
   padding: 1rem;
-  flex-direction: column;
+  /* flex-direction: column; */
   /* ${({ theme }) =>
     theme.media.desktop(`
       flex-direction: row;
@@ -87,9 +88,11 @@ export const NavBar = styled.nav`
     theme.media.tablet(`
   `)} */
   display: flex;
-  height: 100vh;
-  width: fit-content;
+  width: 100%;
+  /* height: 100vh; */
+  /* width: fit-content; */
   justify-content: center;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
+  padding: 0 24px;
 `;

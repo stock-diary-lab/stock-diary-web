@@ -19,18 +19,10 @@ function NavMenu() {
         <S.Title>자주노트</S.Title>
       </S.LogoContainer>
       <S.IconButtonContainer>
-        <S.IconButton
-          isSelected={pathName === '/'}
-          onClick={() => history.push('/')}
-          pageName="HOME"
-        >
+        <S.IconButton isSelected={pathName === '/'} onClick={() => history.push('/')} pageName="HOME">
           <HomeIcon />
         </S.IconButton>
-        <S.IconButton
-          isSelected={pathName === '/diary'}
-          onClick={() => history.push('/diary')}
-          pageName="일지"
-        >
+        <S.IconButton isSelected={pathName === '/diary'} onClick={() => history.push('/diary')} pageName="일지">
           <DiaryIcon />
         </S.IconButton>
         <S.IconButton
@@ -40,25 +32,13 @@ function NavMenu() {
         >
           <SettlementIcon />
         </S.IconButton>
-        <S.IconButton
-          isSelected={pathName === '/news'}
-          onClick={() => history.push('/news')}
-          pageName="뉴스"
-        >
+        <S.IconButton isSelected={pathName === '/news'} onClick={() => history.push('/news')} pageName="뉴스">
           <NewsIcon />
         </S.IconButton>
-        <S.IconButton
-          isSelected={pathName === '/mypage'}
-          onClick={() => history.push('/mypage')}
-          pageName="MY"
-        >
+        <S.IconButton isSelected={pathName === '/mypage'} onClick={() => history.push('/mypage')} pageName="MY">
           <MyPageIcon />
         </S.IconButton>
-        <S.IconButton
-          isSelected={pathName === '/settings'}
-          onClick={() => history.push('/settings')}
-          pageName="설정"
-        >
+        <S.IconButton isSelected={pathName === '/settings'} onClick={() => history.push('/settings')} pageName="설정">
           <SettingIcon />
         </S.IconButton>
       </S.IconButtonContainer>
