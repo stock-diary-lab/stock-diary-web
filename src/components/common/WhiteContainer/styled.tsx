@@ -6,4 +6,5 @@ export const WhiteContainer = styled.section<{ width?: string; height?: string }
   border-radius: 12px;
   width: ${(props) => props.width || 'auto'};
   height: ${(props) => props.height || 'auto'};
+  overflow-y: scroll;
 `;

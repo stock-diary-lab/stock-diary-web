@@ -1,4 +1,4 @@
-import FavoriteStocks from '@components/MyPage/FavoriteStocks';
+import MyPageComponent from '@components/MyPage';
 import NavMenu from '@components/NavMenu';
 
 import * as S from './styled';
@@ -8,7 +8,7 @@ function MyPage() {
     <S.RootContainer>
       <NavMenu />
       <S.Main>
-        <FavoriteStocks />
+        <MyPageComponent />
       </S.Main>
     </S.RootContainer>
   );

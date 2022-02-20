@@ -1,32 +1,33 @@
 import styled from '@styles/theme-components';
 
-export const FavoriteStocksContainer = styled.section`
-  width: 25%;
-  min-height: 900px;
-  overflow-y: scroll;
-  margin: 16px 32px;
+export const MyPageTitle = styled.h3`
+  font-weight: 500;
+  font-size: 24px;
 `;
 
-export const FavoriteStockItemContainer = styled.div`
+export const MyPageContainer = styled.section`
+  display: flex;
+  justify-content: center;
+`;
+
+export const MyPageItemContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 24px 32px;
   overflow-y: scroll;
 `;
 
-export const FavoriteStockItem = styled.div`
+export const MyPageItem = styled.div`
   padding: 16px 4px;
   border-bottom: 1px solid #e5e5e5;
   display: flex;
   justify-content: space-between;
   min-height: 44px;
   cursor: pointer;
-`;
 
-export const AddBtn = styled.button`
-  color: ${(props) => props.theme.colors.main};
-  border-bottom: 1px solid ${(props) => props.theme.colors.main};
-  padding: 0;
+  &[contenteditable] {
+    outline: none;
+  }
 `;
 
 export const DeleteBtn = styled.button`

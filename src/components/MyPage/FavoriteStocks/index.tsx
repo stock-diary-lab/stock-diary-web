@@ -3,6 +3,7 @@ import { useGetFavoriteStocksQuery, useDeleteFavoriteStockMutation } from '@stor
 import { useState } from 'react';
 import ListedStockSearchBar from '../ListedStockSearchBar';
 import * as S from './styled';
+import * as CommonS from '../styled';
 
 const MAX_LEN = 14;
 
@@ -13,18 +14,23 @@ function FavoriteStocks() {
   const [deleteFavoriteStock] = useDeleteFavoriteStockMutation();
 
   return (
-    <>
-      <S.FavoriteStockTitle>최선호종목</S.FavoriteStockTitle>
-      <WhiteContainer width="30%" height="80%">
+    <S.FavoriteStocksContainer>
+      <CommonS.MyPageTitle>최선호종목</CommonS.MyPageTitle>
+      <WhiteContainer height="800px">
         <S.FavoriteStockItemContainer onClick={() => setAddActive(false)}>
           {new Array(MAX_LEN).fill(0).map((_, idx) => {
-            if (favoriteStocks && favoriteStocks.length < MAX_LEN && favoriteStocks[idx - 1] && !favoriteStocks[idx]) {
+            if (
+              favoriteStocks &&
+              favoriteStocks.length < MAX_LEN &&
+              ((favoriteStocks[idx - 1] && !favoriteStocks[idx]) || (favoriteStocks.length === 0 && idx === 0))
+            ) {
               return (
                 <S.FavoriteStockItem
                   onClick={(e) => {
                     e.stopPropagation();
                     setAddActive(true);
                   }}
+                  key="add"
                 >
                   {addActive && (
                     <ListedStockSearchBar
@@ -80,7 +86,7 @@ function FavoriteStocks() {
           )}
         </S.FavoriteStockItemContainer>
       </WhiteContainer>
-    </>
+    </S.FavoriteStocksContainer>
   );
 }
 
