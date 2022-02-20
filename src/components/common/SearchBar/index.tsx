@@ -10,10 +10,12 @@ interface Props {
   value?: any;
   setValue?: (val: any) => void;
   renderItem?: () => JSX.Element | null;
+  width?: string;
 }
 
-function SearchBar({ placeholder, onChange, searchList, isInModal, value, setValue, renderItem }: Props) {
+function SearchBar({ placeholder, onChange, searchList, isInModal, value, setValue, renderItem, width }: Props) {
   const [onFocus, setOnFocus] = useState<boolean>(false);
+  const [isHashTag, setIsHashTag] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -21,15 +23,24 @@ function SearchBar({ placeholder, onChange, searchList, isInModal, value, setVal
     <S.SearchContainer isListEmpty={searchList.length === 0} isInModal={isInModal}>
       <S.SearchInputContainer>
         <S.SearchInput
+          width={width}
           isInModal={isInModal}
           isNotFocused={!onFocus}
           type="search"
           value={value || ''}
           placeholder={placeholder}
           autoComplete="off"
-          onChange={onChange}
+          onChange={(e) => {
+            onChange(e);
+            if (e.target.value.startsWith('@')) {
+              setIsHashTag(true);
+            } else {
+              setIsHashTag(false);
+            }
+          }}
           onFocus={() => setOnFocus(true)}
           onBlur={() => setOnFocus(false)}
+          isHashTag={isHashTag}
           ref={inputRef}
         />
         <SearchIcon width={isInModal ? '16' : '20'} />
