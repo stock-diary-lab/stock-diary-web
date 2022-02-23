@@ -17,13 +17,15 @@ function Diary() {
   return (
     <S.RootContainer>
       <NavMenu />
-      <S.Main>
-        <TopBar date={date} setDate={setDate} />
-        <StockTable stockType="buy" date={date} setDate={setDate} />
-        <StockTable stockType="sell" date={date} setDate={setDate} />
-        <DiaryBoard date={date} />
-      </S.Main>
-      <IndexBoard />
+      <S.HomeContainer>
+        <S.Main>
+          <TopBar date={date} setDate={setDate} />
+          <StockTable stockType="buy" date={date} setDate={setDate} />
+          <StockTable stockType="sell" date={date} setDate={setDate} />
+          <DiaryBoard date={date} />
+        </S.Main>
+        <IndexBoard />
+      </S.HomeContainer>
     </S.RootContainer>
   );
 }

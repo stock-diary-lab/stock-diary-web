@@ -163,6 +163,7 @@ export const PhraseHeading = styled(Heading)`
   line-height: 35px;
   white-space: pre-wrap;
   margin-top: 0;
+  overflow-y: scroll;
 `;
 
 export const DashboardHeading = styled(Heading)`
