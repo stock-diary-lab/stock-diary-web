@@ -1,10 +1,4 @@
 import * as S from './styled';
-import { ReactComponent as HomeIcon } from '@svgs/home.svg';
-import { ReactComponent as DiaryIcon } from '@svgs/diary.svg';
-import { ReactComponent as SettlementIcon } from '@svgs/settlement.svg';
-import { ReactComponent as NewsIcon } from '@svgs/news.svg';
-import { ReactComponent as MyPageIcon } from '@svgs/mypage.svg';
-import { ReactComponent as SettingIcon } from '@svgs/setting.svg';
 import { useHistory } from 'react-router';
 
 function NavMenu() {
@@ -15,33 +9,28 @@ function NavMenu() {
   return (
     <S.NavBar>
       <S.LogoContainer>
-        <img src="./logo.png" width="60" alt="logo" />
-        <S.Title>자주노트</S.Title>
+        <img src="./logo.png" width="120" alt="logo" />
       </S.LogoContainer>
-      <S.IconButtonContainer>
-        <S.IconButton isSelected={pathName === '/'} onClick={() => history.push('/')} pageName="HOME">
-          <HomeIcon />
-        </S.IconButton>
-        <S.IconButton isSelected={pathName === '/diary'} onClick={() => history.push('/diary')} pageName="일지">
-          <DiaryIcon />
-        </S.IconButton>
-        <S.IconButton
-          isSelected={pathName === '/settlement'}
-          onClick={() => history.push('/settlement')}
-          pageName="결산"
-        >
-          <SettlementIcon />
-        </S.IconButton>
-        <S.IconButton isSelected={pathName === '/news'} onClick={() => history.push('/news')} pageName="뉴스">
-          <NewsIcon />
-        </S.IconButton>
-        <S.IconButton isSelected={pathName === '/mypage'} onClick={() => history.push('/mypage')} pageName="MY">
-          <MyPageIcon />
-        </S.IconButton>
-        <S.IconButton isSelected={pathName === '/settings'} onClick={() => history.push('/settings')} pageName="설정">
-          <SettingIcon />
-        </S.IconButton>
-      </S.IconButtonContainer>
+      <S.NavItemContainer>
+        <S.NavItem isSelected={pathName === '/'} onClick={() => history.push('/')}>
+          HOME
+        </S.NavItem>
+        <S.NavItem isSelected={pathName === '/diary'} onClick={() => history.push('/diary')}>
+          일지
+        </S.NavItem>
+        <S.NavItem isSelected={pathName === '/settlement'} onClick={() => history.push('/settlement')}>
+          결산
+        </S.NavItem>
+        <S.NavItem isSelected={pathName === '/news'} onClick={() => history.push('/news')}>
+          뉴스
+        </S.NavItem>
+        <S.NavItem isSelected={pathName === '/mypage'} onClick={() => history.push('/mypage')}>
+          MY
+        </S.NavItem>
+        <S.NavItem isSelected={pathName === '/settings'} onClick={() => history.push('/settings')}>
+          설정
+        </S.NavItem>
+      </S.NavItemContainer>
     </S.NavBar>
   );
 }
