@@ -27,6 +27,8 @@ export const SearchInputContainer = styled.div`
 export const SearchInput = styled.input<{
   isInModal: boolean;
   isNotFocused: boolean;
+  isHashTag: boolean;
+  width?: string;
 }>`
   ${(props) =>
     props.isInModal && props.isNotFocused
@@ -41,6 +43,9 @@ export const SearchInput = styled.input<{
   font-size: 0.75rem;
 `}
 
+  ${(props) => props.width && `width: ${props.width};`}
+
+  color: ${(props) => props.isHashTag && props.theme.colors.main};
   &[type='search']::-webkit-search-cancel-button {
     visibility: hidden;
   }
