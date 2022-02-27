@@ -15,7 +15,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_SERVER_HOST,
     prepareHeaders: (headers) => {
-      headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+      headers.set('Authorization', `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`);
       return headers;
     },
   }),
@@ -32,10 +32,16 @@ export const userApi = createApi({
         url: 'user/me',
       }),
     }),
+    deleteUser: builder.mutation<{ message: string }, {}>({
+      query: () => ({
+        url: 'user',
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useLoginWithKakaoMutation, useGetUserQuery } = userApi;
+export const { useLoginWithKakaoMutation, useGetUserQuery, useDeleteUserMutation } = userApi;
 
 export const userSlice = createSlice({
   name: 'user',
