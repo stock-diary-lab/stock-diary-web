@@ -12,6 +12,7 @@ export const SettingsContainer = styled.div`
 export const SettingsTitle = styled.h3`
   font-weight: 500;
   font-size: 24px;
+  margin-bottom: 16px;
 `;
 
 export const SettingItemContainer = styled.div`
@@ -27,6 +28,13 @@ export const SettingItem = styled.div`
   cursor: pointer;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray};
   font-size: 18px;
+`;
+
+export const SettingsBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: #7d7d7d;
+  margin-top: 16px;
 `;
 
 export const ResignModalContent = styled.div`

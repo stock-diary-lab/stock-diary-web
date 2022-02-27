@@ -51,6 +51,12 @@ function SettingsComponent() {
               </S.SettingItem>
             </S.SettingItemContainer>
           </WhiteContainer>
+          <S.SettingsBottom>
+            <a href="https://pf.kakao.com/_cyvbb" target={'_blank'} rel={'noreferrer'}>
+              카카오톡 문의하기
+            </a>
+            <span>Ver 1.0.0</span>
+          </S.SettingsBottom>
         </div>
       </S.SettingsContainer>
       <ResignModal show={resignModalShow} setShow={setResignModalShow} />
