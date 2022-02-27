@@ -21,6 +21,7 @@ function KakaoLoginButton() {
       url: '/v2/user/me',
       success: (res: any) => {
         const kakaoInfo = res.kakao_account;
+        console.log(kakaoInfo)
         const reqBody = {
           providerId: res.id.toString(),
           nickname: kakaoInfo.profile.nickname,
@@ -33,7 +34,10 @@ function KakaoLoginButton() {
         });
       },
       fail: function (error: any) {
-        alert('login success, but failed to request user information: ' + JSON.stringify(error));
+        alert(
+          'login success, but failed to request user information: ' +
+            JSON.stringify(error)
+        );
       },
     });
   };

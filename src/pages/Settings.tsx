@@ -1,12 +1,11 @@
 import NavMenu from '@components/NavMenu';
-import SettingsComponent from '@components/Settings';
 import * as S from './styled';
 
 function Settings() {
   return (
     <S.RootContainer>
       <NavMenu />
-      <SettingsComponent />
+      <S.Main>메인</S.Main>
     </S.RootContainer>
   );
 }

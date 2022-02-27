@@ -9,9 +9,7 @@ function NavMenu() {
   return (
     <S.NavBar>
       <S.LogoContainer>
-        <a href="/">
-          <img src="./logo.png" width="120" alt="logo" />
-        </a>
+        <img src="./logo.png" width="120" alt="logo" />
       </S.LogoContainer>
       <S.NavItemContainer>
         <S.NavItem isSelected={pathName === '/'} onClick={() => history.push('/')}>
