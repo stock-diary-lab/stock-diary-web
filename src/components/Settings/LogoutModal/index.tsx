@@ -1,6 +1,5 @@
 import Modal from '@components/common/Modal';
 import { Dispatch, SetStateAction } from 'react';
-import useKakao from '../../../hooks/useKakao';
 import * as CommonS from '../styled';
 
 interface Props {
