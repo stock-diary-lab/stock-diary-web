@@ -32,10 +32,16 @@ export const userApi = createApi({
         url: 'user/me',
       }),
     }),
+    deleteUser: builder.mutation<{ message: string }, {}>({
+      query: () => ({
+        url: 'user',
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useLoginWithKakaoMutation, useGetUserQuery } = userApi;
+export const { useLoginWithKakaoMutation, useGetUserQuery, useDeleteUserMutation } = userApi;
 
 export const userSlice = createSlice({
   name: 'user',
