@@ -18,7 +18,22 @@ function SettingsComponent() {
             <S.SettingItemContainer>
               <S.SettingItem>
                 <h4>자동 로그인</h4>
-                <Switch />
+                <Switch
+                  defaultChecked={true}
+                  onChange={(e) => {
+                    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+                    if (e.currentTarget.checked) {
+                      if (localStorage.getItem('token')) return;
+                      localStorage.setItem('token', token as string);
+                      sessionStorage.removeItem('token');
+                    } else if (!e.currentTarget.checked) {
+                      if (sessionStorage.getItem('token')) return;
+                      sessionStorage.setItem('token', token as string);
+                      localStorage.removeItem('token');
+                    }
+                  }}
+                />
               </S.SettingItem>
               <S.SettingItem
                 onClick={() => {
