@@ -28,7 +28,9 @@ function KakaoLoginButton() {
         };
 
         loginWithKakao(reqBody).then((response: any) => {
-          localStorage.setItem('token', response.data.accessToken);
+          const isAutoLogin = JSON.parse(localStorage.getItem('autoLogin') ?? 'true');
+          const storage = isAutoLogin ? localStorage : sessionStorage;
+          storage.setItem('token', response.data.accessToken);
           window.location.href = '/';
         });
       },
