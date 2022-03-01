@@ -42,8 +42,10 @@ function KakaoLoginButton() {
 
   return (
     <img
-      src="./kakao_login_medium_narrow.png"
+      src="./kakao_login_medium_wide.png"
       alt="kakao-login-btn"
+      width={450}
+      style={{ cursor: 'pointer' }}
       onClick={() => {
         window.Kakao.Auth.login({
           success: getKakaoAccount,
