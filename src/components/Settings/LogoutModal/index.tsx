@@ -19,11 +19,15 @@ function LogoutModal({ show, setShow }: Props) {
           <button
             onClick={() => {
               if (!window.Kakao.Auth.getAccessToken()) {
-                alert('로그인되어있지 않습니다');
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                window.location.href = '/';
                 return;
               }
+
               window.Kakao.Auth.logout(function () {
                 localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
                 window.location.href = '/';
               });
             }}

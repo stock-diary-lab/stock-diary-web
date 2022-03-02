@@ -16,7 +16,7 @@ export const Main = styled.main`
 export const LoginWrapper = styled.main`
   background-color: ${({ theme }) => theme.colors.gray};
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
