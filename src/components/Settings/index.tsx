@@ -1,5 +1,6 @@
 import Switch from '@components/common/Switch';
 import WhiteContainer from '@components/common/WhiteContainer';
+import { isAutoLogin } from '@utils/auth';
 import { useState } from 'react';
 import LogoutModal from './LogoutModal';
 import ResignModal from './ResignModal';
@@ -19,7 +20,7 @@ function SettingsComponent() {
               <S.SettingItem>
                 <h4>자동 로그인</h4>
                 <Switch
-                  defaultChecked={JSON.parse(localStorage.getItem('autoLogin') ?? 'true')}
+                  defaultChecked={isAutoLogin()}
                   onChange={(e) => {
                     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 

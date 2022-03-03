@@ -1,4 +1,5 @@
 import { useLoginWithKakaoMutation } from '@stores/user';
+import { isAutoLogin } from '@utils/auth';
 
 declare global {
   interface Window {
@@ -21,8 +22,7 @@ function KakaoLoginButton() {
         };
 
         loginWithKakao(reqBody).then((response: any) => {
-          const isAutoLogin = JSON.parse(localStorage.getItem('autoLogin') ?? 'true');
-          const storage = isAutoLogin ? localStorage : sessionStorage;
+          const storage = isAutoLogin() ? localStorage : sessionStorage;
           storage.setItem('token', response.data.accessToken);
           window.location.href = '/';
         });

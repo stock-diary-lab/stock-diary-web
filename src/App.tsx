@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Diary from './pages/Diary';
 import SignIn from './pages/SignIn';
@@ -21,7 +21,7 @@ function App() {
         <PrivateRoute path="/settlement" component={Settlement} exact />
         <PrivateRoute path="/settings" component={Settings} exact />
         <PrivateRoute path="/news" component={News} exact />
-        <PrivateRoute path="/" component={Home} exact />
+        <Route path="/" component={Home} exact />
       </Switch>
     </Router>
   );
