@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useLoginWithKakaoMutation } from '@stores/user';
 
 declare global {
@@ -7,13 +6,7 @@ declare global {
   }
 }
 
-const KAKAO_CLIENT_KEY = 'b7f8b28ebf19dc74de18d535c7108fc0';
-
 function KakaoLoginButton() {
-  useEffect(() => {
-    window.Kakao.init(KAKAO_CLIENT_KEY);
-  }, []);
-
   const [loginWithKakao] = useLoginWithKakaoMutation();
 
   const getKakaoAccount = () => {
@@ -42,7 +35,7 @@ function KakaoLoginButton() {
 
   return (
     <img
-      src="./kakao_login_medium_wide.png"
+      src="./kakao_login.png"
       alt="kakao-login-btn"
       width={450}
       style={{ cursor: 'pointer' }}
