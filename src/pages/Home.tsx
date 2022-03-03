@@ -6,6 +6,7 @@ import * as S from './styled';
 import Dashboard from '@components/Home/Dashboard';
 import IndexBoard from '@components/Home/IndexBoard';
 import HistoryBoard from '@components/Home/HistoryBoard';
+import { isAutoLogin } from '@utils/auth';
 
 declare global {
   interface Window {
@@ -22,7 +23,8 @@ function Home() {
     const tokenFromParams = params.get('token');
 
     if (tokenFromParams) {
-      localStorage.setItem('token', tokenFromParams);
+      const storage = isAutoLogin() ? localStorage : sessionStorage;
+      storage.setItem('token', tokenFromParams);
       window.location.href = '/';
     }
   }, [location.search]);
