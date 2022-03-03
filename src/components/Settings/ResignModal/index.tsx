@@ -1,7 +1,6 @@
 import Modal from '@components/common/Modal';
 import { useDeleteUserMutation } from '@stores/user';
 import { Dispatch, SetStateAction } from 'react';
-import useKakao from '../../../hooks/useKakao';
 import * as CommonS from '../styled';
 
 interface Props {
@@ -11,8 +10,6 @@ interface Props {
 
 function ResignModal({ show, setShow }: Props) {
   const [deleteUser] = useDeleteUserMutation();
-
-  useKakao();
 
   return (
     <Modal width={600} show={show} setShow={setShow}>
