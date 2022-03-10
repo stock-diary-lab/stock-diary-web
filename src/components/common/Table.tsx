@@ -35,7 +35,7 @@ const StyledTable = styled.table`
 `;
 
 const StyledTableHeader = styled.thead`
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: bold;
 `;
 

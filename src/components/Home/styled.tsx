@@ -4,9 +4,10 @@ export const MiddleContainer = styled.section`
   display: flex;
   background-color: ${(props) => props.theme.colors.white};
   width: 100%;
-  border-radius: 1rem;
   padding: 2rem;
   margin-bottom: 2rem;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
 `;
 
 export const MiddleLeft = styled.div`
@@ -90,7 +91,8 @@ export const RankInfo = styled.div`
 
 export const IndexBoardContainer = styled.section`
   background-color: ${(props) => props.theme.colors.white};
-  padding: 3rem 1rem;
+  padding: 48px 32px;
+  border-left: 1px solid #e5e5e5;
 `;
 
 export const BoardContainer = styled.section`
@@ -102,16 +104,17 @@ export const BoardContainer = styled.section`
 
 export const HistoryBoard = styled.div`
   background-color: ${(props) => props.theme.colors.white};
-  border-radius: 1rem;
   width: 49%;
   padding: 0.75rem 1rem;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
 `;
 
 export const HistoryBoardHeader = styled.div`
   background-color: ${(props) => props.theme.colors.sky};
   margin-bottom: 0.75rem;
   padding: 0.5rem 2rem;
-  border-radius: 1rem;
+  border-radius: 12px;
   font-weight: 500;
   text-align: center;
 `;
