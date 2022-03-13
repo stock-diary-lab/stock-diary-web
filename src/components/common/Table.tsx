@@ -1,7 +1,7 @@
 import styled from '@styles/theme-components';
 
 interface Props {
-  data: { [key: string]: any }[];
+  data?: { [key: string]: any }[];
 }
 
 function Table({ data }: Props) {
@@ -15,15 +15,24 @@ function Table({ data }: Props) {
         </tr>
       </StyledTableHeader>
       <StyledTableBody>
-        {data.map((obj, idx) => (
-          <StyledTableRow key={idx}>
-            {Object.values(obj).map((v, colIdx) => (
-              <StyledTableData key={v + idx} isFluc={colIdx === 2} changeDirection={v[0] === '+' ? 'high' : 'low'}>
-                {colIdx === 2 ? v.slice(1) : v}
-              </StyledTableData>
-            ))}
-          </StyledTableRow>
-        ))}
+        {data &&
+          data.map((obj, idx) => (
+            <StyledTableRow key={idx}>
+              {Object.values(obj).map((v, colIdx) => (
+                <StyledTableData
+                  key={v + idx}
+                  isFluc={colIdx === 2}
+                  changeDirection={Number(v[0]) > 0 ? 'high' : 'low'}
+                >
+                  {colIdx === 1
+                    ? Number(v).toLocaleString()
+                    : colIdx === 2
+                    ? Math.abs(Number(v)).toLocaleString() + '%'
+                    : v}
+                </StyledTableData>
+              ))}
+            </StyledTableRow>
+          ))}
       </StyledTableBody>
     </StyledTable>
   );
@@ -54,6 +63,7 @@ const StyledTableRow = styled.tr`
 const StyledTableData = styled.td<{ isFluc: boolean; changeDirection: string }>`
   padding: 0.5rem 0;
   position: relative;
+  padding-left: ${(props) => props.isFluc && '16px;'};
   &::before {
     ${(props) =>
       props.isFluc &&
@@ -61,8 +71,8 @@ const StyledTableData = styled.td<{ isFluc: boolean; changeDirection: string }>`
        border-left: 4px solid transparent;
        border-right: 4px solid transparent;
        position: absolute;
-       left: 17px;
-       top: 15px;`}
+       left: 20px;
+       top: ${props.changeDirection === 'high' ? '15px;' : '18px;'}`}
     ${(props) =>
       props.changeDirection === 'high' ? `border-bottom: 6px solid #3B80E3;` : `border-top: 6px solid #F36874;`}
   }

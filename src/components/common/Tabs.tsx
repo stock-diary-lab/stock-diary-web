@@ -34,6 +34,7 @@ const StyledTab = styled.div<{ isSelected: boolean }>`
   white-space: nowrap;
   width: 100px;
   text-align: center;
+  cursor: pointer;
 `;
 
 export default Tabs;
