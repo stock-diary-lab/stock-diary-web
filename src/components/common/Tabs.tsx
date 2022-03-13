@@ -11,11 +11,7 @@ function Tabs({ tabList, currentTab, setCurrentTab }: Props) {
   return (
     <StyledTabs>
       {tabList.map((tab) => (
-        <StyledTab
-          key={tab}
-          isSelected={currentTab === tab}
-          onClick={() => setCurrentTab(tab)}
-        >
+        <StyledTab key={tab} isSelected={currentTab === tab} onClick={() => setCurrentTab(tab)}>
           <span>{tab}</span>
         </StyledTab>
       ))}
@@ -32,12 +28,13 @@ const StyledTabs = styled.section`
 const StyledTab = styled.div<{ isSelected: boolean }>`
   background-color: ${(props) => props.isSelected && props.theme.colors.main};
   color: ${(props) => props.isSelected && props.theme.colors.white};
-  padding: 0.75rem 1rem;
-  border-radius: 1rem;
-  font-size: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 1rem;
   white-space: nowrap;
   width: 100px;
   text-align: center;
+  cursor: pointer;
 `;
 
 export default Tabs;

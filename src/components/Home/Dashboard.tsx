@@ -1,6 +1,6 @@
 import * as S from './styled';
 import PhraseBoard from './PhraseBoard';
-import { ResponsiveContainer, PieChart, Pie, Label, Cell } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Label, Cell, Sector, Text } from 'recharts';
 import { useState } from 'react';
 import { useGetTopFiveQuery } from '@stores/stock-transaction';
 import styled from '@styles/theme-components';
@@ -12,6 +12,24 @@ function Dashboard() {
   const [stockActiveIndex, setStockActiveIndex] = useState<number>(0);
 
   const { data: rankItems } = useGetTopFiveQuery({});
+
+  const renderActiveShape = (props: any) => {
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props;
+
+    return (
+      <g>
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius + 5}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+        />
+      </g>
+    );
+  };
 
   return (
     <S.DashboardContainer>
@@ -28,16 +46,48 @@ function Dashboard() {
                   dataKey="percent"
                   nameKey="sector"
                   activeIndex={sectorActiveIndex}
+                  activeShape={renderActiveShape}
                   cx="50%"
                   cy="50%"
                   outerRadius={100}
                   innerRadius={60}
                   fill="#8884d8"
-                  onMouseEnter={(_, index) => setSectorActiveIndex(index)}
+                  onMouseEnter={(e, index) => {
+                    setSectorActiveIndex(index);
+                  }}
                 >
                   <Label
-                    value={`${rankItems.topFiveSectors[sectorActiveIndex].sector} (${rankItems.topFiveSectors[sectorActiveIndex].percent}%)`}
                     position="center"
+                    color="#3B80E3"
+                    content={(props) => {
+                      const {
+                        viewBox: { cx, cy },
+                      } = props;
+                      return (
+                        <g>
+                          <Text
+                            x={cx}
+                            y={cy - 10}
+                            textAnchor="middle"
+                            verticalAnchor="middle"
+                            fill="#3B80E3"
+                            fontSize={'16'}
+                          >
+                            {rankItems.topFiveSectors[sectorActiveIndex].sector}
+                          </Text>
+                          <Text
+                            x={cx}
+                            y={cy + 20}
+                            textAnchor="middle"
+                            verticalAnchor="end"
+                            fill="#939393"
+                            fontSize={'16'}
+                          >
+                            {rankItems.topFiveSectors[sectorActiveIndex].percent + '%'}
+                          </Text>
+                        </g>
+                      );
+                    }}
                   />
                   {colors.map((color) => (
                     <Cell fill={color} key={color} />
@@ -59,6 +109,7 @@ function Dashboard() {
                   dataKey="percent"
                   nameKey="name"
                   activeIndex={stockActiveIndex}
+                  activeShape={renderActiveShape}
                   cx="50%"
                   cy="50%"
                   outerRadius={100}
@@ -67,8 +118,36 @@ function Dashboard() {
                   onMouseEnter={(_, index) => setStockActiveIndex(index)}
                 >
                   <Label
-                    value={`${rankItems.topFiveStocks[stockActiveIndex].name} (${rankItems.topFiveStocks[stockActiveIndex].percent}%)`}
                     position="center"
+                    content={(props) => {
+                      const {
+                        viewBox: { cx, cy },
+                      } = props;
+                      return (
+                        <g>
+                          <Text
+                            x={cx}
+                            y={cy - 10}
+                            textAnchor="middle"
+                            verticalAnchor="middle"
+                            fill="#3B80E3"
+                            fontSize={'16'}
+                          >
+                            {rankItems.topFiveStocks[stockActiveIndex].name}
+                          </Text>
+                          <Text
+                            x={cx}
+                            y={cy + 20}
+                            textAnchor="middle"
+                            verticalAnchor="end"
+                            fill="#939393"
+                            fontSize={'16'}
+                          >
+                            {rankItems.topFiveStocks[stockActiveIndex].percent + '%'}
+                          </Text>
+                        </g>
+                      );
+                    }}
                   />
                   {colors.map((color) => (
                     <Cell fill={color} key={color} />

@@ -10,7 +10,7 @@ function NavMenu() {
     <S.NavBar>
       <S.LogoContainer>
         <a href="/">
-          <img src="./logo.png" width="120" alt="logo" />
+          <img src="./logo.png" width="148" alt="logo" />
         </a>
       </S.LogoContainer>
       <S.NavItemContainer>

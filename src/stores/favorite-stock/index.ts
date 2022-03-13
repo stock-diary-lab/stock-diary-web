@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FavoriteStock, FavoriteStockDto } from './types';
+import { FavoriteStock, FavoriteStockDto, Index } from './types';
 
 export const favoriteStockApi = createApi({
   reducerPath: 'favoriteStockApi',
@@ -33,10 +33,20 @@ export const favoriteStockApi = createApi({
       }),
       invalidatesTags: ['FavoriteStock'],
     }),
+    getFavoriteStockIndexes: builder.query<Index[], {}>({
+      query: () => ({
+        url: 'favorite-stock/indexes',
+      }),
+      providesTags: ['FavoriteStock'],
+    }),
   }),
 });
 
-export const { useGetFavoriteStocksQuery, useAddFavoriteStockMutation, useDeleteFavoriteStockMutation } =
-  favoriteStockApi;
+export const {
+  useGetFavoriteStocksQuery,
+  useAddFavoriteStockMutation,
+  useDeleteFavoriteStockMutation,
+  useGetFavoriteStockIndexesQuery,
+} = favoriteStockApi;
 
 export default favoriteStockApi.reducer;

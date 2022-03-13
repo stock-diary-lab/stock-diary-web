@@ -5,11 +5,11 @@ export const HomeContainer = styled.div`
 `;
 
 export const Main = styled.main`
-  background-color: ${({ theme }) => theme.colors.gray};
+  background-color: ${({ theme }) => theme.colors.white};
   /* display: flex; */
   /* flex-direction: column;
   justify-content: center; */
-  padding: 0 1rem;
+  padding: 0 64px;
   width: 100%;
 `;
 
