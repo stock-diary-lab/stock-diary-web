@@ -10,3 +10,9 @@ export interface FavoriteStockDto {
   isFavorite: boolean;
   listedStockId: string;
 }
+
+export interface Index {
+  name: string;
+  point: string;
+  flucRate: string;
+}

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Index } from '@stores/favorite-stock/types';
 import { TopSector, TopStock } from '@stores/listed-stock/types';
 import { StockTransaction, StockTransactionDto } from './types';
 
@@ -60,6 +61,12 @@ export const stockTransactionApi = createApi({
       }),
       providesTags: ['StockTransaction'],
     }),
+    getBoughtStockIndexes: builder.query<Index[], {}>({
+      query: () => ({
+        url: 'bought-stock/indexes',
+      }),
+      providesTags: ['StockTransaction'],
+    }),
   }),
 });
 
@@ -71,6 +78,7 @@ export const {
   useUpdateStockTransactionMutation,
   useDeleteStockTransactionMutation,
   useGetTopFiveQuery,
+  useGetBoughtStockIndexesQuery,
 } = stockTransactionApi;
 
 export default stockTransactionApi.reducer;
