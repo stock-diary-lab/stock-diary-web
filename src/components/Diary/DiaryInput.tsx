@@ -38,6 +38,7 @@ const StyledDiaryInput = styled.textarea<{ width?: string }>`
   width: ${(props) => props.width || `100%`};
   font-size: 1rem;
 
+  resize: none;
   &:focus {
     outline: none;
   }

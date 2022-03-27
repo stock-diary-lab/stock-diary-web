@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import { useGetUserQuery } from '../stores/user';
 import NavMenu from '../components/NavMenu';
 import * as S from './styled';
@@ -7,7 +7,7 @@ import Dashboard from '@components/Home/Dashboard';
 import IndexBoard from '@components/Home/IndexBoard';
 import HistoryBoard from '@components/Home/HistoryBoard';
 import { isAutoLogin } from '@utils/auth';
-
+import { Redirect } from 'react-router-dom';
 declare global {
   interface Window {
     Kakao: any;
@@ -16,7 +16,6 @@ declare global {
 
 function Home() {
   const location = useLocation();
-  const history = useHistory();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -32,7 +31,7 @@ function Home() {
   const { isLoading, isError } = useGetUserQuery({});
 
   if (isError) {
-    history.replace('/signin');
+    return <Redirect to="/signin" />;
   }
 
   if (isLoading) {

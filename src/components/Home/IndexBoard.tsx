@@ -28,7 +28,7 @@ function IndexBoard() {
     <S.IndexBoardContainer>
       <S.RightTextContainer>
         <S.Paragraph>{user && user.userName}님 반갑습니다!</S.Paragraph>
-        <S.Paragraph>오늘은 {dayjs().format('MM월 DD일 dddd')}입니다.</S.Paragraph>
+        <S.Paragraph>오늘은 {dayjs().format('M월 DD일 dddd')}입니다.</S.Paragraph>
       </S.RightTextContainer>
       <S.TodayIndexHeading>📈 오늘의 주요 지표</S.TodayIndexHeading>
       <Tabs tabList={tabList} currentTab={currentTab} setCurrentTab={setCurrentTab} />

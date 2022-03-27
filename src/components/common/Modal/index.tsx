@@ -9,13 +9,17 @@ interface ModalProps {
   children: React.ReactChild;
   width?: number;
   height?: number;
+  onClickClose?: () => void;
 }
 
-function Modal({ show, setShow, children, width, height }: ModalProps) {
+function Modal({ show, setShow, children, width, height, onClickClose }: ModalProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const onClickOverlayClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (ref.current && ref.current.contains(e.target as Node)) return;
+    if (onClickClose) {
+      onClickClose();
+    }
     setShow(false);
   };
 
@@ -23,7 +27,15 @@ function Modal({ show, setShow, children, width, height }: ModalProps) {
     <S.Overlay onClick={onClickOverlayClose}>
       <S.Modal ref={ref} width={width} height={height}>
         <S.ModalHeader>
-          <XButton style={{ cursor: 'pointer' }} onClick={() => setShow(false)}></XButton>
+          <XButton
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              if (onClickClose) {
+                onClickClose();
+              }
+              setShow(false);
+            }}
+          ></XButton>
         </S.ModalHeader>
 
         <S.ModalBody>{children}</S.ModalBody>
