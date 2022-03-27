@@ -16,8 +16,9 @@ export const Table = styled.table`
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   border-collapse: initial;
-  padding: 1rem;
-  border-radius: 1rem;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
 `;
 
 export const THeader = styled.thead`
@@ -121,7 +122,8 @@ export const TopBarContainer = styled.div`
 // DiaryBoard
 export const DiaryBoardContainer = styled.div`
   padding: 32px 24px;
-  border-radius: 16px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
   background-color: ${(props) => props.theme.colors.white};
   & > div {
     max-height: 165px;
@@ -216,6 +218,10 @@ export const StockInput = styled.input`
     padding: 0.25rem;
     width: 92.5%;
   }
+
+  &:invalid:required {
+    border-bottom: 1px solid red;
+  }
 `;
 
 export const StockInputSearchContainer = styled(StockInputContainer)`
@@ -296,6 +302,7 @@ export const StockTextArea = styled.textarea`
   background-size: 100% 4ch;
   margin-bottom: 2rem;
 
+  resize: none;
   &:focus-visible {
     outline: none;
   }
