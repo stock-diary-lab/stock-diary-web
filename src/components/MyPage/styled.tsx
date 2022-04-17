@@ -37,3 +37,8 @@ export const DeleteBtn = styled.button`
   font-size: 0.75rem;
   cursor: pointer;
 `;
+
+export const AddBtn = styled.span`
+  border-bottom: 1px solid ${(props) => props.theme.colors.main};
+  color: ${(props) => props.theme.colors.main};
+`;

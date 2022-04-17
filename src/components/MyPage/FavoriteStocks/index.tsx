@@ -32,6 +32,8 @@ function FavoriteStocks() {
                   }}
                   key="add"
                 >
+                  {!addActive && <CommonS.AddBtn>추가</CommonS.AddBtn>}
+
                   {addActive && (
                     <ListedStockSearchBar
                       searchValue={searchValue}
@@ -75,6 +77,7 @@ function FavoriteStocks() {
                 setAddActive(true);
               }}
             >
+              {!addActive && <CommonS.AddBtn>추가</CommonS.AddBtn>}
               {addActive && (
                 <ListedStockSearchBar
                   searchValue={searchValue}
