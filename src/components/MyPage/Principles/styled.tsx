@@ -19,13 +19,18 @@ export const CheckMark = styled.span`
 
 export const PrincipleItem = styled(MyPageItem)`
   justify-content: flex-start;
-  height: 46px;
 `;
 
 export const PrincipleContent = styled.pre`
   &[contenteditable] {
     outline: none;
   }
+  height: 14px;
+
+  ${({ theme }) =>
+    theme.media.tablet(`
+      height: 17px;
+  `)}
 `;
 
 export const AddPrincipleTextArea = styled.textarea`
