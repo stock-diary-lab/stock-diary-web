@@ -19,6 +19,7 @@ export const CheckMark = styled.span`
 
 export const PrincipleItem = styled(MyPageItem)`
   justify-content: flex-start;
+  height: 46px;
 `;
 
 export const PrincipleContent = styled.pre`

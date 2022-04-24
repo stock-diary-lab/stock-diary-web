@@ -31,7 +31,7 @@ function Principles() {
   return (
     <S.PrinciplesContainer>
       <CommonS.MyPageTitle>나의 원칙</CommonS.MyPageTitle>
-      <WhiteContainer height="800px">
+      <WhiteContainer height="720px">
         <CommonS.MyPageItemContainer>
           {new Array(MAX_LEN).fill(0).map((_, idx) => {
             if (

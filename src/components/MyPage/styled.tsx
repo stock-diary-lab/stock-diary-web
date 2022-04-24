@@ -3,6 +3,7 @@ import styled from '@styles/theme-components';
 export const MyPageTitle = styled.h3`
   font-weight: 500;
   font-size: 24px;
+  margin-bottom: 16px;
 `;
 
 export const MyPageContainer = styled.section`

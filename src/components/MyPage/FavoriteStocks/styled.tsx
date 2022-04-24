@@ -1,7 +1,7 @@
 import styled from '@styles/theme-components';
 
 export const FavoriteStocksContainer = styled.section`
-  width: 25%;
+  width: 30%;
   min-height: 900px;
   overflow-y: scroll;
   margin: 16px 32px;
@@ -33,8 +33,15 @@ export const FavoriteStockItem = styled.div`
   border-bottom: 1px solid #e5e5e5;
   display: flex;
   justify-content: space-between;
-  min-height: 44px;
   cursor: pointer;
+`;
+
+export const FavoriteStockTitle = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60%;
+  height: 13px;
 `;
 
 export const AddBtn = styled.button`

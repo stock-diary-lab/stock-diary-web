@@ -16,7 +16,7 @@ function FavoriteStocks() {
   return (
     <S.FavoriteStocksContainer>
       <CommonS.MyPageTitle>최선호종목</CommonS.MyPageTitle>
-      <WhiteContainer height="800px">
+      <WhiteContainer height="720px">
         <S.FavoriteStockItemContainer onClick={() => setAddActive(false)}>
           {new Array(MAX_LEN).fill(0).map((_, idx) => {
             if (
@@ -46,9 +46,11 @@ function FavoriteStocks() {
             }
             return (
               <S.FavoriteStockItem key={`${favoriteStocks?.[idx]?.listedStock.name}-${idx}`}>
-                <div>{favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.id}</div>
-                <div style={{ display: 'flex' }}>
-                  <span>{favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.name}</span>
+                <S.FavoriteStockTitle>
+                  {favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.name}
+                </S.FavoriteStockTitle>
+                <div style={{ display: 'flex', height: '13px' }}>
+                  <span>{favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.id}</span>
                   {favoriteStocks && favoriteStocks[idx] && (
                     <S.DeleteBtn
                       onClick={() => {
