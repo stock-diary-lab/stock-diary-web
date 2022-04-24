@@ -52,6 +52,13 @@ export const TBody = styled.tbody`
   height: 128px;
   overflow: scroll;
 
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   & > tr {
     display: table;
     width: 100%;
@@ -129,6 +136,13 @@ export const DiaryBoardContainer = styled.div`
     max-height: 165px;
     height: 165px;
     overflow-y: scroll;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+  }
+
+  & > div::-webkit-scrollbar {
+    display: none;
   }
 `;
 
