@@ -124,6 +124,13 @@ export const HistoryBoardContentContainer = styled.div`
   height: 160px;
   overflow: scroll;
   box-sizing: content-box;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const HistoryBoardContent = styled.div<{ isExistContent?: boolean }>`

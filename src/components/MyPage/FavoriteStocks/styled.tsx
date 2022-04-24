@@ -5,6 +5,13 @@ export const FavoriteStocksContainer = styled.section`
   min-height: 900px;
   overflow-y: scroll;
   margin: 16px 32px;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const FavoriteStockItemContainer = styled.div`
@@ -12,6 +19,13 @@ export const FavoriteStockItemContainer = styled.div`
   height: 100%;
   padding: 24px 32px;
   overflow-y: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const FavoriteStockItem = styled.div`

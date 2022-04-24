@@ -7,4 +7,11 @@ export const WhiteContainer = styled.section<{ width?: string; height?: string }
   width: ${(props) => props.width || 'auto'};
   height: ${(props) => props.height || 'auto'};
   overflow-y: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
