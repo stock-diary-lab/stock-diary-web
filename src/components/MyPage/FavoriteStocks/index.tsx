@@ -49,7 +49,7 @@ function FavoriteStocks() {
                 <S.FavoriteStockTitle>
                   {favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.name}
                 </S.FavoriteStockTitle>
-                <div style={{ display: 'flex', height: '13px' }}>
+                <div style={{ display: 'flex' }}>
                   <span>{favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.id}</span>
                   {favoriteStocks && favoriteStocks[idx] && (
                     <S.DeleteBtn
@@ -68,8 +68,17 @@ function FavoriteStocks() {
           {favoriteStocks &&
             favoriteStocks.slice(MAX_LEN).map((favoriteStock) => (
               <S.FavoriteStockItem key={favoriteStock.listedStock.id}>
-                <span>{favoriteStock.listedStock.name}</span>
-                <span>{favoriteStock.listedStock.id}</span>
+                <S.FavoriteStockTitle>{favoriteStock.listedStock.name}</S.FavoriteStockTitle>
+                <div style={{ display: 'flex' }}>
+                  <span>{favoriteStock.listedStock.id}</span>
+                  <S.DeleteBtn
+                    onClick={() => {
+                      deleteFavoriteStock({ id: favoriteStock.id });
+                    }}
+                  >
+                    삭제
+                  </S.DeleteBtn>
+                </div>
               </S.FavoriteStockItem>
             ))}
           {favoriteStocks && favoriteStocks.length >= MAX_LEN && (

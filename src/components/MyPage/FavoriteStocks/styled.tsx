@@ -20,12 +20,12 @@ export const FavoriteStockItemContainer = styled.div`
   padding: 24px 32px;
   overflow-y: scroll;
 
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;
+  /* -ms-overflow-style: none; IE and Edge */
+  /* scrollbar-width: none; */
 
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     display: none;
-  }
+  } */
 `;
 
 export const FavoriteStockItem = styled.div`
@@ -41,7 +41,6 @@ export const FavoriteStockTitle = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 60%;
-  height: 13px;
 `;
 
 export const AddBtn = styled.button`
