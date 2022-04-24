@@ -25,6 +25,12 @@ export const PrincipleContent = styled.pre`
   &[contenteditable] {
     outline: none;
   }
+  height: 14px;
+
+  ${({ theme }) =>
+    theme.media.tablet(`
+      height: 17px;
+  `)}
 `;
 
 export const AddPrincipleTextArea = styled.textarea`

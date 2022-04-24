@@ -1,10 +1,17 @@
 import styled from '@styles/theme-components';
 
 export const FavoriteStocksContainer = styled.section`
-  width: 25%;
+  width: 30%;
   min-height: 900px;
   overflow-y: scroll;
   margin: 16px 32px;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const FavoriteStockItemContainer = styled.div`
@@ -12,6 +19,13 @@ export const FavoriteStockItemContainer = styled.div`
   height: 100%;
   padding: 24px 32px;
   overflow-y: scroll;
+
+  /* -ms-overflow-style: none; IE and Edge */
+  /* scrollbar-width: none; */
+
+  /* &::-webkit-scrollbar {
+    display: none;
+  } */
 `;
 
 export const FavoriteStockItem = styled.div`
@@ -19,8 +33,14 @@ export const FavoriteStockItem = styled.div`
   border-bottom: 1px solid #e5e5e5;
   display: flex;
   justify-content: space-between;
-  min-height: 44px;
   cursor: pointer;
+`;
+
+export const FavoriteStockTitle = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60%;
 `;
 
 export const AddBtn = styled.button`

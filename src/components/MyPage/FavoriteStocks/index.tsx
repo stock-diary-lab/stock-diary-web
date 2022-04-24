@@ -16,7 +16,7 @@ function FavoriteStocks() {
   return (
     <S.FavoriteStocksContainer>
       <CommonS.MyPageTitle>최선호종목</CommonS.MyPageTitle>
-      <WhiteContainer height="800px">
+      <WhiteContainer height="720px">
         <S.FavoriteStockItemContainer onClick={() => setAddActive(false)}>
           {new Array(MAX_LEN).fill(0).map((_, idx) => {
             if (
@@ -46,9 +46,11 @@ function FavoriteStocks() {
             }
             return (
               <S.FavoriteStockItem key={`${favoriteStocks?.[idx]?.listedStock.name}-${idx}`}>
-                <div>{favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.id}</div>
+                <S.FavoriteStockTitle>
+                  {favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.name}
+                </S.FavoriteStockTitle>
                 <div style={{ display: 'flex' }}>
-                  <span>{favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.name}</span>
+                  <span>{favoriteStocks && favoriteStocks[idx] && favoriteStocks[idx].listedStock.id}</span>
                   {favoriteStocks && favoriteStocks[idx] && (
                     <S.DeleteBtn
                       onClick={() => {
@@ -66,8 +68,17 @@ function FavoriteStocks() {
           {favoriteStocks &&
             favoriteStocks.slice(MAX_LEN).map((favoriteStock) => (
               <S.FavoriteStockItem key={favoriteStock.listedStock.id}>
-                <span>{favoriteStock.listedStock.name}</span>
-                <span>{favoriteStock.listedStock.id}</span>
+                <S.FavoriteStockTitle>{favoriteStock.listedStock.name}</S.FavoriteStockTitle>
+                <div style={{ display: 'flex' }}>
+                  <span>{favoriteStock.listedStock.id}</span>
+                  <S.DeleteBtn
+                    onClick={() => {
+                      deleteFavoriteStock({ id: favoriteStock.id });
+                    }}
+                  >
+                    삭제
+                  </S.DeleteBtn>
+                </div>
               </S.FavoriteStockItem>
             ))}
           {favoriteStocks && favoriteStocks.length >= MAX_LEN && (

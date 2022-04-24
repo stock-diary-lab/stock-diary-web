@@ -3,6 +3,7 @@ import styled from '@styles/theme-components';
 export const MyPageTitle = styled.h3`
   font-weight: 500;
   font-size: 24px;
+  margin-bottom: 16px;
 `;
 
 export const MyPageContainer = styled.section`
@@ -15,6 +16,13 @@ export const MyPageItemContainer = styled.div`
   height: 100%;
   padding: 24px 32px;
   overflow-y: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const MyPageItem = styled.div`
