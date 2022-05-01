@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     background-color: #ffffff;
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    /* font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; */
+    font-family: 'Noto Sans KR', sans-serif;
   }
   a {
     color: inherit;
@@ -19,9 +20,9 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
   }
-  h1, h2, h3, h4, h5, h6{
+  /* h1, h2, h3, h4, h5, h6{
     font-family:'Maven Pro', sans-serif;
-  }
+  } */
   ol, ul, li {
     list-style: none;
   }
@@ -37,6 +38,15 @@ const GlobalStyle = createGlobalStyle`
     html{
       font-size: 16px;
     }
+  }
+  @-ms-viewport {
+  width: device-width;
+  }
+  @-o-viewport {
+  width: device-width;
+  }
+  @viewport {
+  width: device-width;
   }
 `;
 
