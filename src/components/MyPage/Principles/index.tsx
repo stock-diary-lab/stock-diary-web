@@ -67,7 +67,6 @@ function Principles() {
               return (
                 <S.PrincipleItem key={`${principles[idx].id}-edit`}>
                   <S.AddPrincipleTextArea
-                    style={{ width: '93%' }}
                     rows={1}
                     defaultValue={principles[idx].content}
                     onBlur={() => {
@@ -119,7 +118,6 @@ function Principles() {
               editActive[principle.id] ? (
                 <S.PrincipleItem key={`${principle.id}-edit`}>
                   <S.AddPrincipleTextArea
-                    style={{ width: '93%' }}
                     rows={1}
                     defaultValue={principle.content}
                     onBlur={() => {
