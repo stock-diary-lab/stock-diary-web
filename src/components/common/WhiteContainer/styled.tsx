@@ -8,10 +8,10 @@ export const WhiteContainer = styled.section<{ width?: string; height?: string }
   height: ${(props) => props.height || 'auto'};
   overflow-y: scroll;
 
-  /* -ms-overflow-style: none;
-  scrollbar-width: none; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-  /* &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
-  } */
+  }
 `;
