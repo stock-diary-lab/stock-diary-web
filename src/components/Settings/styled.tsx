@@ -2,7 +2,7 @@ import styled from '@styles/theme-components';
 
 export const SettingsContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 102px);
   display: flex;
   flex-direction: column;
   align-items: center;
