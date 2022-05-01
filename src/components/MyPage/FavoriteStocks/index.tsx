@@ -15,7 +15,7 @@ function FavoriteStocks() {
 
   return (
     <S.FavoriteStocksContainer>
-      <CommonS.MyPageTitle>최선호종목</CommonS.MyPageTitle>
+      <CommonS.MyPageTitle>최선호종목</CommonS.MyPageTitle>
       <WhiteContainer height="720px">
         <S.FavoriteStockItemContainer onClick={() => setAddActive(false)}>
           {new Array(MAX_LEN).fill(0).map((_, idx) => {
