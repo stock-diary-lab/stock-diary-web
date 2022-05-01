@@ -40,7 +40,7 @@ export const MyPageItem = styled.div`
 
 export const DeleteBtn = styled.button`
   display: inline-block;
-  margin-left: 4px;
+  margin-left: auto;
   color: ${(props) => props.theme.colors.main};
   font-size: 0.75rem;
   cursor: pointer;

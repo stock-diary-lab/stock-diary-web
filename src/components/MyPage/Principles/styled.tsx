@@ -33,7 +33,7 @@ export const PrincipleContent = styled.pre`
 `;
 
 export const AddPrincipleTextArea = styled.textarea`
-  width: 100%;
+  width: 90%;
   border: none;
   outline: none;
   resize: none;

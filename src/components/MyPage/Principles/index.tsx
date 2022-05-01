@@ -5,7 +5,7 @@ import {
   useGetPrinciplesQuery,
   useUpdatePrincipleMutation,
 } from '@stores/principle';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as CommonS from '../styled';
 import * as S from './styled';
 
@@ -13,7 +13,7 @@ const MAX_LEN = 14;
 
 function Principles() {
   const [addActive, setAddActive] = useState<boolean>(false);
-  const [editActive, setEditActive] = useState<{ [key: string]: boolean }>({});
+  const [editActiveId, setEditActiveId] = useState<number | null>(null);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -63,26 +63,19 @@ function Principles() {
                   )}
                 </CommonS.MyPageItem>
               );
-            } else if (principles && principles[idx] && editActive[principles[idx].id]) {
+            } else if (principles && principles[idx] && editActiveId && principles[idx].id === editActiveId) {
               return (
                 <S.PrincipleItem key={`${principles[idx].id}-edit`}>
                   <S.AddPrincipleTextArea
-                    style={{ width: '93%' }}
                     rows={1}
                     defaultValue={principles[idx].content}
                     onBlur={() => {
-                      setEditActive({
-                        ...editActive,
-                        [principles[idx].id]: false,
-                      });
+                      setEditActiveId(principles[idx].id);
                     }}
                     onKeyPress={(e) => {
                       if (e.code === 'Enter' && !e.shiftKey) {
                         updatePrinciple({ id: principles[idx].id, content: e.currentTarget.value });
-                        setEditActive({
-                          ...editActive,
-                          [principles[idx].id]: false,
-                        });
+                        setEditActiveId(principles[idx].id);
                       }
                     }}
                   />
@@ -101,10 +94,7 @@ function Principles() {
                   key={`${principles?.[idx]?.id}-${idx}`}
                   onClick={() => {
                     if (principles && !!principles[idx]) {
-                      setEditActive({
-                        ...editActive,
-                        [principles[idx].id]: true,
-                      });
+                      setEditActiveId(principles[idx].id);
                     }
                   }}
                 >
@@ -116,25 +106,18 @@ function Principles() {
 
           {principles &&
             principles.slice(MAX_LEN).map((principle) =>
-              editActive[principle.id] ? (
+              principle.id === editActiveId ? (
                 <S.PrincipleItem key={`${principle.id}-edit`}>
                   <S.AddPrincipleTextArea
-                    style={{ width: '93%' }}
                     rows={1}
                     defaultValue={principle.content}
                     onBlur={() => {
-                      setEditActive({
-                        ...editActive,
-                        [principle.id]: false,
-                      });
+                      setEditActiveId(principle.id);
                     }}
                     onKeyPress={(e) => {
                       if (e.code === 'Enter' && !e.shiftKey) {
                         updatePrinciple({ id: principle.id, content: e.currentTarget.value });
-                        setEditActive({
-                          ...editActive,
-                          [principle.id]: false,
-                        });
+                        setEditActiveId(principle.id);
                       }
                     }}
                   />
@@ -150,10 +133,7 @@ function Principles() {
                 <S.PrincipleItem
                   key={`${principle.id}-${principle.content.slice(0, 3)}`}
                   onClick={() => {
-                    setEditActive({
-                      ...editActive,
-                      [principle.id]: true,
-                    });
+                    setEditActiveId(principle.id);
                   }}
                 >
                   <S.CheckMark>✔</S.CheckMark>
