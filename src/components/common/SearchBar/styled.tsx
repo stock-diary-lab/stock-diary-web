@@ -34,13 +34,13 @@ export const SearchInput = styled.input<{
     props.isInModal && props.isNotFocused
       ? `width: 100%; border-bottom: 1px solid #afafaf;
   padding-bottom: 0.25rem;
-  font-size: 0.75rem;`
-      : `width: 300px;
-  padding: 0.5rem 1rem;
-  border: 1px solid ${props.theme.colors.main};
-  border-radius: 20px;
-  margin-right: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 9px;`
+      : `width: ${props.isInModal ? '100%;' : '300px;'}
+      padding: 0.5rem 1rem;
+      border: 1px solid ${props.theme.colors.main};
+      border-radius: 20px;
+      margin-right: 0.5rem;
+      font-size: 9px;
 `}
 
   ${(props) => props.width && `width: ${props.width};`}
@@ -51,7 +51,7 @@ export const SearchInput = styled.input<{
   }
 `;
 
-export const SearchList = styled.div`
+export const SearchList = styled.ul`
   max-height: 156px;
   overflow-y: scroll;
   z-index: 4;

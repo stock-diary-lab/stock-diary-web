@@ -24,6 +24,7 @@ function ListedStockSearchBar({ searchValue, setSearchValue, setAddActive }: Pro
       <>
         {listedStocks.map((searchItem, index) => (
           <S.StockSearchItem
+            role="presentation"
             key={index}
             onMouseDown={() => {
               addFavoriteStock({ listedStockId: searchItem.id, isFavorite: true });

@@ -212,11 +212,11 @@ export const StockInputForm = styled.div`
 export const StockInputContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 16px 0;
 `;
 
 export const StockLabel = styled.label`
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: bold;
   min-width: 100px;
 `;
@@ -224,7 +224,7 @@ export const StockLabel = styled.label`
 export const StockInput = styled.input`
   border-bottom: 1px solid #afafaf;
   padding-bottom: 0.25rem;
-  font-size: 0.75rem;
+  font-size: 9px;
 
   &[type='search']:focus {
     border: 1px solid ${(props) => props.theme.colors.main};
@@ -240,6 +240,7 @@ export const StockInput = styled.input`
 
 export const StockInputSearchContainer = styled(StockInputContainer)`
   align-items: center;
+  height: 80px;
 `;
 
 export const StockSearch = styled.div``;
@@ -302,7 +303,7 @@ export const StockSearchItem = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  font-size: 0.75rem;
+  font-size: 9px;
   color: #afafaf;
   padding: 0.5rem 0.5rem;
   padding-right: 2rem;
@@ -333,7 +334,7 @@ export const StockCount = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
-  font-size: 0.75rem;
+  font-size: 9px;
   & > div > input,
   & > input {
     text-align: right;
@@ -344,6 +345,10 @@ export const Multiply = styled.span`
   color: black;
   display: inline-block;
   padding: 0 0.75rem;
+`;
+
+export const StockTotalDiv = styled.div<{ isZero: boolean }>`
+  color: ${(props) => (props.isZero ? 'inherit' : 'black')};
 `;
 
 export const StockTotal = styled.span`
@@ -382,7 +387,7 @@ export const Buttons = styled.div<{ isEditMode: boolean }>`
 export const SearchItem = styled.div`
   display: flex;
   /* justify-content: space-bet; */
-  font-size: 0.75rem;
+  font-size: 9px;
   color: #afafaf;
   padding: 8px 16px;
   cursor: pointer;

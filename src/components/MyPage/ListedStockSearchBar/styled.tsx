@@ -9,7 +9,7 @@ export const SearchItem = styled.div`
   cursor: pointer;
 `;
 
-export const StockSearchItem = styled.div`
+export const StockSearchItem = styled.li`
   display: flex;
   width: 100%;
   justify-content: space-between;

@@ -21,7 +21,7 @@ function PeriodTable({ range, setRange }: Props) {
 
   return (
     <TableContainer>
-      <S.TableTitle>총 손익률 / 기간 선택</S.TableTitle>
+      <S.TableTitle>총 손익률 / 기간 선택</S.TableTitle>
       <VerticalTable>
         <tbody>
           {/* <tr>
