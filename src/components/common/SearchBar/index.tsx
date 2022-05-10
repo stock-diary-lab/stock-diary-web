@@ -46,7 +46,7 @@ function SearchBar({ placeholder, onChange, searchList, isInModal, value, setVal
         <SearchIcon width={isInModal ? '16' : '20'} />
       </S.SearchInputContainer>
       {
-        onFocus && searchList.length > 0 && renderItem && <S.SearchList>{renderItem()}</S.SearchList>
+        onFocus && searchList.length > 0 && renderItem && <S.SearchList role="listbox">{renderItem()}</S.SearchList>
         // <S.SearchList>
         //   {searchList.map((searchItem, index) => (
         //     <S.SearchItem
