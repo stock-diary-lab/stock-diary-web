@@ -179,12 +179,12 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
                 <span>원</span>
               </S.StockCount>
               <S.StockCount>
-                <div>
+                <S.StockTotalDiv isZero={newStock.quantity * newStock.price === 0}>
                   = 총 {stockTypeKorean[stockType]}금액
                   <S.StockTotal>
                     {(newStock.quantity * newStock.price + +(newStock.fee || 0)).toLocaleString()}원
                   </S.StockTotal>
-                </div>
+                </S.StockTotalDiv>
               </S.StockCount>
             </S.StockCountAndPrice>
           </S.StockInputContainer>

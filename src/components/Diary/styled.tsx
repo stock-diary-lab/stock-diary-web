@@ -347,6 +347,10 @@ export const Multiply = styled.span`
   padding: 0 0.75rem;
 `;
 
+export const StockTotalDiv = styled.div<{ isZero: boolean }>`
+  color: ${(props) => (props.isZero ? 'inherit' : 'black')};
+`;
+
 export const StockTotal = styled.span`
   display: inline-block;
   margin-left: 36px;
