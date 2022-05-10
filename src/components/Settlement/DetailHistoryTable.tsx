@@ -82,7 +82,7 @@ function DetailHistoryTable({ range }: Props) {
                 매매 일자
               </TableHeader>
               <TableHeader direction={filters['revenue']} onClick={() => setFilterByName('revenue')}>
-                실현손익
+                실현손익
               </TableHeader>
               <TableHeader direction={filters['rate']} onClick={() => setFilterByName('rate')}>
                 손익률
