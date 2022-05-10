@@ -1,19 +1,28 @@
 import * as S from './styled';
 import { useGetPhrasesQuery } from '@stores/phrase';
-import { useEffect } from 'react';
 
 function PhraseBoard() {
   const { data: phrases } = useGetPhrasesQuery({});
 
-  // TODO: 폰트 사이즈 조절
-  useEffect(() => {}, []);
-
   return (
     <S.BoardContainer>
       {phrases &&
-        phrases.map((phrase) => (
+        phrases.map((phrase, idx) => (
           <S.Phrase key={phrase.id}>
-            <S.PhraseHeading>{phrase.content}</S.PhraseHeading>
+            <S.PhraseHeading
+              ref={(el) => {
+                if (el) {
+                  if (el.clientHeight < el.scrollHeight) {
+                    let originalFontSize = Number(getComputedStyle(el).fontSize.substring(0, 2));
+                    while (el.scrollHeight !== el.clientHeight) {
+                      el.style.fontSize = `${--originalFontSize}px`;
+                    }
+                  }
+                }
+              }}
+            >
+              {phrase.content}
+            </S.PhraseHeading>
             <S.AlignRight>- {phrase.korName}</S.AlignRight>
           </S.Phrase>
         ))}
