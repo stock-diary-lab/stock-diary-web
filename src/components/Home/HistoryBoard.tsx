@@ -1,4 +1,5 @@
 import { useGetDiariesQuery } from '@stores/diary';
+import dayjs from 'dayjs';
 import * as S from './styled';
 
 function HistoryBoard() {
@@ -10,9 +11,11 @@ function HistoryBoard() {
   const getPrevMonthDate = (today: Date) =>
     new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()).toLocaleDateString();
 
+  const dashToDot = (dateStr: string) => dayjs(dateStr).format('YYYY-MM-DD');
+
   const { data: diaries } = useGetDiariesQuery({
-    startDate: getPrevMonthDate(new Date()),
-    endDate: getPrevWeekDate(new Date()),
+    startDate: dashToDot(getPrevMonthDate(new Date())),
+    endDate: dashToDot(getPrevWeekDate(new Date())),
   });
 
   return (
@@ -26,18 +29,20 @@ function HistoryBoard() {
               <S.HistoryBoardContent
                 key={`${idx}-prevWeek`}
                 isExistContent={
-                  !!diaries && !!diaries[getPrevWeekDate(new Date())] && !!diaries[getPrevWeekDate(new Date())][idx]
+                  !!diaries &&
+                  !!diaries[dashToDot(getPrevWeekDate(new Date()))] &&
+                  !!diaries[dashToDot(getPrevWeekDate(new Date()))][idx]
                 }
               >
                 <pre>
                   {diaries &&
-                    diaries[getPrevWeekDate(new Date())] &&
-                    diaries[getPrevWeekDate(new Date())][idx]?.content}
+                    diaries[dashToDot(getPrevWeekDate(new Date()))] &&
+                    diaries[dashToDot(getPrevWeekDate(new Date()))][idx]?.content}
                 </pre>
               </S.HistoryBoardContent>
             ))}
           {diaries &&
-            diaries[getPrevWeekDate(new Date())]
+            diaries[dashToDot(getPrevWeekDate(new Date()))]
               ?.filter((_, idx) => idx >= 5)
               .map((diary) => (
                 <S.HistoryBoardContent key={diary.content}>
@@ -55,18 +60,20 @@ function HistoryBoard() {
               <S.HistoryBoardContent
                 key={`${idx}-prevMonth`}
                 isExistContent={
-                  !!diaries && !!diaries[getPrevMonthDate(new Date())] && !!diaries[getPrevMonthDate(new Date())][idx]
+                  !!diaries &&
+                  !!diaries[dashToDot(getPrevMonthDate(new Date()))] &&
+                  !!diaries[dashToDot(getPrevMonthDate(new Date()))][idx]
                 }
               >
                 <pre>
                   {diaries &&
-                    diaries[getPrevMonthDate(new Date())] &&
-                    diaries[getPrevMonthDate(new Date())][idx]?.content}
+                    diaries[dashToDot(getPrevMonthDate(new Date()))] &&
+                    diaries[dashToDot(getPrevMonthDate(new Date()))][idx]?.content}
                 </pre>
               </S.HistoryBoardContent>
             ))}
           {diaries &&
-            diaries[getPrevMonthDate(new Date())]
+            diaries[dashToDot(getPrevMonthDate(new Date()))]
               ?.filter((_, idx) => idx >= 5)
               .map((diary) => (
                 <S.HistoryBoardContent key={diary.content}>
