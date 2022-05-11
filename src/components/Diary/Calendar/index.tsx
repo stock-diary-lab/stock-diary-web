@@ -8,7 +8,7 @@ import { useGetStockTransactionsQuery } from '@stores/stock-transaction';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { StockTransaction } from '@stores/stock-transaction/types';
-import { customLocaleDateString } from '@utils/date';
+import { dashToDot } from '@utils/date';
 
 dayjs.locale('ko');
 
@@ -161,18 +161,23 @@ function Calendar({ date, setDate, show, setShow }: Props) {
             요일
           </h3>
           <div>
-            {stockObj && stockObj[customLocaleDateString(date)] && (
+            {stockObj && stockObj[dashToDot(`${yearMonth.year}-${yearMonth.month}-${calendarDate}`)] && (
               <>
-                {getStockNames(stockObj[customLocaleDateString(date)], 'buy') && (
+                {getStockNames(stockObj[dashToDot(`${yearMonth.year}-${yearMonth.month}-${calendarDate}`)], 'buy') && (
                   <p>
                     매수종목:
-                    {' ' + getStockNames(stockObj[customLocaleDateString(date)], 'buy')}
+                    {' ' +
+                      getStockNames(stockObj[dashToDot(`${yearMonth.year}-${yearMonth.month}-${calendarDate}`)], 'buy')}
                   </p>
                 )}
-                {getStockNames(stockObj[customLocaleDateString(date)], 'sell') && (
+                {getStockNames(stockObj[dashToDot(`${yearMonth.year}-${yearMonth.month}-${calendarDate}`)], 'sell') && (
                   <p>
                     매도종목:
-                    {' ' + getStockNames(stockObj[customLocaleDateString(date)], 'sell')}
+                    {' ' +
+                      getStockNames(
+                        stockObj[dashToDot(`${yearMonth.year}-${yearMonth.month}-${calendarDate}`)],
+                        'sell'
+                      )}
                   </p>
                 )}
               </>

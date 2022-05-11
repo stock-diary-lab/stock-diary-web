@@ -1,5 +1,5 @@
 import { useGetDiariesQuery } from '@stores/diary';
-import dayjs from 'dayjs';
+import { dashToDot } from '@utils/date';
 import * as S from './styled';
 
 function HistoryBoard() {
@@ -10,8 +10,6 @@ function HistoryBoard() {
 
   const getPrevMonthDate = (today: Date) =>
     new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()).toLocaleDateString();
-
-  const dashToDot = (dateStr: string) => dayjs(dateStr).format('YYYY-MM-DD');
 
   const { data: diaries } = useGetDiariesQuery({
     startDate: dashToDot(getPrevMonthDate(new Date())),
