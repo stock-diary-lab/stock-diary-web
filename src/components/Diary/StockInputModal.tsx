@@ -150,7 +150,7 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
                     type="number"
                     name="quantity"
                     onChange={handleInputChange}
-                    value={newStock.quantity || undefined}
+                    value={newStock.quantity || 0}
                     placeholder={'0'}
                   />
                   <span style={{ display: 'inline-block' }}>개</span>
@@ -161,7 +161,7 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
                     type="number"
                     name="price"
                     onChange={handleInputChange}
-                    value={newStock.price || undefined}
+                    value={newStock.price || 0}
                     placeholder={'0'}
                   />
                   <span style={{ display: 'inline-block' }}>원</span>
