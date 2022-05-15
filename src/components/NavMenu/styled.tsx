@@ -105,5 +105,5 @@ export const NavBar = styled.nav`
   justify-content: center;
   /* flex-direction: column; */
   align-items: center;
-  padding: 12px 24px;
+  padding: 6px 24px;
 `;

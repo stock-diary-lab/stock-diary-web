@@ -62,7 +62,7 @@ function StockTable({ stockType, date, setDate }: Props) {
             </S.TRow>
           </S.THeader>
           <S.TBody>
-            {new Array(4).fill(0).map((_, idx) => (
+            {new Array(3).fill(0).map((_, idx) => (
               <S.TRow
                 key={`${stockTransactions?.[idx]?.listedStock.name}-${idx}`}
                 onClick={() => {

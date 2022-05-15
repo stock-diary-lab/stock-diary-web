@@ -150,32 +150,19 @@ function StockInputModal({ show, setShow, stockType, date, isEditMode, currentSt
                     type="number"
                     name="quantity"
                     onChange={handleInputChange}
-                    value={newStock.quantity || 0}
-                    placeholder={'0'}
+                    value={newStock.quantity || ''}
                   />
                   <span style={{ display: 'inline-block' }}>개</span>
                 </div>
                 <S.Multiply>X</S.Multiply>
                 <div>
-                  <S.StockInput
-                    type="number"
-                    name="price"
-                    onChange={handleInputChange}
-                    value={newStock.price || 0}
-                    placeholder={'0'}
-                  />
+                  <S.StockInput type="number" name="price" onChange={handleInputChange} value={newStock.price || ''} />
                   <span style={{ display: 'inline-block' }}>원</span>
                 </div>
               </S.StockCount>
               <S.StockCount>
                 + 수수료
-                <S.StockInput
-                  type="number"
-                  name="fee"
-                  onChange={handleInputChange}
-                  value={newStock.fee || undefined}
-                  placeholder={'0'}
-                />
+                <S.StockInput type="number" name="fee" onChange={handleInputChange} value={newStock.fee || ''} />
                 <span>원</span>
               </S.StockCount>
               <S.StockCount>

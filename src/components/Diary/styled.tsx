@@ -49,7 +49,7 @@ export const THead = styled.th``;
 
 export const TBody = styled.tbody`
   display: block;
-  height: 128px;
+  height: 96px;
   overflow: scroll;
 
   -ms-overflow-style: none; /* IE and Edge */
