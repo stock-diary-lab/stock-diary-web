@@ -4,7 +4,7 @@ export const MiddleContainer = styled.section`
   display: flex;
   background-color: ${(props) => props.theme.colors.white};
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   margin-bottom: 2rem;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
   border-radius: 12px;
@@ -26,9 +26,7 @@ export const AlignRight = styled.div`
   align-items: flex-end;
 `;
 
-export const DashboardContainer = styled.div`
-  margin-top: 40px;
-`;
+export const DashboardContainer = styled.div``;
 
 export const Heading = styled.h3`
   font-size: 1.5rem;

@@ -61,7 +61,7 @@ const StyledTableRow = styled.tr`
 `;
 
 const StyledTableData = styled.td<{ isFluc: boolean; changeDirection: string }>`
-  padding: 0.5rem 0;
+  padding: 12px 0;
   position: relative;
   padding-left: ${(props) => props.isFluc && '16px;'};
   &::before {
@@ -72,7 +72,7 @@ const StyledTableData = styled.td<{ isFluc: boolean; changeDirection: string }>`
        border-right: 4px solid transparent;
        position: absolute;
        left: 20px;
-       top: ${props.changeDirection === 'high' ? '15px;' : '18px;'}`}
+       top: ${props.changeDirection === 'high' ? '20px;' : '22px;'}`}
     ${(props) =>
       props.changeDirection === 'high' ? `border-bottom: 6px solid #3B80E3;` : `border-top: 6px solid #F36874;`}
   }
