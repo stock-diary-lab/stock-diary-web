@@ -7,7 +7,6 @@ import { DateObj } from './Calendar/types';
 import { StockTransaction } from '@stores/stock-transaction/types';
 import { MarketType } from '@stores/listed-stock/types';
 import { customLocaleDateString } from '@utils/date';
-import StockInputAlert from './StockInputAlert';
 
 interface Props {
   stockType: 'buy' | 'sell';
@@ -22,7 +21,6 @@ const stockTypeKorean = {
 
 function StockTable({ stockType, date, setDate }: Props) {
   const [modalShow, setModalShow] = useState<boolean>(false);
-  const [alertShow, setAlertShow] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [currentStock, setCurrentStock] = useState<StockTransaction>({
     id: 0,
