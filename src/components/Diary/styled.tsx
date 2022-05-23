@@ -405,3 +405,18 @@ export const SearchItemSpan = styled.span`
 export const SearchItemBlueColor = styled.span`
   color: ${(props) => props.theme.colors.main};
 `;
+
+// StockInputAlert
+export const StockInputAlertBody = styled.div`
+  padding: 21px 49px;
+  padding-left: 185px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+`;
+
+export const AlertImg = styled.img`
+  position: absolute;
+  top: -59px;
+  left: 0;
+`;

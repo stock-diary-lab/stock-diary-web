@@ -16,7 +16,7 @@ export const Overlay = styled.div`
 export const Modal = styled.div<{ width?: number; height?: number }>`
   position: relative;
   background-color: ${(props) => props.theme.colors.white};
-  border-radius: 1rem;
+  border-radius: 12px;
   padding: 2rem 0;
   padding-bottom: 0;
   width: ${(props) => props.width + 'px' || 'auto'};
